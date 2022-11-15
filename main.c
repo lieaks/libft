@@ -53,11 +53,12 @@ int main(void)
 	// free(ptr);
 	// free(test);
 
-	char	s[] = "123456789";
-	char	s2[] = "";
+	// char	s[] = "123456789";
+	// char	s2[] = "45";
 	
-	char	*d = ft_strjoin(s, s2);
+	char	*d = ft_itoa(-0);
 	printf("%s\n", d);
 	free(d);
 	return (0);
+
 }

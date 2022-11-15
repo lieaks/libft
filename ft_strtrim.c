@@ -12,7 +12,46 @@
 
 #include "libft.h"
 
+int		ft_is_in_set(char c, char const *set)
+{
+	size_t	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	
+	char	*ptr;
+	size_t	len;
+	size_t	i;
+
+	len = 0;
+	while (s1[len])
+	{
+		if (!ft_is_in_set(s1[len], set))
+			i++;
+		len++;
+	}
+	ptr = (char *)malloc(sizeof(char) * (i + 1));
+	if (!ptr)
+		return (NULL);
+	len = 0;
+	i = 0;
+	while (s1[len])
+	{
+		if (!ft_is_in_set(s1[len], set))
+		{
+			ptr[i] = s1[len];
+			i++;
+		}
+		len++;
+	}
+	return (ptr);
 }
