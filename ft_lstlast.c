@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 16:09:47 by dly               #+#    #+#             */
-/*   Updated: 2022/11/15 16:19:31 by dly              ###   ########.fr       */
+/*   Created: 2022/11/15 17:31:00 by dly               #+#    #+#             */
+/*   Updated: 2022/11/15 17:33:56 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+t_list	*ft_lstlast(t_list *lst)
 {
-	long	nb;
+	t_list	*ptr;
 
-	nb = (long)n;
-	if (nb < 0)
-	{
-		ft_putchar_fd('-', fd);
-		nb *= -1;
-	}
-	if (nb < 10)
-		ft_putchar_fd(nb + '0', fd);
-	if (nb >= 10)
-	{
-		ft_putnbr_fd(nb % 10, fd);
-		ft_putnbr_fd(nb / 10, fd);
-	}
+	ptr = lst;
+	while (ptr->next)
+		ptr = ptr->next;
+	return (ptr);
 }
