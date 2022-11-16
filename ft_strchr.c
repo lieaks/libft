@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:29:18 by dly               #+#    #+#             */
-/*   Updated: 2022/11/09 15:39:01 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/16 19:48:26 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
+	if (!s)
+		return (NULL);
+	while (s[i] != (char)c && s[i])
 		i++;
-	}
-	return (NULL);
+	return ((char *)(s + i));
 }

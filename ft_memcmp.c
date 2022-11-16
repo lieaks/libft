@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 17:23:13 by dly               #+#    #+#             */
-/*   Updated: 2022/11/12 16:16:39 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/16 19:37:50 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	const char	*first;
-	const char	*second;
-	size_t		i;
+	unsigned char	*first;
+	unsigned char	*second;
+	size_t			i;
 
-	first = s1;
-	second = s2;
+	first = (unsigned char *)s1;
+	second = (unsigned char *)s2;
 	i = 0;
 	if (n == 0)
 		return (0);

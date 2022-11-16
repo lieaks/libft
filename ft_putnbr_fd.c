@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:09:47 by dly               #+#    #+#             */
-/*   Updated: 2022/11/15 16:19:31 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/16 19:04:30 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	long	nb;
+	long int	nb;
 
-	nb = (long)n;
+	nb = (long int)n;
 	if (nb < 0)
 	{
 		ft_putchar_fd('-', fd);
@@ -26,7 +26,7 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd(nb + '0', fd);
 	if (nb >= 10)
 	{
-		ft_putnbr_fd(nb % 10, fd);
 		ft_putnbr_fd(nb / 10, fd);
+		ft_putnbr_fd(nb % 10, fd);
 	}
 }

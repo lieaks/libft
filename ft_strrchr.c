@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:46:44 by dly               #+#    #+#             */
-/*   Updated: 2022/11/09 10:48:05 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/16 19:32:32 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ char	*ft_strrchr(const char *s, int c)
 {
 	int	len;
 
-	len = ft_strlen(s);
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s) - 1;
 	while (len >= 0)
 	{
 		if (s[len] == c)

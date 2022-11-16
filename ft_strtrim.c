@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:14:54 by dly               #+#    #+#             */
-/*   Updated: 2022/11/15 20:49:26 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/16 18:48:33 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		i;
 
 	len = 0;
+	i = 0;
 	while (s1[len])
 	{
 		if (!ft_is_in_set(s1[len], set))

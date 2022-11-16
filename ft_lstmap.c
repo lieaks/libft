@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 20:57:15 by dly               #+#    #+#             */
-/*   Updated: 2022/11/16 14:42:57 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/16 17:47:50 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		if (!new)
 			ft_lstclear(&lst, del);
 		ft_lstadd_back(&begin, new);
+		lst = lst->next;
 	}
 	return (begin);
 }

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 17:31:00 by dly               #+#    #+#             */
-/*   Updated: 2022/11/15 17:33:56 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/16 19:06:16 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*ptr;
 
+	if (!lst)
+		return (NULL);
 	ptr = lst;
 	while (ptr->next)
 		ptr = ptr->next;
