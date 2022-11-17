@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:14:54 by dly               #+#    #+#             */
-/*   Updated: 2022/11/16 18:48:33 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/17 14:49:28 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_is_in_set(char c, char const *set)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (set[i])
@@ -29,29 +29,28 @@ int	ft_is_in_set(char c, char const *set)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*ptr;
-	int		len;
+	int		start;
+	int		end;
 	int		i;
 
-	len = 0;
+	if (!s1 || !set)
+		return (NULL);
 	i = 0;
-	while (s1[len])
-	{
-		if (!ft_is_in_set(s1[len], set))
-			i++;
-		len++;
-	}
-	ptr = (char *)malloc(sizeof(char) * (i + 1));
+	start = 0;
+	end = (int)ft_strlen(s1);
+	while (s1[start] && ft_is_in_set(s1[start], set))
+		start++;
+	while (end > start && ft_is_in_set(s1[end - 1], set))
+		end--;
+	ptr = (char *)malloc(sizeof(char) * (end - start + 1));
 	if (!ptr)
 		return (NULL);
-	ptr[i] = '\0';
-	while (len >= 0)
+	while (start < end)
 	{
-		if (!ft_is_in_set(s1[len], set))
-		{
-			ptr[i] = s1[len];
-			i--;
-		}
-		len--;
+		ptr[i] = s1[start];
+		i++;
+		start++;
 	}
+	ptr[i] = '\0';
 	return (ptr);
 }

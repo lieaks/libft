@@ -1,8 +1,10 @@
 #include "libft.h"
 #include <string.h>
 #include <stdio.h>
+#include "stdint.h"
+#include "limits.h"
 
-int main(void)
+int main(int ac, char **av)
 {
 	// size_t a = sizeof(int) * 5;
 	// char str1[] = "0123456789";
@@ -53,13 +55,35 @@ int main(void)
 	// free(ptr);
 	// free(test);
 
-	// char	s[] = "123456789";
-	// char	s2[] = "45";
+	char	s[] = "12345 6789";
+	// // char	s2[] = "45";
 	
-	// char	*d = ft_itoa(-0);
-	// printf("%s\n", d);
-	// free(d);
+	// // char	*d = ft_itoa(-0);
+	// // printf("%s\n", d);
+	// // free(d);
+	
+	// printf("%s\n", ft_split(s, ' '));
 
-	return (0);
+	// char **t;
+	// int i = 0;
 
+	(void)ac;
+	(void)av;
+	
+	// t = ft_split(s ,' ');
+
+	// while (t[i])
+	// {
+	// 	printf("i : %d, %s\n", i , t[i]);
+	// 	i++;
+	// }
+	// printf("%s", t[i]);
+	// i = 0;
+	// while (t[i])
+	// 	free(t[i++]);
+	// free(t);
+	char	*test;
+	test = ft_substr(s, , 5);
+	printf("%s\n", test);
+	return 0;
 }

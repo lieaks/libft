@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:45:12 by dly               #+#    #+#             */
-/*   Updated: 2022/11/16 19:31:20 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/17 13:21:48 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 {
 	size_t		i;
 
-	if (!s )
+	if (!s)
 		return (NULL);
 	i = 0;
 	while (i < n)

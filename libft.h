@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:00:15 by dly               #+#    #+#             */
-/*   Updated: 2022/11/16 14:42:51 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/17 14:59:11 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stddef.h>
 # include <unistd.h>
 # include <errno.h>
+# include "stdint.h"
+# include "limits.h"
 
 typedef struct s_list
 {

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:10:06 by dly               #+#    #+#             */
-/*   Updated: 2022/11/15 16:14:50 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/17 13:10:18 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		return (NULL);
 	while (s[i])
 	{
-		ptr[i] = (*f)(i, ptr[i]);
+		ptr[i] = f(i, ptr[i]);
 		i++;
 	}
 	return (ptr);
