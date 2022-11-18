@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 11:24:13 by dly               #+#    #+#             */
-/*   Updated: 2022/11/12 16:39:57 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/18 12:51:20 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		{
 			b++;
 			if (b == little_len)
-				return ((char *)&big[i]);
+				return ((char *)(big + i));
 		}
 		i++;
 	}
