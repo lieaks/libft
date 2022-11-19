@@ -6,13 +6,13 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:10:25 by dly               #+#    #+#             */
-/*   Updated: 2022/11/15 20:40:07 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/18 21:27:29 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_size_itoa(long n)
+static int	ft_size_itoa(long n)
 {
 	int	i;
 

@@ -6,13 +6,13 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:09:55 by dly               #+#    #+#             */
-/*   Updated: 2022/11/17 14:54:20 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/19 14:16:15 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcount(char const *s, char c)
+static int	ft_strcount(char const *s, char c)
 {
 	size_t	i;
 	int		count;
@@ -31,7 +31,7 @@ int	ft_strcount(char const *s, char c)
 	return (count);
 }
 
-int	ft_wordlen(char const *s, char c)
+static int	ft_wordlen(char const *s, char c)
 {
 	size_t	i;
 
@@ -41,7 +41,7 @@ int	ft_wordlen(char const *s, char c)
 	return (i);
 }
 
-char	*ft_addword(char const *s, char c)
+static char	*ft_addword(char const *s, char c)
 {
 	int		i;
 	char	*word;
@@ -57,6 +57,20 @@ char	*ft_addword(char const *s, char c)
 	}
 	word[i] = 0;
 	return (word);
+}
+
+static char	**ft_free_malloc(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
@@ -75,7 +89,12 @@ char	**ft_split(char const *s, char c)
 		while (s[j] && s[j] == c)
 			j++;
 		if (s[j])
-			final[i++] = ft_addword(s + j, c);
+		{	
+			final[i] = ft_addword(s + j, c);
+			if (!final[i])
+				return (ft_free_malloc(final));
+			i++;
+		}
 		while (s[j] && s[j] != c)
 			j++;
 	}

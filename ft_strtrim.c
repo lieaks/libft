@@ -6,13 +6,13 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:14:54 by dly               #+#    #+#             */
-/*   Updated: 2022/11/17 14:49:28 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/19 13:32:52 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_is_in_set(char c, char const *set)
+static int	ft_is_in_set(char c, char const *set)
 {
 	int	i;
 

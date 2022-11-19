@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:11:43 by dly               #+#    #+#             */
-/*   Updated: 2022/11/18 12:45:58 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/19 13:33:59 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*ptr;
 
 	ptr = NULL;
-	if (nmemb > (INT_MAX / size) || size > (INT_MAX / nmemb))
+	if (!nmemb || !size || nmemb > (INT_MAX / size) || size > (INT_MAX / nmemb))
 		return (NULL);
 	ptr = (void *)malloc(nmemb * size);
 	if (!ptr)
