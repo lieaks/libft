@@ -55,18 +55,19 @@ static char	*ft_addword(char const *s, char c)
 		word[i] = s[i];
 		i++;
 	}
-	word[i] = 0;
+	word[i] = '\0';
 	return (word);
 }
 
-static char	**ft_free_malloc(char **s)
+static char	**ft_free_malloc(char **s, int len)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (i < len)
 	{
-		free(s[i]);
+		if (s[i] != NULL)
+			free(s[i]);
 		i++;
 	}
 	free(s);
@@ -77,11 +78,13 @@ char	**ft_split(char const *s, char c)
 {
 	size_t	i;
 	size_t	j;
+	int		len;
 	char	**final;
 
 	i = 0;
 	j = 0;
-	final = (char **)malloc(sizeof(char *) * (ft_strcount(s, c) + 1));
+	len = ft_strcount(s, c);
+	final = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!final)
 		return (0);
 	while (s[j])
@@ -92,12 +95,12 @@ char	**ft_split(char const *s, char c)
 		{	
 			final[i] = ft_addword(s + j, c);
 			if (!final[i])
-				return (ft_free_malloc(final));
+				return (ft_free_malloc(final, len));
 			i++;
 		}
 		while (s[j] && s[j] != c)
 			j++;
 	}
-	final[i] = 0;
+	final[i] = NULL;
 	return (final);
 }
