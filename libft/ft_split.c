@@ -64,10 +64,9 @@ static char	**ft_free_malloc(char **s, int max)
 	int	i;
 
 	i = 0;
-	while (i <= max)
+	while (i < max)
 	{
-		if (s[i] != NULL)
-			free(s[i]);
+		free(s[i]);
 		i++;
 	}
 	free(s);
