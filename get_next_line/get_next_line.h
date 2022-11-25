@@ -9,13 +9,7 @@
 # define BUFFER_SIZE 5
 # endif
 
-typedef struct s_list
-{
-    char    *content;
-    t_list  *next;
-}           t_list;
-
 char	*get_next_line(int fd);
-void    read_and_stach(int fb, char *);
+size_t	ft_strlen(const char *s);
 
 #endif
