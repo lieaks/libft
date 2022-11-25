@@ -59,12 +59,12 @@ static char	*ft_addword(char const *s, char c)
 	return (word);
 }
 
-static char	**ft_free_malloc(char **s, int len)
+static char	**ft_free_malloc(char **s, int max)
 {
 	int	i;
 
 	i = 0;
-	while (i < len)
+	while (i <= max)
 	{
 		if (s[i] != NULL)
 			free(s[i]);
@@ -93,7 +93,7 @@ char	**ft_split(char const *s, char c)
 		{	
 			final[i] = ft_addword(s + j, c);
 			if (!final[i])
-				return (ft_free_malloc(final, ft_strcount(s, c)));
+				return (ft_free_malloc(final, i));
 			i++;
 		}
 		while (s[j] && s[j] != c)
