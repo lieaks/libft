@@ -11,3 +11,45 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*ptr;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!ptr)
+		return (NULL);
+	if (s1)
+	{
+		while (s1[j])
+			ptr[i++] = s1[j++];
+	}
+	j = 0;
+	if (s2)
+	{
+		while (s2[j])
+			ptr[i++] = s2[j++];
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	while (s[i] != (unsigned char)c)
+	{
+		if (!s[i])
+			return (NULL);
+		i++;
+	}
+	return ((char *)(s + i));
+}
