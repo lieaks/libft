@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:14:06 by dly               #+#    #+#             */
-/*   Updated: 2022/11/12 16:44:50 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/27 18:29:28 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	char		*cdest;
 	const char	*csrc;
 
+	if (!dest)
+		return (NULL);
 	cdest = (char *)dest;
 	csrc = (const char *)src;
 	if (dest > src)
