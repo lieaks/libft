@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:41:32 by dly               #+#    #+#             */
-/*   Updated: 2022/11/28 12:45:08 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/28 12:53:22 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 char	*read_line(int fd, char *res)
 {
 	char	*buffer;
-	int		byte_read;
+	int		readed;
 
 	if (!res)
 		res = ft_calloc(1, 1);
 	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!buffer)
 		return (NULL);
-	byte_read = 1;
-	while (byte_read > 0)
+	readed = 1;
+	while (readed > 0)
 	{
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read == -1)
+		readed = read(fd, buffer, BUFFER_SIZE);
+		if (readed < 0)
 		{
 			free(buffer);
 			return (NULL);
 		}
-		buffer[byte_read] = '\0';
+		buffer[readed] = '\0';
 		res = join_and_free(res, buffer);
 		if (ft_strchr(res, '\n'))
 			break ;
