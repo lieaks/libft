@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:41:32 by dly               #+#    #+#             */
-/*   Updated: 2022/11/27 18:00:16 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/28 12:45:08 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*read_line(int fd, char *res)
 	int		byte_read;
 
 	if (!res)
-	{
 		res = ft_calloc(1, 1);
-	}
 	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!buffer)
 		return (NULL);
@@ -75,7 +73,6 @@ char	*get_line(char *buffer)
 		line[i] = '\n';
 		i++;
 	}
-	line[i] = '\0';
 	return (line);
 }
 
@@ -100,7 +97,6 @@ char	*save_next(char *buffer)
 	i++;
 	while (buffer[i])
 		next[j++] = buffer[i++];
-	next[j] = '\0';
 	free(buffer);
 	return (next);
 }
