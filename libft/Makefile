@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2022/11/19 17:31:11 by dly              ###   ########.fr        #
+#    Updated: 2022/11/28 14:30:18 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,18 +24,19 @@ BONUS			=	ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
 					ft_lstmap.c ft_lstnew.c ft_lstsize.c
 BONUS_OBJS		= $(BONUS:.c=.o)
 
-CC				= gcc
+CC				= cc
 RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -I.
 
 NAME			= libft.a
+HEADER			= libft.h
 
 all:			$(NAME)
 
 %.o:			%.c
 				$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME):		$(OBJS)
+$(NAME):		$(OBJS) $(HEADER)
 				ar rcs $(NAME) $(OBJS)
 
 clean:

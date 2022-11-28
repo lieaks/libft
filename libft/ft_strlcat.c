@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 14:46:01 by dly               #+#    #+#             */
-/*   Updated: 2022/11/19 17:22:19 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/28 13:59:24 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	size_t	len;
 
 	len = ft_strlen(src);
-	if (!size)
+	if (!size || !dst)
 		return (len);
 	i = ft_strlen(dst);
 	if (size < i)
