@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:09:55 by dly               #+#    #+#             */
-/*   Updated: 2022/11/24 16:12:50 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/28 12:31:00 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	j = 0;
-	final = (char **)malloc(sizeof(char *) * (ft_strcount(s, c) + 1));
+	if (!s)
+		return (NULL);
+	final = (char **)ft_calloc((ft_strcount(s, c) + 1), sizeof(char *));
 	if (!final)
-		return (0);
+		return (NULL);
 	while (s[j])
 	{
 		while (s[j] && s[j] == c)
@@ -91,13 +93,11 @@ char	**ft_split(char const *s, char c)
 		if (s[j])
 		{	
 			final[i] = ft_addword(s + j, c);
-			if (!final[i])
+			if (!final[i++])
 				return (ft_free_malloc(final, i));
-			i++;
 		}
 		while (s[j] && s[j] != c)
 			j++;
 	}
-	final[i] = NULL;
 	return (final);
 }

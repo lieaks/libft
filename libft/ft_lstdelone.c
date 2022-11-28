@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 17:58:28 by dly               #+#    #+#             */
-/*   Updated: 2022/11/17 13:21:31 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/28 12:09:16 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {	
-	if (!lst && !del)
+	if (!lst || !del)
 		return ;
 	del(lst->content);
 	free(lst);
