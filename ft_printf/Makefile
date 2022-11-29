@@ -10,24 +10,31 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split.c \
+SRCS_NAME		=	ft_printf ft_print_char ft_print_hex ft_print_nbr \
+					ft_print_percent ft_print_ptr ft_print_str \
+					ft_print_utils
 
-OBJS			= $(SRCS:.c=.o)
+SRCS			= $(addprefix $(SRCS_DIR), $(addsuffix $(SRCS_FILES)))
+OBJS			= $(addprefix $(OBJS_DIR), $(addsuffix $(SRCS_FILES))) 
 
+SRCS_DIR		= srcs/
+OBJS_DIR		= objs/
 CC				= cc
-RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -I.
+RM				= rm -f
+AR				= ar rcs
 
-NAME			= libft.a
-HEADER			= libft.h
+NAME			= libftprintf.a
+HEADER			= ft_printf.h
 
 all:			$(NAME)
 
-%.o:			%.c
-				$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_DIR)%.o:	$(SRCS_DIR)%.c
+				@echo "$Compiling: $<"
+				@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):		$(OBJS) $(HEADER)
-				ar rcs $(NAME) $(OBJS)
+				$(AR) $(NAME) $(OBJS)
 
 clean:
 				$(RM) $(OBJS) $(BONUS_OBJS)
@@ -37,7 +44,7 @@ fclean:			clean
 
 re:				fclean $(NAME)
 
-bonus:			$(OBJS) $(BONUS_OBJS)
-				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+norm:
+				@norminette $(SRCS)
 
 .PHONY:			all clean fclean re bonus

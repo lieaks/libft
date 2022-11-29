@@ -1,36 +1,27 @@
-#include "ft_prinf.h"
+#include "include/ft_prinf.h"
 
-const char	*ft_search_arg(va_list arg, char *input, int *count)
+int	ft_search_arg(va_list arg, char *input, int *test)
 {
-	if (*input == 'i')
-		ft_putchar(arg, fd, &count);
+	int	count;
+
+	if (*input == 'c')
+		count += ft_print_char(va_arg(arg, int), &test);
 	else if (*input == 's')
-		ft_putstr(arg, fd, &count);
+		count += ft_print_str(va_arg(arg, char *), &test);
 	else if (*input == 'p')
-		ft_print_adress(arg, fd, &count);
-	else if (*input == 'd')
-		ft_putnbr(arg, fd, &count);
-	else if (*input == 'i')
-		ft_putnbr(arg, fc, &count);
+		count += ft_print_ptr(va_arg(arg, unsigned long long), &test);
+	else if (*input == 'd' || *input == 'i')
+		count += ft_print_nbr(va_arg(arg, int) &test);
 	else if (*input == 'u')
-		ft_putnbr(arg, fd, &count);
-	else if (*input == 'x')
-		ft_puthexa(arg, fd, &count);
-	else if (*input == 'X')
-		ft_puthexa(arg, fd, &count);
+		count += ft_print_unsigned(va_arg(arg, unsigned int) &test);
+	else if (*input == 'x' || *input == 'X')
+		count += ft_print_hexa(va_arg(arg, unsigned int), &test);
 	else if (*input == '%')
-	{
-		write(1, "%", 1);
-		coun++;
-	}
-	else
-		write(1, "%", 1);
-		count++;
-		return (input);
-	return (input + 1);
+		count += ft_print_percent();
+	return (count);
 }
 
-const char	*ft_read_txt(const char *input, int *count)
+int	ft_read_txt(const char *input, int *count, int *i)
 {
 	int		len_txt;
 	char	*next;
@@ -43,36 +34,32 @@ const char	*ft_read_txt(const char *input, int *count)
 		len_txt = ft_strlen(next);
 	write(1, input, len_txt);
 	count += len_txt;
-	while (*input && *input != '%')
-		input++;
-	return (input);
+	i += len_txt;
+	return (len_txt);
 }
 
 int ft_printf(const char *input, ...)
 {
 	va_list	arg;
-	t_sc	sc;
-	int		sum;
+	int		count;
+	int		test;
+	int		i;
 
-	sum = 0;
-	sc.len = 0;
-	sc.width = 0;
+	count = 0;
+	i = 0;
 	va_start(arg, input);
-	if (!input)
+	if (input[i])
 		return (0);
-	while (input)
+	while (input[i])
 	{
-		if (*format == '%')
-			input = ft_search_arg(arg, input + 1, &sc);
-		else
-			input = ft_read_txt(input, &sum);
-		if (!input)
+		if (input[i] == '%')
 		{
-			write (1, "NULL", 6);
-			va_end(arg);
-			return (sc.len);
+			count += ft_search_arg(arg, str + i + 1, &test);	
+			i++;
 		}
-		va_end(arg);
-		return (sc.len);
+		else
+			count = ft_read_txt(input, &test, &i);
 	}
+	va_end(arg);
+	return (count);
 }
