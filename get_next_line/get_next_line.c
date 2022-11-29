@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:41:32 by dly               #+#    #+#             */
-/*   Updated: 2022/11/28 12:53:22 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/29 12:56:00 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ char	*read_line(int fd, char *res)
 	char	*buffer;
 	int		readed;
 
-	if (!res)
-		res = ft_calloc(1, 1);
-	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
 	readed = 1;
@@ -45,7 +43,8 @@ char	*join_and_free(char *res, char *buffer)
 	char	*join;
 
 	join = ft_strjoin(res, buffer);
-	free(res);
+	if (res)
+		free(res);
 	return (join);
 }
 
@@ -59,7 +58,7 @@ char	*get_line(char *buffer)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	line = ft_calloc((i + 2), sizeof(char));
+	line = malloc((i + 2) * sizeof(char));
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -73,6 +72,7 @@ char	*get_line(char *buffer)
 		line[i] = '\n';
 		i++;
 	}
+	line[i] = '\0';
 	return (line);
 }
 
@@ -90,7 +90,7 @@ char	*save_next(char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	next = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
+	next = malloc((ft_strlen(buffer) - i + 1) * sizeof(char));
 	if (!next)
 		return (NULL);
 	j = 0;
@@ -98,6 +98,7 @@ char	*save_next(char *buffer)
 	while (buffer[i])
 		next[j++] = buffer[i++];
 	free(buffer);
+	next[j] = '\0';
 	return (next);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:55:28 by dly               #+#    #+#             */
-/*   Updated: 2022/11/27 17:57:50 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/29 12:58:39 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,4 @@ char	*ft_strchr(const char *s, int c)
 		i++;
 	}
 	return ((char *)(s + i));
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*ptr;
-
-	if (!size || !nmemb)
-		return (ft_calloc(1, 1));
-	if (((size * nmemb) / size) != nmemb)
-		return (NULL);
-	ptr = (void *)malloc(nmemb * size);
-	if (!ptr)
-		return (NULL);
-	ft_memset(ptr, 0, nmemb * size);
-	return (ptr);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	char	*tmp;
-
-	tmp = s;
-	while (n > 0)
-	{
-		*tmp = c;
-		tmp++;
-		n--;
-	}
-	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:55:19 by dly               #+#    #+#             */
-/*   Updated: 2022/11/27 18:00:13 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/29 12:46:17 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,5 @@ char	*join_and_free(char *res, char *buffer);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
-void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memset(void *s, int c, size_t n);
 
 #endif
