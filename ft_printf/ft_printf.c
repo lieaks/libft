@@ -1,4 +1,16 @@
-#include "include/ft_prinf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/30 15:22:23 by dly               #+#    #+#             */
+/*   Updated: 2022/11/30 15:27:15 by dly              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "include/ft_printf.h"
 
 int	ft_search_arg(va_list arg, char *input, int *test)
 {
@@ -11,9 +23,9 @@ int	ft_search_arg(va_list arg, char *input, int *test)
 	else if (*input == 'p')
 		count += ft_print_ptr(va_arg(arg, unsigned long long), &test);
 	else if (*input == 'd' || *input == 'i')
-		count += ft_print_nbr(va_arg(arg, int) &test);
+		count += ft_print_nbr(va_arg(arg, int), &test);
 	else if (*input == 'u')
-		count += ft_print_unsigned(va_arg(arg, unsigned int) &test);
+		count += ft_print_unsigned(va_arg(arg, unsigned int), &test);
 	else if (*input == 'x' || *input == 'X')
 		count += ft_print_hexa(va_arg(arg, unsigned int), &test);
 	else if (*input == '%')
@@ -25,9 +37,9 @@ int	ft_read_txt(const char *input, int *count, int *i)
 {
 	int		len_txt;
 	char	*next;
-// % sans rien apres ou arg non valide a check
+
 	len_txt = 0;
-	next = ft_strchr(input, '%'); 
+	next = ft_strchr(input, '%');
 	if (next)
 		len_txt = next - input;
 	else
@@ -38,7 +50,7 @@ int	ft_read_txt(const char *input, int *count, int *i)
 	return (len_txt);
 }
 
-int ft_printf(const char *input, ...)
+int	ft_printf(const char *input, ...)
 {
 	va_list	arg;
 	int		count;
@@ -54,7 +66,7 @@ int ft_printf(const char *input, ...)
 	{
 		if (input[i] == '%')
 		{
-			count += ft_search_arg(arg, str + i + 1, &test);	
+			count += ft_search_arg(arg, str + i + 1, &test);
 			i++;
 		}
 		else

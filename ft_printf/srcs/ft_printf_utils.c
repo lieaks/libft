@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/30 15:14:45 by dly               #+#    #+#             */
+/*   Updated: 2022/11/30 15:15:23 by dly              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_printf.h"
 
 int	ft_len_hex_ullong(unsigned long long ptr)
 {
 	int	count;
-	
+
 	count = 0;
 	if (ptr == 0)
 	{
@@ -18,7 +30,7 @@ int	ft_len_hex_ullong(unsigned long long ptr)
 	return (count);
 }
 
-void	ft_write_hex(unsigned long long ptr, char a_or_A)	
+void	ft_write_hex(unsigned long long ptr, char a_or_A)
 {
 	if (ptr >= 16)
 	{
@@ -33,4 +45,3 @@ void	ft_write_hex(unsigned long long ptr, char a_or_A)
 			ft_putchar_fd((ptr + a_or_A), 1);
 	}
 }
-
