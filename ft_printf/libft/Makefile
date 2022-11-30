@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2022/11/28 14:30:18 by dly              ###   ########.fr        #
+#    Updated: 2022/11/30 20:05:42 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,18 +26,21 @@ BONUS_OBJS		= $(BONUS:.c=.o)
 
 CC				= cc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I.
+AR				= ar rcs
+
+CFLAGS			= -Wall -Wextra -Werror -I
+INCLUDE			= ../include 
 
 NAME			= libft.a
-HEADER			= libft.h
+HEADER			= ../include/libft.h
 
 all:			$(NAME)
 
 %.o:			%.c
-				$(CC) $(CFLAGS) -c $< -o $@
+				@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME):		$(OBJS) $(HEADER)
-				ar rcs $(NAME) $(OBJS)
+				$(AR) $(NAME) $(OBJS)
 
 clean:
 				$(RM) $(OBJS) $(BONUS_OBJS)
@@ -48,6 +51,6 @@ fclean:			clean
 re:				fclean $(NAME)
 
 bonus:			$(OBJS) $(BONUS_OBJS)
-				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+				$(AR) $(NAME) $(OBJS) $(BONUS_OBJS)
 
 .PHONY:			all clean fclean re bonus

@@ -6,17 +6,17 @@
 /*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:11:22 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 15:13:16 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/30 19:43:40 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_print_ptr(unsigned long long ptr, int *test)
 {
 	int	len;
 
-	len = ft_ptr_len(ptr);
+	len = ft_len_hex_ullong(ptr);
 	len += write(1, "0x", 2);
 	ft_write_hex(ptr, 'a');
 	test += len;

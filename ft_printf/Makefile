@@ -6,21 +6,22 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2022/11/30 15:45:25 by dly              ###   ########.fr        #
+#    Updated: 2022/11/30 20:06:35 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_NAME		=	ft_printf ft_print_char ft_print_hex ft_print_nbr \
-					ft_print_percent ft_print_ptr ft_print_str \
-					ft_print_utils
+SRCS_FILES		=	ft_printf.c ft_print_char.c ft_print_hex.c ft_print_nbr.c \
+					ft_print_percent.c ft_print_ptr.c ft_print_str.c \
+					ft_print_utils.c ft_print_unsigned.c
 
-SRCS			= $(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRCS_FILES)))
-OBJS			= $(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRCS_FILES))) 
+SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
+OBJS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES:.c=.o))
 
 SRCS_DIR		= srcs/
-OBJS_DIR		= objs/
+INCLUDE			= -I include
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -I.
+CFLAGS			= -Wall -Wextra -Werror
+
 RM				= rm -f
 AR				= ar rcs
 
@@ -29,21 +30,18 @@ HEADER			= include/ft_printf.h
 
 all:			$(NAME)
 
-$(OBJS_DIR)%.o:	$(SRCS_DIR)%.c | objs 
-				@echo "$Compiling: $<"
-				@$(CC) $(CFLAGS) include -c $< -o $@
-
 $(NAME):		$(OBJS) $(HEADER)
-				@make -C libft
-				@cp libft/libft.a .
-				@mv libft.a $(NAME)
-				@$(AR) $(NAME) $(OBJ)
-				@echo "$(GREEN)ft_printf compiled!$(DEF_COLOR)
-objs:			
-				@mkdir -p objs
+				@make -C ./libft
+				@cp libft/libft.a $(NAME)
+				$(AR) $(NAME) $(OBJS)
+				@echo "ft_printf compiled!"
 
+$(SRCS_DIR)%.o:	$(SRCS_DIR)%.c
+				@echo "Compiling: $<"
+				@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ 
+				
 clean:
-				@$(RM) $(OBJS_DIR)/$(OBJS) 
+				@$(RM) $(OBJS) 
 				@make clean -C libft
 				@echo "ft_printf object files cleaned!"
 

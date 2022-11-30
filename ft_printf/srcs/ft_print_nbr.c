@@ -6,11 +6,12 @@
 /*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:11:04 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 15:16:46 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/30 19:34:58 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 int	ft_print_nbr(int n, int *test)
 {
@@ -21,7 +22,7 @@ int	ft_print_nbr(int n, int *test)
 	str = ft_itoa(n);
 	if (!str)
 		return (0);
-	len = ft_print_str(str);
+	len = ft_print_str(str, &len);
 	test += len;
 	if (str)
 		free(str);

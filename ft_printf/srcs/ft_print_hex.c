@@ -6,11 +6,11 @@
 /*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:10:51 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 15:16:06 by dly              ###   ########.fr       */
+/*   Updated: 2022/11/30 19:43:11 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_print_hex(unsigned int n, char input, int *test)
 {
