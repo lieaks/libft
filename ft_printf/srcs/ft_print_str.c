@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:11:30 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 19:45:34 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/01 20:23:13 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
-int	ft_print_str(char *str, int *test)
+void	ft_print_str(char *str, t_sc *sc)
 {
-	int	i;
-
-	i = 0;
 	if (!str)
-		return (write(1, "(null)", 6));
-	while (str[i])
-		i += write(1, str + i, 1);
-	test += i;
-	return (i);
+	{
+		sc->count += 6;
+		write(1, "(null)", 6);
+		return ;
+	}
+	sc->len = ft_strlen(str);
+	sc->count += write(1, str, sc->len);
 }

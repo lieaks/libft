@@ -6,19 +6,20 @@
 /*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:11:22 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 19:43:40 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/01 20:00:47 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_ptr(unsigned long long ptr, int *test)
+void	ft_print_ptr(unsigned long long ptr, t_sc *sc)
 {
-	int	len;
-
-	len = ft_len_hex_ullong(ptr);
-	len += write(1, "0x", 2);
-	ft_write_hex(ptr, 'a');
-	test += len;
-	return (len);
+	if (!ptr)
+		sc->count +=	write(1, "(nil)", 5);
+	else
+	{
+		sc->count = ft_len_nb(ptr, "0123456789abcdef");
+		sc->count += write(1, "0x", 2);
+		ft_itoa_base(ptr,"0123456789abcdef");
+	}
 }

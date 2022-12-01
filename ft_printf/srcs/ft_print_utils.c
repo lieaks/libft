@@ -6,14 +6,14 @@
 /*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:14:45 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 19:55:41 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/01 18:03:03 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-int	ft_len_hex_ullong(unsigned long long ptr)
+int	ft_len_nb(unsigned long long ptr, char *base)
 {
 	int	count;
 
@@ -26,30 +26,30 @@ int	ft_len_hex_ullong(unsigned long long ptr)
 	while (ptr > 0)
 	{
 		count++;
-		ptr /= 16;
+		ptr /= ft_strlen(base);
 	}
 	return (count);
 }
 
-void	ft_write_hex(unsigned long long ptr, char a_or_A)
+int	ft_itoa_base(unsigned long long nb, char *base)
 {
-	if (ptr >= 16)
+	int			len;
+	char		*result;
+
+	len = ft_len_nb(nb, base);
+	result = malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (0);
+	result[len] = '\0';
+	len--;
+	if (nb == 0)
+		result[0] = base[0];
+	while (nb > 0)
 	{
-		ft_write_hex(ptr / 16, a_or_A);
-		ft_write_hex(ptr % 16, a_or_A);
+		result[len--] = base[nb % ft_strlen(base)];
+		nb /= ft_strlen(base);
 	}
-	else
-	{
-		if (ptr <= 9)
-			ft_putchar_fd((ptr + '0'), 1);
-		else
-		{
-			if (a_or_A == 'x')
-				ft_putchar_fd((ptr + 'a'), 1);
-			else if (a_or_A == 'X')
-				ft_putchar_fd((ptr + 'A'), 1);
-			else
-				ft_putchar_fd((ptr + 'a'), 1);
-		}
-	}
+	write(1, result, ft_strlen(result));
+	free(result);
+	return (1);
 }

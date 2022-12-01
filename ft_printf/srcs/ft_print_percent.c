@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_percent.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:11:13 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 15:11:14 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/01 20:22:05 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-int	ft_print_percent(void)
+void	ft_print_percent(t_sc *sc)
 {
-	return (write(1, "%", 1));
+	sc->count++;
+	write(1, "%", 1);
 }

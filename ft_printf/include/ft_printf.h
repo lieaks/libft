@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:21:57 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 16:48:49 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/01 20:23:37 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <unistd.h>
+# include "libft.h"
 
-int		ft_print_char(int c, int *test);
-int		ft_print_hex(unsigned int n, char input, int *test);
-int		ft_print_nbr(int n, int *test);
-int		ft_print_percent(void);
-int		ft_print_ptr(unsigned long long ptr, int *test);
-int		ft_print_str(char *str, int *test);
-int		ft_print_unsigned(unsigned int n, int *test);
-int		ft_len_hex_ullong(unsigned long long ptr);
-void	ft_write_hex(unsigned long long ptr, char a_or_A);
-int		ft_search_arg(va_list arg, char input, int *test);
-int		ft_read_txt(const char *input, int *count, int *i);
-int		ft_printf(const char *input, ...);
+typedef struct s_sc
+{
+	int	count;
+	int len;
+}		t_sc;
+
+void	ft_print_char(int c, t_sc *sc);
+void	ft_print_hex(unsigned int n, char c, t_sc *sc);
+void	ft_print_nbr(int n, t_sc *sc);
+void	ft_print_percent(t_sc *sc);
+void	ft_print_ptr(unsigned long long ptr, t_sc *sc);
+void	ft_print_str(char *str, t_sc *sc);
+void	ft_print_unsigned(unsigned int n, t_sc *sc);
+int			ft_len_nb(unsigned long long ptr, char *base);
+int			ft_itoa_base(unsigned long long ptr, char *base);
+const char	*ft_search_arg(va_list arg, const char *format, t_sc *sc);
+const char	*ft_read_txt(const char *format, t_sc *sc);
+int			ft_printf(const char *format, ...);
 
 #endif

@@ -3,84 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:22:23 by dly               #+#    #+#             */
-/*   Updated: 2022/11/30 20:41:22 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/01 20:32:41 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-int	ft_search_arg(va_list arg, char input, int *test)
+const char	*ft_search_arg(va_list arg, const char *format, t_sc *sc)
 {
-	int	count;
-
-	count = 0;
-	if (input == 'c')
-		count += ft_print_char(va_arg(arg, int), test);
-	else if (input == 's')
-		count += ft_print_str(va_arg(arg, char *), test);
-	else if (input == 'p')
-		count += ft_print_ptr(va_arg(arg, unsigned long long), test);
-	else if (input == 'd' || input == 'i')
-		count += ft_print_nbr(va_arg(arg, int), test);
-	else if (input == 'u')
-		count += ft_print_unsigned(va_arg(arg, unsigned int), test);
-	else if (input == 'x' || input == 'X')
-		count += ft_print_hex(va_arg(arg, unsigned int), input, test);
-	else if (input == '%')
-		count += ft_print_percent();
-	return (count);
+	if (*format == 'c')
+		ft_print_char(va_arg(arg, int), sc);
+	else if (*format == 's')
+		ft_print_str(va_arg(arg, char *), sc);
+	else if (*format == 'p')
+		ft_print_ptr(va_arg(arg, unsigned long long), sc);
+	else if (*format == 'd' || *format == 'i')
+		ft_print_nbr(va_arg(arg, int), sc);
+	else if (*format == 'u')
+		ft_print_unsigned(va_arg(arg, unsigned int), sc);
+	else if (*format == 'x' || *format == 'X')
+		ft_print_hex(va_arg(arg, unsigned int), *format, sc);
+	else if (*format == '%')
+		ft_print_percent(sc);
+	format++;
+	return (format);
 }
 
-int	ft_read_txt(const char *input, int *count, int *i)
+const char	*ft_read_txt(const char *format, t_sc *sc)
 {
-	int		len_txt;
 	char	*next;
 
-	len_txt = 0;
-	next = ft_strchr(input, '%');
+	next = ft_strchr(format, '%');
 	if (next)
-		len_txt = next - input;
+		sc->len = next - format;
 	else
-		len_txt = ft_strlen(input);
-	write(1, input, len_txt);
-	count += len_txt;
-	i += len_txt;
-	return (len_txt);
+		sc->len = ft_strlen(format);
+	write(1, format, sc->len);
+	sc->count += sc->len;
+	while (*format && *format != '%')
+		format++;
+	return (format);
 }
 
-int	ft_printf(const char *input, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list	arg;
-	int		count;
-	int		test;
-	int		i;
-	int		tmp;
+	t_sc	sc;
 
-	count = 0;
-	i = 0;
-	tmp = 0;
-	va_start(arg, input);
-	if (!input[i])
+	va_start(arg, format);
+	sc.count = 0;
+	sc.len = 0;
+	if (!*format)
 		return (0);
-	while (input[i])
+	while (*format)
 	{
-		if (input[i] == '%')
-		{
-			count += ft_search_arg(arg, input[i + 1], &test);
-			i++;
-		}
+		if (*format == '%')
+			format = ft_search_arg(arg, format + 1, &sc);
 		else
+			format = ft_read_txt(format, &sc);
+		if (!format)
 		{
-			tmp = ft_read_txt(input + i, &test, &i);
-			i += tmp - 1;
-			count += tmp;
+			write(1, "(null)", 6);
+			va_end(arg);
+			return (sc.count);
 		}
-		i++;
 	}
 	va_end(arg);
-	return (count);
+	return (sc.count);
 }
