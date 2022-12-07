@@ -6,12 +6,18 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2022/11/30 20:06:35 by dly              ###   ########.fr        #
+#    Updated: 2022/12/02 17:24:47 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+################################################################################
+#                                                                              #
+#                              VARIABLES                                       #
+#                                                                              #
+################################################################################
+
 SRCS_FILES		=	ft_printf.c ft_print_char.c ft_print_hex.c ft_print_nbr.c \
-					ft_print_percent.c ft_print_ptr.c ft_print_str.c \
+					ft_print_ptr.c ft_print_str.c \
 					ft_print_utils.c ft_print_unsigned.c
 
 SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
@@ -28,12 +34,18 @@ AR				= ar rcs
 NAME			= libftprintf.a
 HEADER			= include/ft_printf.h
 
+################################################################################
+#                                                                              #
+#                                  RULES                                       #
+#                                                                              #
+################################################################################
+
 all:			$(NAME)
 
 $(NAME):		$(OBJS) $(HEADER)
 				@make -C ./libft
 				@cp libft/libft.a $(NAME)
-				$(AR) $(NAME) $(OBJS)
+				@$(AR) $(NAME) $(OBJS)
 				@echo "ft_printf compiled!"
 
 $(SRCS_DIR)%.o:	$(SRCS_DIR)%.c
@@ -54,6 +66,6 @@ fclean:			clean
 re:				fclean $(NAME)
 
 norm:
-				@norminette $(SRCS)
+				@norminette $(SRCS) $(HEADER) 
 
 .PHONY:			all clean fclean re bonus

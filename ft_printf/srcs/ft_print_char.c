@@ -6,14 +6,14 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:10:40 by dly               #+#    #+#             */
-/*   Updated: 2022/12/02 12:36:41 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/02 17:12:21 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_print_char(int c, int *arg_count)
+void	ft_print_char(int c, t_sc *sc)
 {
-	(*arg_count)++;
+	sc->count += 1;
 	write(1, &c, 1);
 }
