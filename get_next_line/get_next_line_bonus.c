@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:41:32 by dly               #+#    #+#             */
-/*   Updated: 2022/12/07 15:21:11 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/08 14:22:05 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,22 @@
 
 char	*read_line(int fd, char *res)
 {
-	char	*buffer;
+	char	buffer[BUFFER_SIZE + 1];
 	int		readed;
 
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (NULL);
 	readed = 1;
 	while (readed > 0)
 	{
 		readed = read(fd, buffer, BUFFER_SIZE);
 		if (readed < 0)
-		{
-			free(buffer);
 			return (NULL);
-		}
 		buffer[readed] = '\0';
 		res = join_and_free(res, buffer);
+		if (!res)
+			return (NULL);
 		if (ft_strchr(res, '\n'))
 			break ;
 	}
-	free(buffer);
 	return (res);
 }
 
@@ -45,6 +40,8 @@ char	*join_and_free(char *res, char *buffer)
 	join = ft_strjoin(res, buffer);
 	if (res)
 		free(res);
+	if (!join)
+		return (NULL);
 	return (join);
 }
 
@@ -113,7 +110,17 @@ char	*get_next_line(int fd)
 	if (!buffer[fd])
 		return (NULL);
 	line = get_line(buffer[fd]);
+	if (!line)
+	{
+		free(buffer[fd]);
+		return (NULL);
+	}
 	buffer[fd] = save_next(buffer[fd]);
+	if (!buffer[fd])
+	{
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }
 /*
