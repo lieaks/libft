@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:41:32 by dly               #+#    #+#             */
-/*   Updated: 2022/12/07 15:21:11 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/09 17:41:42 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*read_line(int fd, char *res)
 		}
 		buffer[readed] = '\0';
 		res = join_and_free(res, buffer);
+		if (!res)
+			return (NULL);
 		if (ft_strchr(res, '\n'))
 			break ;
 	}
@@ -45,6 +47,11 @@ char	*join_and_free(char *res, char *buffer)
 	join = ft_strjoin(res, buffer);
 	if (res)
 		free(res);
+	if (!join)
+	{
+		free(buffer);
+		return (NULL);
+	}
 	return (join);
 }
 
@@ -104,10 +111,10 @@ char	*save_next(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[4096];
+	static char	*buffer[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
 	buffer[fd] = read_line(fd, buffer[fd]);
 	if (!buffer[fd])
@@ -125,7 +132,6 @@ int	main()
 	char	*line;
 
 	fd = open("get_next_line.c", O_RDONLY);
-	printf("%d/n", fd);
 	if (fd < 0)
 		printf("failed\n");
 	while (1)

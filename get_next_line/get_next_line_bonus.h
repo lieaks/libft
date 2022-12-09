@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:55:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/07 15:22:07 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/09 16:44:37 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@
 #  define BUFFER_SIZE 0
 # endif
 
+# ifndef OPEN_MAX
+#  define OPEN_MAX 4096
+# endif
+
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <limits.h>
 
 char	*get_next_line(int fd);
 char	*read_line(int fd, char *res);
