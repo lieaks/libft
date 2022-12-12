@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:41:32 by dly               #+#    #+#             */
-/*   Updated: 2022/12/09 16:45:20 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/12 14:16:16 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ char	*save_next(char *buffer)
 	}
 	next = malloc((ft_strlen(buffer) - i + 1) * sizeof(char));
 	if (!next)
+	{
+		free(buffer);
 		return (NULL);
+	}
 	j = 0;
 	i++;
 	while (buffer[i])
