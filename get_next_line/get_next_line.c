@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:41:32 by dly               #+#    #+#             */
-/*   Updated: 2022/12/09 18:13:43 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/09 16:45:20 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 char	*read_line(int fd, char *res)
 {
-	char	buffer[BUFFER_SIZE + 1];
+	char	*buffer;
 	int		readed;
 
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (NULL);
 	readed = 1;
 	while (readed > 0)
 	{
 		readed = read(fd, buffer, BUFFER_SIZE);
 		if (readed < 0)
+		{
+			free(buffer);
 			return (NULL);
+		}
 		buffer[readed] = '\0';
 		res = join_and_free(res, buffer);
 		if (!res)
@@ -30,6 +36,7 @@ char	*read_line(int fd, char *res)
 		if (ft_strchr(res, '\n'))
 			break ;
 	}
+	free(buffer);
 	return (res);
 }
 
