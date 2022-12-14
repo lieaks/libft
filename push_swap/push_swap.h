@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dly <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:36:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/13 18:32:09 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/14 17:45:29 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <limits.h>
 
-typedef struct s_list
+typedef struct s_stack
 {
 	int		num;
-	t_list	next;
-}	t_list;
+	int		index;
+	t_stack	*next;
+}	t_stack;
 
 #endif
