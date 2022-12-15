@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   new_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:10:22 by dly               #+#    #+#             */
-/*   Updated: 2022/11/18 12:48:07 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/15 16:14:41 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*new_node(int nb)
+elem	*new_node(int nb)
 {
-	t_stack	*ptr;
+	elem	*ptr;
 
-	ptr = (t_stack *)malloc(sizeof(t_stack));
+	ptr = (elem *)malloc(sizeof(elem));
 	if (!ptr)
 		return (NULL);
-	ptr->content = content;
+	ptr->num = nb;
 	ptr->prev = NULL;
 	ptr->next = NULL;
 	return (ptr);

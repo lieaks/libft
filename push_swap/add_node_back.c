@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   add_node_back.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 17:34:14 by dly               #+#    #+#             */
-/*   Updated: 2022/11/16 14:33:08 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/15 19:51:23 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	add_node_back(t_stack **stack, t_stack **node)
+void	add_node_back(t_stack **stack, elem **node)
 {
-	t_stack	*last;
+	elem	*last;
 
 	if (!stack || !node)
 		return ;
-	if (*stack)
+	if ((*stack)->first)
 	{
-		last = last_node(*stack);
-		last->next = *node;
+		last = (*stack)->last;
+		(*stack)->last->next = *node;
 		(*node)->prev = last;
+		(*stack)->last = *node;
 	}
 	else
-		stack = node;
+	{
+		(*stack)->first = *node;
+		(*stack)->last = *node;
+	}
+	(*stack)->length++;
 }

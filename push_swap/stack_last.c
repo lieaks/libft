@@ -1,12 +1,12 @@
 #include "push_swap.h"
 
-t_stack	*last_node(t_stack *stack)
+elem	*last_node(t_stack *stack)
 {
-	t_stack	*last;
+	elem	*last;
 
 	if (!stack)
 		return (NULL);
-	last = stack;
+	last = stack->first;
 	while (last->next)
 		last = last->next;
 	return (last);

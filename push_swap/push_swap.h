@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:36:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/14 17:45:29 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/15 18:49:43 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,40 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdio.h>
 
-typedef struct s_stack
+
+typedef struct elem
 {
-	int		num;
-	int		index;
-	struct	s_stack *prev;
-	struct	s_stack	*next;
-}			t_stack;
+	int			num;
+	int			index;
+	struct elem	*prev;
+	struct elem	*next;
+}				elem;
 
-int		ft_atoi(char *str);
+typedef struct	s_stack
+{
+	size_t	length;
+	elem	*first;
+	elem	*last;
+}	t_stack;
+
+long	ft_atoi(char *str);
 int		is_digit(char c);
 int		is_valid_dup(t_stack *a);
-void	add_node_back(t_stack **a, t_stack **node);
-t_stack	*new_node(int nb);
-t_stack	*last_node(t_stack *stack);
+void	add_node_back(t_stack **stack, elem **node);
+elem	*new_node(int nb);
+elem	*last_node(t_stack *stack);
 void	push(t_stack **src, t_stack **dest);
 void	push_ss(t_stack **a, t_stack **b);
-void	add_node_front(t_stack **stack, t_stack *node);
+void	add_node_front(t_stack **stack, elem **node);
+void	swap(t_stack **stack);
+void	ss(t_stack **a, t_stack **b);
+void	rotate(t_stack **stack);
+void	rr(t_stack **a, t_stack **b);
+void	reverse_rotate(t_stack **stack);
+void	rrr(t_stack **a, t_stack **b);
+void	free_stack(t_stack	**stack);
+t_stack *init_stack(int ac, char **av);
 
 #endif

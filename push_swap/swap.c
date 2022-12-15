@@ -1,17 +1,22 @@
 #include "push_swap.h"
 
-void	push(t_stack **src, t_stack **dest)
+void	swap(t_stack **stack)
 {
+	elem	*tmp;
+
+	if (*stack == NULL || (*stack)->first->next == NULL)
+		return ;
+	tmp = (*stack)->first->next;
+	(*stack)->first->next = tmp->next;
+	(*stack)->first->prev = tmp;
+	tmp->next = (*stack)->first;
+	tmp->prev = NULL;
+	(*stack)->first = tmp;
 
 }
 
-void	push_ss(t_stack **a, t_stack **b)
+void	ss(t_stack **a, t_stack **b)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-
-	stack_a = (*a)->next;
-	stack_b = (*b)->next;
-	add_node_front(stack_a, *b);
-	add_node_front(stack_b, *a);
+	swap(a);
+	swap(b);
 }
