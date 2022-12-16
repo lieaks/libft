@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:36:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/15 18:49:43 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/16 20:41:20 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct elem
 
 typedef struct	s_stack
 {
-	size_t	length;
+	int	length;
+	int		min;
 	elem	*first;
 	elem	*last;
 }	t_stack;
@@ -50,6 +51,9 @@ void	rr(t_stack **a, t_stack **b);
 void	reverse_rotate(t_stack **stack);
 void	rrr(t_stack **a, t_stack **b);
 void	free_stack(t_stack	**stack);
-t_stack *init_stack(int ac, char **av);
+t_stack *fill_stack(int ac, char **av);
+void	init_stack(t_stack **stack);
+void	ready_a_b(t_stack **a, t_stack **b);
+void	parsing(t_stack **a);
 
 #endif

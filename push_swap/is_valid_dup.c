@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_valid_dup.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/16 18:30:38 by dly               #+#    #+#             */
+/*   Updated: 2022/12/16 19:33:34 by dly              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	is_digit(char c)
@@ -31,40 +43,20 @@ long	ft_atoi(char *str)
 
 int	is_valid_dup(t_stack *a)
 {
-	elem	*left;
+	elem	*check;
 	elem	*current;
 
 	current = a->first;
 	while (current->next)
 	{
-		left = current;
-		printf("TEST\n");
-		while (left->next->next)
+		check = current;
+		while (check->next)
 		{	
-			if (left->num == left->next->num)
-			{
-				printf("wawa\n");
+			if (check->num == check->next->num)
 				return (0);
-			}
-			printf("first = %d vs sec = %d\n", left->num, left->next->num);
-			left = left->next;
+			check = check->next;
 		}
 		current = current->next;
 	}
 	return (1);
-	// first = a->first;
-	// while (first->next->next)
-	// {
-	// 	printf("TEST\n");
-	// 	second = first->next;
-	// 	while (second)
-	// 	{
-	// 		if (first->num == second->num)
-	// 			return (0);
-	// 		printf("first = %d vs sec = %d\n", first->num, second->num);
-	// 		second = second->next;
-	// 	}
-	// 	first = first->next;
-	// }
-	// return (1);
 }

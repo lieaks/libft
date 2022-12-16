@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:10:22 by dly               #+#    #+#             */
-/*   Updated: 2022/12/15 16:14:41 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/16 20:38:18 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ elem	*new_node(int nb)
 	if (!ptr)
 		return (NULL);
 	ptr->num = nb;
+	ptr->index = 0;
 	ptr->prev = NULL;
 	ptr->next = NULL;
 	return (ptr);
