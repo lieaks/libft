@@ -26,9 +26,6 @@ void	test(t_stack *stack)
 
 int main(int ac, char **av)
 {
-	int	i;
-
-	i = 0;
 	if (ac < 2)
 		return (1);
 	t_stack *a;

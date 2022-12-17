@@ -23,6 +23,18 @@ void	ready_a_b(t_stack **a, t_stack **b)
 		exit(EXIT_FAILURE);
 	}
 }
+int	lowest(t_stack *a)
+{
+	int	num;
+	
+	while (a->first)
+	{
+		if (a->first->num <= a->min && !(a->first->index))
+			num = a->first->num; 
+		a->first = a->first->next;
+	}
+	return (num);
+}
 
 void	parsing(t_stack **a)
 {
@@ -32,21 +44,23 @@ void	parsing(t_stack **a)
 	rank = 1;
 	current = *a;
 	current->min = current->first->num;
-	printf("%d\n",current->length);
-	while(rank <= current->length)
+	while(current->first)
 	{
-		current->first = (*a)->first;
-		if (current->first->num < current->min && !current->first->index)
-			current->min = current->first->num; 
-		current->first = current->first->next;
-		if (current->first->next == NULL)
+			
+		if (current->first == NULL)
 		{
+			printf("lol");
 			current->first = (*a)->first;
-			while (current->first->next)
+			printf("test %d\n",current->first->num);
+			while (current->first)
 			{
 				if (current->first->num == current->min)
 					current->first->index = rank++;
+				current->first = current->first->next;
 			}
+			current->first = (*a)->first;
 		}
+		printf("num : %d   index : %d  min :%d\n",current->first->num, current->first->index, current->min);
+		printf("adress %p\n",current->first);
 	}
 }
