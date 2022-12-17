@@ -22,45 +22,76 @@ void	ready_a_b(t_stack **a, t_stack **b)
 			free_stack(b);
 		exit(EXIT_FAILURE);
 	}
+	parsing(a);
 }
 int	lowest(t_stack *a)
 {
-	int	num;
-	
-	while (a->first)
+	elem	*e;
+	int		num;
+
+	num = INT_MAX;
+	e = a->first;
+	while (e)
 	{
-		if (a->first->num <= a->min && !(a->first->index))
-			num = a->first->num; 
-		a->first = a->first->next;
+		if (e->num <= num && !(e->index))
+			num = e->num;
+		e = e->next;
 	}
 	return (num);
 }
 
 void	parsing(t_stack **a)
 {
-	t_stack	*current;
-	int		rank;
+	elem 	*e;
+	long	rank;
 
 	rank = 1;
-	current = *a;
-	current->min = current->first->num;
-	while(current->first)
+	e = (*a)->first;
+	while(rank <= (*a)->length)
+	{	
+		if (e->num == lowest(*a))
+			e->index = rank++;
+		e = e->next;
+		if (!e)
+			e = (*a)->first;
+	}
+}
+
+void	get_two_last(t_stack **a, t_stack **b)
+{
+	long	two_last;
+
+	two_last = (*a)->length - 1;
+	while ((*a)->length > 2)
 	{
-			
-		if (current->first == NULL)
+		if ((*a)->first->index >= two_last)
+			rotate(a);
+		push(a, b);
+	}
+	if ((*a)->first->index > (*a)->first->next->index)
+		rotate(a);
+}
+
+void	get_link(t_stack **a, t_stack **b)
+{
+	elem	*a_a;
+	elem	*b_b;	
+
+	a_a = (*a)->first;
+	b_b = (*b)->first;
+	while (b_b)
+	{
+		b_b->link = a_a;
+		b_b = b_b->next;
+	}
+	while (b_b)
+	{
+		while (a_a)
 		{
-			printf("lol");
-			current->first = (*a)->first;
-			printf("test %d\n",current->first->num);
-			while (current->first)
-			{
-				if (current->first->num == current->min)
-					current->first->index = rank++;
-				current->first = current->first->next;
-			}
-			current->first = (*a)->first;
+			if(a_a->index > b_b->index && a_a->index < b_b->link->index)
+				b_b->link = b_b;
+			a_a = a_a->next;
 		}
-		printf("num : %d   index : %d  min :%d\n",current->first->num, current->first->index, current->min);
-		printf("adress %p\n",current->first);
+		b_b = b_b->next;
 	}
 }

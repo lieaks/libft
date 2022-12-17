@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:38 by dly               #+#    #+#             */
-/*   Updated: 2022/12/16 19:33:34 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/17 18:49:22 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int	is_valid_dup(t_stack *a)
 	current = a->first;
 	while (current->next)
 	{
-		check = current;
+		check = current->next;
 		while (check->next)
-		{	
-			if (check->num == check->next->num)
+		{
+			if (current->num == check->num)
 				return (0);
 			check = check->next;
 		}

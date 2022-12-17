@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:36:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/16 20:41:20 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/17 20:13:07 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@
 typedef struct elem
 {
 	int			num;
-	int			index;
+	long		index;
+	struct elem	*link;
+	int			cost;
 	struct elem	*prev;
 	struct elem	*next;
 }				elem;
 
 typedef struct	s_stack
 {
-	int	length;
-	int		min;
+	long	length;
 	elem	*first;
 	elem	*last;
 }	t_stack;
@@ -54,6 +55,9 @@ void	free_stack(t_stack	**stack);
 t_stack *fill_stack(int ac, char **av);
 void	init_stack(t_stack **stack);
 void	ready_a_b(t_stack **a, t_stack **b);
+int		lowest(t_stack *a);
 void	parsing(t_stack **a);
+void	get_two_last(t_stack **a, t_stack **b);
+void	get_link(t_stack **a, t_stack **b);
 
 #endif
