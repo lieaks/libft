@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:45 by dly               #+#    #+#             */
-/*   Updated: 2022/12/17 19:27:12 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/19 18:19:43 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	push(t_stack **src, t_stack **dest)
 		(*src)->first = NULL;
 	if ((*dest)->first != NULL)
 		(*dest)->first->prev = tmp;
+	else
+		(*dest)->last = tmp;
 	tmp->next = (*dest)->first;
 	(*dest)->first = tmp;
 	(*dest)->length += 1;

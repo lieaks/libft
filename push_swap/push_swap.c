@@ -116,7 +116,6 @@ void	get_link(t_stack **a, t_stack **b)
 		// printf("index  : %d\n", b_b->link->num);
 		b_b = b_b->next;
 	}
-	printf("kakak\n");
 }
 
 int	search_pos_in_a(elem *a, elem *b, int half)
@@ -169,7 +168,6 @@ void	get_cost(t_stack **a, t_stack **b)
 		b_b->cost += half + search_pos_in_a(a_a, b_b->link, (*b)->length);
 		b_b = b_b->next;
 	}
-	printf("jenesais pas \n");
 }
 
 elem	*get_lowest_cost(elem *b)
@@ -228,5 +226,4 @@ void	sorting(t_stack **a, t_stack **b)
 	}
 	if ((*b)->length > 0)
 		push(b, a); 
-	printf("---------------------------\n");
 }
