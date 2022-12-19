@@ -20,6 +20,7 @@ void	ready_a_b(t_stack **a, t_stack **b)
 		free_stack(a);
 		if (b)
 			free_stack(b);
+		printf("Error\n");
 		exit(EXIT_FAILURE);
 	}
 	parsing(a);
@@ -65,11 +66,18 @@ void	get_two_last(t_stack **a, t_stack **b)
 	while ((*a)->length > 2)
 	{
 		while ((*a)->first->index >= two_last)
-			rotate(a);
-		push(a, b);
+		{
+			rotate('a', a);
+			(*a)->ope++;
+		}
+		push('b', a, b);
+		(*a)->ope++;
 	}
 	if ((*a)->first->index > (*a)->first->next->index)
-		rotate(a);
+	{
+		rotate('a', a);
+		(*a)->ope++;
+	}
 }
 
 void	set_default_link(t_stack **a, t_stack **b)
@@ -98,22 +106,16 @@ void	get_link(t_stack **a, t_stack **b)
 
 	a_a = (*a)->first;
 	b_b = (*b)->first;
-	// printf("--------------------------------------------------------\n");
 	while (b_b)
 	{
 		a_a = (*a)->first;
-		// printf("num : %d   index a : %ld     index b : %ld\n",b_b->num, a_a->index, b_b->link->index);
 		while (a_a)
 		{
 			if(a_a->index > b_b->index && a_a->index < b_b->link->index)
-			{
-				// printf("index a : %ld     index b : %ld\n", a_a->index, b_b->index);
 				b_b->link = a_a;
-			}
 			a_a = a_a->next;
 		}
 		b_b->cost = 0;
-		// printf("index  : %d\n", b_b->link->num);
 		b_b = b_b->next;
 	}
 }
@@ -128,7 +130,6 @@ int	search_pos_in_a(elem *a, elem *b, int half)
 		pos++;
 		a = a->next;
 	}
-	// printf("a : %ld  b : %ld \n", a->index, b->index);
 	if (a == b)
 		return (pos);
 	if (half % 2)
@@ -153,12 +154,8 @@ void	get_cost(t_stack **a, t_stack **b)
 	while (b_b && half < (*b)->length / 2)
 	{
 		half++;
-		// printf(" testtestseth      %p\n",b_b->link);
 		b_b->cost += half + search_pos_in_a(a_a, b_b->link, (*b)->length);
-		// printf("pos : %d\n", search_pos_in_a(a_a, b_b->link, (*b)->length));
 		b_b = b_b->next;
-		// printf(" next adress      %p\n",b_b->next);
-		// printf(" length      %ld\n",(*b)->length);
 	}
 	if ((*b)->length % 2)
 		half++;
@@ -210,20 +207,54 @@ void	sorting(t_stack **a, t_stack **b)
 	while ((*a)->first != lowest->link)
 	{
 		if (check_rotate_faster(lowest->link, *a))
-			rotate(a);
+			rotate('a', a);
 		else
-			reverse_rotate(a);
+			reverse_rotate('a', a);
+		(*a)->ope++;
 	}
 	if ((*b)->length > 1)
 	{
 		while ((*b)->first != lowest)
 		{
 			if (check_rotate_faster(lowest, *b)) 
-				rotate(b);
+				rotate('b', b);
 			else
-				reverse_rotate(b);
+				reverse_rotate('b', b);
+			(*a)->ope++;
 		}
 	}
 	if ((*b)->length > 0)
-		push(b, a); 
+	{
+		push('a', b, a); 
+		(*a)->ope++;
+	}
+}
+
+elem	*search(int rank, elem *stack)
+{
+	elem	*pos;
+
+	pos = stack;
+	while (pos)
+	{
+		if (rank == pos->index)
+			return (pos);
+		pos = pos->next;
+	}
+	return (NULL);
+}
+
+void	last_rotate(t_stack **a)
+{
+	elem	*one;
+
+	one = search(1, (*a)->first);
+	while ((*a)->first != one)
+	{
+		if (!check_rotate_faster(one, *a))
+			reverse_rotate('a', a);	
+		else
+			rotate('a', a);
+		(*a)->ope++;
+	}
 }

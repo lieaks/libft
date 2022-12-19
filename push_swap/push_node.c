@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	push(t_stack **src, t_stack **dest)
+void	push(char c, t_stack **src, t_stack **dest)
 {
 	elem	*tmp;
 
@@ -34,4 +34,8 @@ void	push(t_stack **src, t_stack **dest)
 	(*dest)->first = tmp;
 	(*dest)->length += 1;
 	(*src)->length -= 1;
+	if (c == 'a')
+		printf("pa\n");
+	if (c == 'b')
+		printf("pb\n");
 }

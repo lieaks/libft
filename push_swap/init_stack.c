@@ -20,6 +20,7 @@ void	init_stack(t_stack **stack)
 	(*stack)->first = NULL;
 	(*stack)->last = NULL;
 	(*stack)->length = 0;
+	(*stack)->ope = 0;
 }
 
 t_stack *fill_stack(int ac, char **av)
@@ -41,6 +42,7 @@ t_stack *fill_stack(int ac, char **av)
 		{
 			free_stack(&a);
 			free(node);
+			printf("Error\n");
 			exit(EXIT_FAILURE);
 		}
 		add_node_back(&a, &node);

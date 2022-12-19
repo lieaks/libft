@@ -33,7 +33,6 @@ long	ft_atoi(char *str)
 	{
 		if (!is_digit(*str))
 			return (2147483650);
-	// check si return 0 ou INT_MAX + 1 exit on 0 
 		res *= 10;
 		res += *str - '0';
 		str++;
@@ -50,7 +49,7 @@ int	is_valid_dup(t_stack *a)
 	while (current->next)
 	{
 		check = current->next;
-		while (check->next)
+		while (check)
 		{
 			if (current->num == check->num)
 				return (0);

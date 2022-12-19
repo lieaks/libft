@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	rotate(t_stack **stack)
+void	rotate(char c, t_stack **stack)
 {
 	elem	*tmp;
 	elem	*last;
@@ -29,14 +29,18 @@ void	rotate(t_stack **stack)
 	last->next = tmp;
 	(*stack)->first = first;
 	(*stack)->last = tmp;
+	if (c == 'a')
+		printf("ra\n");
+	if (c == 'b')
+		printf("rb\n");
 }
 
 void	rr(t_stack **a, t_stack **b)
 {
-	rotate(a);
-	rotate(b);
+	rotate('a', a);
+	rotate('b', b);
 }
-void	reverse_rotate(t_stack **stack)
+void	reverse_rotate(char c, t_stack **stack)
 {
 	elem	*tmp;
 	elem	*last;
@@ -53,7 +57,10 @@ void	reverse_rotate(t_stack **stack)
 	last->next = NULL; 
 	(*stack)->first = tmp;
 	(*stack)->last = last;
-}
+	if (c == 'a')
+		printf("rra\n");
+	if (c == 'b')
+		printf("rrb\n");}
 // void	reverse_rotate(t_stack **stack)
 // {
 // 	elem	*tmp;
@@ -71,6 +78,6 @@ void	reverse_rotate(t_stack **stack)
 
 void	rrr(t_stack **a, t_stack **b)
 {
-	reverse_rotate(a);
-	reverse_rotate(b);
+	reverse_rotate('a', a);
+	reverse_rotate('b', b);
 }

@@ -64,9 +64,11 @@ int main(int ac, char **av)
 		get_cost(&a, &b);
 		sorting(&a, &b);
 	}
+	last_rotate(&a);
 	test(a);
 	printf("------------------\n");
 	test(b);
+	printf("nb ope : %ld\n", a->ope);
 	free_stack(&a);
 	free_stack(&b);
 	return (0);
