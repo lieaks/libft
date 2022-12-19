@@ -40,6 +40,7 @@ void	rr(t_stack **a, t_stack **b)
 	rotate('a', a);
 	rotate('b', b);
 }
+
 void	reverse_rotate(char c, t_stack **stack)
 {
 	elem	*tmp;
@@ -60,21 +61,8 @@ void	reverse_rotate(char c, t_stack **stack)
 	if (c == 'a')
 		printf("rra\n");
 	if (c == 'b')
-		printf("rrb\n");}
-// void	reverse_rotate(t_stack **stack)
-// {
-// 	elem	*tmp;
-
-// 	if((*stack)->first == NULL)
-// 		return ;
-// 	tmp = (*stack)->last;
-// 	(*stack)->last = tmp->prev;
-// 	(*stack)->last->next = NULL;
-// 	tmp->prev = NULL;
-// 	tmp->next = (*stack)->first;
-// 	(*stack)->first->prev = tmp;
-// 	(*stack)->first = tmp;
-// }
+		printf("rrb\n");
+}
 
 void	rrr(t_stack **a, t_stack **b)
 {
