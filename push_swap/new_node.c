@@ -23,5 +23,6 @@ elem	*new_node(int nb)
 	ptr->index = 0;
 	ptr->prev = NULL;
 	ptr->next = NULL;
+	ptr->link = NULL;
 	return (ptr);
 }

@@ -59,5 +59,11 @@ int		lowest(t_stack *a);
 void	parsing(t_stack **a);
 void	get_two_last(t_stack **a, t_stack **b);
 void	get_link(t_stack **a, t_stack **b);
+void	get_cost(t_stack **a, t_stack **b);
+int		search_pos_in_a(elem *a, elem *b, int half);
+void	set_default_link(t_stack **a, t_stack **b);
+elem	*get_lowest_cost(elem *b);
+int		check_rotate_faster(elem *b, t_stack *stack);
+void	sorting(t_stack **a, t_stack **b);
 
 #endif

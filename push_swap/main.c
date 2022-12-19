@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 void	test(t_stack *stack)
 {
@@ -21,8 +22,8 @@ void	test(t_stack *stack)
 	{
 		if (tmp->link)
 		{
-			printf("num : %d  || rank : %ld  ", tmp->num, tmp->index);
-			printf("link : %d\n", tmp->link->num);
+		printf("num : %d  || rank : %ld  ", tmp->num, tmp->index);
+			printf("link : %d    ||  cost : %d\n", tmp->link->num, tmp->cost);
 		}
 		tmp = tmp->next;
 	}
@@ -38,13 +39,19 @@ int main(int ac, char **av)
 
 	a = fill_stack(ac, av);
 	ready_a_b(&a, &b);
+	test(a);
 	get_two_last(&a, &b);
-	algo(&a,&b);
+	set_default_link(&a, &b);
+	while (b->first)
+	{
+		get_link(&a,&b);
+		get_cost(&a, &b);
+		sorting(&a, &b);
+	}
 	test(a);
 	printf("------------------\n");
 	test(b);
 	free_stack(&a);
 	free_stack(&b);
-
 	return (0);
-}
+} 
