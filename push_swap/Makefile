@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2022/12/20 16:19:22 by dly              ###   ########.fr        #
+#    Updated: 2022/12/20 16:29:40 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ RM				= rm -f
 AR				= ar rcs
 
 NAME			= push_swap
-NAME_LIB		= push_lib
+NAME_LIB		= push_lib.a
 HEADER			= push_swap.h
 
 ################################################################################
@@ -48,8 +48,8 @@ HEADER			= push_swap.h
 all:			$(NAME)
 
 $(NAME):		$(OBJS) $(HEADER)
-				@$(AR) $(OBJS) -o $(NAME_LIB) 
-				@$(CC) $(SRCS_MAIN) -o $(NAME) 
+				@$(AR) $(NAME_LIB) $(OBJS)
+				@$(CC) $(SRCS_MAIN) $(NAME_LIB) -o $(NAME) 
 				@echo "ft_printf compiled!"
 
 %.o:			%.c
@@ -57,14 +57,14 @@ $(NAME):		$(OBJS) $(HEADER)
 				@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ 
 				
 clean:
-				# $(RM) $(OBJS) 
+				@$(RM) $(OBJS) 
 				@echo "ft_printf object files cleaned!"
 
 fclean:			clean
-				@$(RM) $(NAME)
+				@$(RM) $(NAME) $(NAME_LIB)
 				@echo " executable files cleaned!"
 
-re:				fclean $(NAME)
+re:				fclean $(NAME) 
 
 norm:
 				@norminette $(SRCS) $(HEADER) 

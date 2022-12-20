@@ -54,8 +54,8 @@ int main(int ac, char **av)
 		sorting(&a, &b);
 	}
 	last_rotate(&a);
-	test(a);
-	test(b);
+	// test(a);
+	// test(b);
 	free_stack(&a);
 	free_stack(&b);
 	return (0);
