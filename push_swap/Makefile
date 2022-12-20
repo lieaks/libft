@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2022/12/20 16:29:40 by dly              ###   ########.fr        #
+#    Updated: 2022/12/20 16:32:03 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ all:			$(NAME)
 $(NAME):		$(OBJS) $(HEADER)
 				@$(AR) $(NAME_LIB) $(OBJS)
 				@$(CC) $(SRCS_MAIN) $(NAME_LIB) -o $(NAME) 
-				@echo "ft_printf compiled!"
+				@echo "push_swap executable ready!"
 
 %.o:			%.c
 				@echo "Compiling: $<"
@@ -58,7 +58,7 @@ $(NAME):		$(OBJS) $(HEADER)
 				
 clean:
 				@$(RM) $(OBJS) 
-				@echo "ft_printf object files cleaned!"
+				@echo "push_swap object files cleaned!"
 
 fclean:			clean
 				@$(RM) $(NAME) $(NAME_LIB)
