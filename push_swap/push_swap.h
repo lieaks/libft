@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -17,7 +18,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
-
+# include <stdarg.h>
 
 typedef struct elem
 {
@@ -35,6 +36,13 @@ typedef struct	s_stack
 	elem	*first;
 	elem	*last;
 }	t_stack;
+
+typedef struct s_sc
+{
+	int	count;
+	int	len;
+	int	error;
+}		t_sc;
 
 long	ft_atoi(char *str);
 int		is_digit(char c);
@@ -65,5 +73,21 @@ int		check_rotate_faster(elem *b, t_stack *stack);
 void	sorting(t_stack **a, t_stack **b);
 elem	*search(int rank, elem *stack);
 void	last_rotate(t_stack **a);
+void		ft_print_char(int c, t_sc *sc);
+void		ft_print_hex(unsigned int n, char c, t_sc *sc);
+void		ft_print_nbr(int n, t_sc *sc);
+void		ft_print_ptr(unsigned long long ptr, t_sc *sc);
+void		ft_print_str(char *str, t_sc *sc);
+void		ft_print_unsigned(unsigned int n, t_sc *sc);
+int			ft_len_nb(unsigned long long ptr, char *base);
+int			ft_itoa_base(unsigned long long ptr, char *base);
+int			is_in_charset(char format, char *charset);
+const char	*is_format(const char *format, t_sc *sc);
+const char	*ft_search_arg(va_list arg, const char *format, t_sc *sc);
+const char	*ft_read_txt(const char *format, t_sc *sc);
+int			ft_printf(const char *format, ...);
+size_t	ft_strlen(const char *s);
+char	*ft_itoa(int n);
+char	*ft_strchr(const char *s, int c);
 
 #endif
