@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_node.c                                         :+:      :+:    :+:   */
+/*   get_cost.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:10:22 by dly               #+#    #+#             */
-/*   Updated: 2022/12/16 20:38:18 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/21 16:46:38 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	search_pos_in_a(elem *a, elem *b, int half)
+int	search_pos_in_a(t_elem *a, t_elem *b, int half)
 {
 	int	pos;
-	
+
 	pos = 0;
 	while (a != b && pos < half / 2)
 	{
@@ -33,16 +33,17 @@ int	search_pos_in_a(elem *a, elem *b, int half)
 	}
 	return (pos);
 }
+
 /* assign the real cost (moving in a then in b) to each element */
 void	get_cost(t_stack **a, t_stack **b)
 {
-	elem	*a_a;
-	elem	*b_b;
+	t_elem	*a_a;
+	t_elem	*b_b;
 	int		half;
 
+	half = -1;
 	a_a = (*a)->first;
 	b_b = (*b)->first;
-	half = -1;
 	while (b_b && half < (*b)->length / 2)
 	{
 		half++;

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:52 by dly               #+#    #+#             */
-/*   Updated: 2022/12/19 18:31:56 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/21 16:45:21 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	rotate(char c, t_stack **stack)
 {
-	elem	*tmp;
-	elem	*last;
-	elem	*first;
+	t_elem	*tmp;
+	t_elem	*last;
+	t_elem	*first;
 
-	if ((*stack)->first == NULL)
+	if ((*stack)->first == NULL || (*stack)->first->next == NULL)
 		return ;
 	tmp = (*stack)->first;
 	first = (*stack)->first->next;
@@ -30,42 +30,44 @@ void	rotate(char c, t_stack **stack)
 	(*stack)->first = first;
 	(*stack)->last = tmp;
 	if (c == 'a')
-		printf("ra\n");
+		write(1, "ra\n", 3);
 	if (c == 'b')
-		printf("rb\n");
+		write(1, "rb\n", 3);
 }
 
 void	rr(t_stack **a, t_stack **b)
 {
-	rotate('a', a);
-	rotate('b', b);
+	rotate('r', a);
+	rotate('r', b);
+	write(1, "rr\n", 3);
 }
 
 void	reverse_rotate(char c, t_stack **stack)
 {
-	elem	*tmp;
-	elem	*last;
-	elem	*first;
+	t_elem	*tmp;
+	t_elem	*last;
+	t_elem	*first;
 
 	if ((*stack)->first == NULL)
 		return ;
 	tmp = (*stack)->last;
 	first = (*stack)->first;
 	last = (*stack)->last->prev;
-	first->prev = tmp; 
+	first->prev = tmp;
 	tmp->prev = NULL;
 	tmp->next = first;
-	last->next = NULL; 
+	last->next = NULL;
 	(*stack)->first = tmp;
 	(*stack)->last = last;
 	if (c == 'a')
-		printf("rra\n");
+		write(1, "rra\n", 4);
 	if (c == 'b')
-		printf("rrb\n");
+		write(1, "rrb\n", 4);
 }
 
 void	rrr(t_stack **a, t_stack **b)
 {
-	reverse_rotate('a', a);
-	reverse_rotate('b', b);
+	reverse_rotate('r', a);
+	reverse_rotate('r', b);
+	write(1, "rrr\n", 4);
 }

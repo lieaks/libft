@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   last_rotate.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/21 16:33:10 by dly               #+#    #+#             */
+/*   Updated: 2022/12/21 16:54:19 by dly              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-elem	*search(int rank, elem *stack)
+t_elem	*search(int rank, t_elem *stack)
 {
-	elem	*pos;
+	t_elem	*pos;
 
 	pos = stack;
 	while (pos)
@@ -16,13 +28,13 @@ elem	*search(int rank, elem *stack)
 
 void	last_rotate(t_stack **a)
 {
-	elem	*one;
+	t_elem	*one;
 
 	one = search(1, (*a)->first);
 	while ((*a)->first != one)
 	{
-		if (!check_rotate_faster(one, *a))
-			reverse_rotate('a', a);	
+		if (!way(one, *a))
+			reverse_rotate('a', a);
 		else
 			rotate('a', a);
 	}

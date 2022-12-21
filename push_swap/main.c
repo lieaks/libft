@@ -12,36 +12,10 @@
 
 #include "push_swap.h"
 
-void	test(t_stack *stack)
+int	main(int ac, char **av)
 {
-	elem	*tmp;
-
-	tmp = stack->first;
-	while (tmp)
-	{
-		printf("num : %d  || rank : %ld\n", tmp->num, tmp->index);
-		tmp = tmp->next;
-	}
-	printf("stack length : %ld\n", stack->length);
-}
-
-void	test_t(t_stack *stack)
-{
-	elem	*tmp;
-
-	tmp = stack->last;
-	while (tmp)
-	{
-		printf("num : %d  || rank : %ld\n", tmp->num, tmp->index);
-		tmp = tmp->prev;
-	}
-	printf("stack length : %ld\n", stack->length);
-}
-
-int main(int ac, char **av)
-{
-	t_stack *a;
-	t_stack *b;
+	t_stack	*a;
+	t_stack	*b;
 
 	if (ac < 2)
 		return (1);
@@ -49,14 +23,12 @@ int main(int ac, char **av)
 	ready_a_b(&a, &b);
 	while (b->first)
 	{
-		get_link(&a,&b);
+		get_link(&a, &b);
 		get_cost(&a, &b);
 		sorting(&a, &b);
 	}
 	last_rotate(&a);
-	// test(a);
-	// test(b);
 	free_stack(&a);
 	free_stack(&b);
 	return (0);
-} 
+}

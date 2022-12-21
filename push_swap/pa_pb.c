@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_node.c                                        :+:      :+:    :+:   */
+/*   pa_pb.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:45 by dly               #+#    #+#             */
-/*   Updated: 2022/12/19 18:19:43 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/21 16:44:07 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	push(char c, t_stack **src, t_stack **dest)
 {
-	elem	*tmp;
+	t_elem	*tmp;
 
 	if ((*src)->first == NULL)
 		return ;
@@ -35,7 +35,7 @@ void	push(char c, t_stack **src, t_stack **dest)
 	(*dest)->length += 1;
 	(*src)->length -= 1;
 	if (c == 'a')
-		printf("pa\n");
+		write(1, "pa\n", 3);
 	if (c == 'b')
-		printf("pb\n");
+		write(1, "pb\n", 3);
 }

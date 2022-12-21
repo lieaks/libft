@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2022/12/20 16:32:03 by dly              ###   ########.fr        #
+#    Updated: 2022/12/21 16:58:39 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,8 @@
 SRCS_MAIN		= 	main.c
 SRCS			=	assign_rank.c  fill_stack.c  get_cost.c  get_two_last.c \
 					main.c  pa_pb.c  rotate.c  swap.c \
-					check_rotate_faster.c  free_stack.c  get_link.c \
+					way.c  free_stack.c  get_link.c \
 					last_rotate.c  algo.c  ready_a_b.c  set_default_link.c \
-					ft_printf.c ft_print_char.c ft_print_nbr.c \
-					ft_print_utils.c 
 
 # SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS			= $(SRCS:.c=.o)

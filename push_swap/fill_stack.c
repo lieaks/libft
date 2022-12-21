@@ -6,33 +6,44 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:27 by dly               #+#    #+#             */
-/*   Updated: 2022/12/16 18:30:28 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/21 16:42:46 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_digit(char c)
+size_t	ft_strlen(const char *s)
 {
-	return (c >= '0' && c <= '9');
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }
 
 long	ft_atoi(char *str)
 {
 	long	res;
 	int		sign;
+	long	error;
 
+	error = 2147483650;
 	res = 0;
 	sign = 1;
 	if (*str == '-')
 	{
+		if (ft_strlen(str) == 1)
+			return (error);
 		sign *= -1;
 		str++;
 	}
 	while (*str)
 	{
-		if (!is_digit(*str))
-			return (2147483650);
+		if (!(*str >= '0' && *str <= '9'))
+			return (error);
 		res *= 10;
 		res += *str - '0';
 		str++;
@@ -40,11 +51,11 @@ long	ft_atoi(char *str)
 	return (res * sign);
 }
 
-elem	*new_node(int nb)
+t_elem	*new_node(int nb)
 {
-	elem	*ptr;
+	t_elem	*ptr;
 
-	ptr = (elem *)malloc(sizeof(elem));
+	ptr = (t_elem *)malloc(sizeof(t_elem));
 	if (!ptr)
 		return (NULL);
 	ptr->num = nb;
@@ -55,9 +66,9 @@ elem	*new_node(int nb)
 	return (ptr);
 }
 
-void	add_node_back(t_stack **stack, elem **node)
+void	add_node_back(t_stack **stack, t_elem **node)
 {
-	elem	*last;
+	t_elem	*last;
 
 	if (!stack || !node)
 		return ;
@@ -78,7 +89,7 @@ void	add_node_back(t_stack **stack, elem **node)
 
 void	fill_stack(t_stack **a, int ac, char **av)
 {
-	elem	*node;
+	t_elem	*node;
 	long	nb;
 	int		i;
 
@@ -95,7 +106,7 @@ void	fill_stack(t_stack **a, int ac, char **av)
 			free_stack(a);
 			if (node)
 				free(node);
-			printf("Error\n");
+			write(2, "Error\n", 6);
 			exit(EXIT_FAILURE);
 		}
 		add_node_back(a, &node);
