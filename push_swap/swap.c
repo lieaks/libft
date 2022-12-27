@@ -6,13 +6,13 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:57 by dly               #+#    #+#             */
-/*   Updated: 2022/12/21 16:45:56 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/27 19:16:18 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap(t_stack **stack)
+void	swap(char c, t_stack **stack)
 {
 	t_elem	*tmp;
 
@@ -24,10 +24,14 @@ void	swap(t_stack **stack)
 	tmp->next = (*stack)->first;
 	tmp->prev = NULL;
 	(*stack)->first = tmp;
+	if (c == 'a')
+		write(1, "sa\n", 3);
+	if (c == 'b')
+		write(1, "sb\n", 3);
 }
 
 void	ss(t_stack **a, t_stack **b)
 {
-	swap(a);
-	swap(b);
+	swap('a', a);
+	swap('b', b);
 }

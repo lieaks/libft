@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:36:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/21 17:05:47 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/27 19:13:15 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	add_node_back(t_stack **stack, t_elem **node);
 t_elem	*new_node(int nb);
 void	push(char c, t_stack **src, t_stack **dest);
 void	push_ss(t_stack **a, t_stack **b);
-void	swap(t_stack **stack);
+void	swap(char c, t_stack **stack);
 void	ss(t_stack **a, t_stack **b);
 void	rotate(char c, t_stack **stack);
 void	reverse_rotate(char c, t_stack **stack);
@@ -64,5 +64,7 @@ void	sorting(t_stack **a, t_stack **b);
 t_elem	*search(int rank, t_elem *stack);
 void	last_rotate(t_stack **a);
 void	use_rr_rrr(t_stack **a, t_stack **b);
+int		is_sorted(t_elem *stack);
+void	sort_three(t_stack **a);
 
 #endif

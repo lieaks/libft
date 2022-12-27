@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_stack.c                                       :+:      :+:    :+:   */
+/*   is_sorted.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 18:30:30 by dly               #+#    #+#             */
-/*   Updated: 2022/12/26 21:38:19 by dly              ###   ########.fr       */
+/*   Created: 2022/12/27 14:03:49 by dly               #+#    #+#             */
+/*   Updated: 2022/12/27 21:00:43 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_stack(t_stack	**stack)
+int	is_sorted(t_elem *stack)
 {
 	t_elem	*tmp;
-	t_elem	*current;
 
-	if (!*stack)
-		return ;
-	current = (*stack)->first;
-	while (current)
+	tmp = stack;
+	if (!stack)
+		return (-1);
+	while (tmp->next)
 	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
+		if (tmp->num > tmp->next->num)
+			return (0);
+		tmp = tmp->next;
 	}
-	(*stack)->first = NULL;
-	free(*stack);
-	*stack = NULL;
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:33:10 by dly               #+#    #+#             */
-/*   Updated: 2022/12/21 16:54:19 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/26 19:58:29 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	last_rotate(t_stack **a)
 {
 	t_elem	*one;
 
+	if (!(*a)->first->next)
+		return ;
 	one = search(1, (*a)->first);
 	while ((*a)->first != one)
 	{

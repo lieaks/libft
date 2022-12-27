@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 	t_stack	*b;
 
 	if (ac < 2)
-		return (1);
+		return (0);
 	fill_stack(&a, ac, av);
 	ready_a_b(&a, &b);
 	while (b->first)

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:34 by dly               #+#    #+#             */
-/*   Updated: 2022/12/21 16:45:03 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/26 21:39:08 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	ready_a_b(t_stack **a, t_stack **b)
 	if (!is_valid_dup(*a) || !*b)
 	{
 		free_stack(a);
-		if (b)
-			free_stack(b);
+		free_stack(b);
 		write(2, "Error\n", 6);
 		exit(EXIT_FAILURE);
 	}

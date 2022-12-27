@@ -6,11 +6,25 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:47:42 by dly               #+#    #+#             */
-/*   Updated: 2022/12/21 17:03:46 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/27 21:00:17 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	sort_three(t_stack **a)
+{
+	while (!is_sorted((*a)->first))
+	{
+		if ((*a)->first->next->num > (*a)->first->num && (*a)->first->next->num
+			> (*a)->last->num && (*a)->first->num < (*a)->last->num)
+			swap('a', a);
+		while ((*a)->first->num > (*a)->last->num)
+			rotate('a', a);
+		if ((*a)->first->num > (*a)->first->next->num)
+			swap('a', a);
+	}
+}
 
 /* Searching the elem that have the smaller operations and return that elem */
 t_elem	*get_lowest_cost(t_elem *b)
@@ -47,6 +61,7 @@ void	sorting(t_stack **a, t_stack **b)
 	t_elem	*lowest;
 
 	lowest = get_lowest_cost((*b)->first);
+	use_rr_rrr(a, b);
 	while ((*a)->first != lowest->link)
 	{
 		if (way(lowest->link, *a))

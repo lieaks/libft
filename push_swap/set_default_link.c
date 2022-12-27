@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:37:14 by dly               #+#    #+#             */
-/*   Updated: 2022/12/21 16:45:50 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/27 18:29:56 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	set_default_link(t_stack **a, t_stack **b)
 	b_b = (*b)->first;
 	while (b_b)
 	{
-		b_b->link = a_a;
+		b_b->link = (*a)->last;
 		b_b = b_b->next;
 	}
 	while (a_a)
 	{
-		a_a->link = a_a;
+		a_a->link = (*a)->last;
 		a_a = a_a->next;
 	}
 }
