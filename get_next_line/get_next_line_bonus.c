@@ -104,7 +104,7 @@ char	*save_next(char *buffer)
 	i++;
 	while (buffer[i])
 		next[j++] = buffer[i++];
-	free(buffer);
+	free(buffer)f;
 	next[j] = '\0';
 	return (next);
 }
