@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 14:03:49 by dly               #+#    #+#             */
-/*   Updated: 2022/12/27 21:00:43 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 14:11:56 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_sorted(t_elem *stack)
 		return (-1);
 	while (tmp->next)
 	{
-		if (tmp->num > tmp->next->num)
+		if (tmp->num > tmp->next->num || tmp->index + 1 != tmp->next->index)
 			return (0);
 		tmp = tmp->next;
 	}

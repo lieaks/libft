@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_stack.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/16 18:30:30 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 17:41:53 by dly              ###   ########.fr       */
+/*   Created: 2022/11/08 16:15:08 by dly               #+#    #+#             */
+/*   Updated: 2022/12/29 18:12:43 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	exit_err(void)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
+	size_t			i;
+	unsigned char	*ss1;
+	unsigned char	*ss2;
 
-void	free_stack(t_stack	**stack)
-{
-	t_elem	*tmp;
-	t_elem	*current;
-
-	if (!*stack)
-		return ;
-	current = (*stack)->first;
-	while (current)
-	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
-	}
-	(*stack)->first = NULL;
-	free(*stack);
-	*stack = NULL;
+	ss1 = (unsigned char *)s1;
+	ss2 = (unsigned char *)s2;
+	i = 0;
+	while (ss1[i] == ss2[i] && ss1[i] && ss2[i])
+		i++;
+	return (ss1[i] - ss2[i]);
 }

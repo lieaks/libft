@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:47:42 by dly               #+#    #+#             */
-/*   Updated: 2022/12/27 21:00:17 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 17:30:21 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	use_rr_rrr(t_stack **a, t_stack **b)
 		&& (way(lowest->link, *a) == way(lowest, *b)))
 	{
 		if (way(lowest->link, *a) && way(lowest, *b))
-			rr(a, b);
+			rr('a', a, b);
 		else if (!way(lowest->link, *a) && !way(lowest, *b))
-			rrr(a, b);
+			rrr('a', a, b);
 	}
 }
 
@@ -67,7 +67,9 @@ void	sorting(t_stack **a, t_stack **b)
 		if (way(lowest->link, *a))
 			rotate('a', a);
 		else
+		{
 			reverse_rotate('a', a);
+		}
 	}
 	if ((*b)->length > 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:57 by dly               #+#    #+#             */
-/*   Updated: 2022/12/27 19:16:18 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 20:35:03 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,36 @@
 
 void	swap(char c, t_stack **stack)
 {
-	t_elem	*tmp;
+	t_elem	*un;
+	t_elem	*deux;
+	t_elem	*trois;
 
-	if (*stack == NULL || (*stack)->first->next == NULL)
+	if ((*stack)->length < 2 || !((*stack)->first) || !((*stack)->first->next))
 		return ;
-	tmp = (*stack)->first->next;
-	(*stack)->first->next = tmp->next;
-	(*stack)->first->prev = tmp;
-	tmp->next = (*stack)->first;
-	tmp->prev = NULL;
-	(*stack)->first = tmp;
+	un = (*stack)->first;
+	deux = (*stack)->first->next;
+	if ((*stack)->length > 2)
+	{
+		trois = (*stack)->first->next->next;
+		un->next = deux->next;
+		trois->prev = un;
+	}
+	else
+		un->next = NULL;
+	un->prev = deux;
+	deux->prev = NULL;
+	deux->next = un;
+	(*stack)->first = deux;
 	if (c == 'a')
 		write(1, "sa\n", 3);
 	if (c == 'b')
 		write(1, "sb\n", 3);
 }
 
-void	ss(t_stack **a, t_stack **b)
+void	ss(char c, t_stack **a, t_stack **b)
 {
-	swap('a', a);
-	swap('b', b);
+	swap('x', a);
+	swap('x', b);
+	if (c == 'a' || c == 'b')
+		write(1, "ss", 2);
 }

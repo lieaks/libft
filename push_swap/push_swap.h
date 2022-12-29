@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:36:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/27 19:13:15 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 18:16:00 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdio.h>
+# include "get_next_line.h"
 
 typedef struct s_elem
 {
@@ -42,11 +43,11 @@ t_elem	*new_node(int nb);
 void	push(char c, t_stack **src, t_stack **dest);
 void	push_ss(t_stack **a, t_stack **b);
 void	swap(char c, t_stack **stack);
-void	ss(t_stack **a, t_stack **b);
+void	ss(char c, t_stack **a, t_stack **b);
 void	rotate(char c, t_stack **stack);
 void	reverse_rotate(char c, t_stack **stack);
-void	rr(t_stack **a, t_stack **b);
-void	rrr(t_stack **a, t_stack **b);
+void	rr(char c, t_stack **a, t_stack **b);
+void	rrr(char c, t_stack **a, t_stack **b);
 void	free_stack(t_stack	**stack);
 void	fill_stack(t_stack **a, int ac, char **av);
 void	init_stack(t_stack **stack);
@@ -56,7 +57,7 @@ void	assign_rank(t_stack **a);
 void	get_two_last(t_stack **a, t_stack **b);
 void	get_link(t_stack **a, t_stack **b);
 void	get_cost(t_stack **a, t_stack **b);
-int		search_pos_in_a(t_elem *a, t_elem *b, int half);
+int		search_pos_in_a(t_stack *stack_a, t_elem *b, int half);
 void	set_default_link(t_stack **a, t_stack **b);
 t_elem	*get_lowest_cost(t_elem *b);
 int		way(t_elem *b, t_stack *stack);
@@ -66,5 +67,11 @@ void	last_rotate(t_stack **a);
 void	use_rr_rrr(t_stack **a, t_stack **b);
 int		is_sorted(t_elem *stack);
 void	sort_three(t_stack **a);
+int		search_rr(t_elem *a, t_elem *b, int half);
+int		search_rrr(t_elem *a, t_elem *b, int half);
+void	get_first_cost(t_stack **a, t_stack **b);
+void	get_last_cost(t_stack **a, t_stack **b);
+int		ft_strcmp(const char *s1, const char *s2);
+void	exit_err(void);
 
 #endif
