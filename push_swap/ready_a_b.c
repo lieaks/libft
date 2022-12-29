@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:34 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 16:52:28 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 20:46:43 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	ready_a_b(t_stack **a, t_stack **b)
 	{
 		free_stack(a);
 		free_stack(b);
-		write(2, "Error\n", 6);
-		exit(EXIT_FAILURE);
+		exit_err();
 	}
 	assign_rank(a);
 	get_two_last(a, b);

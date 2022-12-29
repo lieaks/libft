@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:27 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 20:41:09 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 20:45:53 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ void	fill_stack(t_stack **a, int ac, char **av)
 			free_stack(a);
 			if (node)
 				free(node);
-			write(2, "Error\n", 6);
-			exit(EXIT_FAILURE);
+			exit_err();
 		}
 		add_node_back(a, &node);
 		i++;

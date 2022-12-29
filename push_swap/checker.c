@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:33:31 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 20:34:24 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 20:57:37 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void	ready_checker(t_stack **a, t_stack **b)
 	init_stack(b);
 	if (!is_valid_dup(*a) || !*b)
 	{
-		free_stack(a);
-		free_stack(b);
-		write(2, "Error\n", 6);
-		exit(EXIT_FAILURE);
+		exit_free_err(a, b);
 	}
 	assign_rank(a);
 }
@@ -50,7 +47,7 @@ void	apply_ope(char *ope, t_stack **a, t_stack **b)
 	else if (!ft_strcmp(ope, "rrr\n"))
 		rrr('x', a, b);
 	else
-		exit_err();
+		exit_all_free_err(a, b, ope);
 }
 
 void	ope_stdin(t_stack **a, t_stack **b)

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:30 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 17:41:53 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 20:57:06 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@ void	exit_err(void)
 {
 	write(2, "Error\n", 6);
 	exit(EXIT_FAILURE);
+}
+
+void	exit_free_err(t_stack **a, t_stack **b)
+{
+	free_stack(a);
+	free_stack(b);
+	exit_err();
+}
+
+void	exit_all_free_err(t_stack **a, t_stack **b, char *line)
+{
+	if (line)
+		free(line);
+	exit_free_err(a, b);
 }
 
 void	free_stack(t_stack	**stack)

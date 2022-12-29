@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:36:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 18:16:00 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/29 20:57:15 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ void	get_first_cost(t_stack **a, t_stack **b);
 void	get_last_cost(t_stack **a, t_stack **b);
 int		ft_strcmp(const char *s1, const char *s2);
 void	exit_err(void);
+void	exit_free_err(t_stack **a, t_stack **b);
+void	exit_all_free_err(t_stack **a, t_stack **b, char *line);
 
 #endif
