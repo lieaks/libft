@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 20:23:48 by dly               #+#    #+#             */
-/*   Updated: 2022/12/28 18:32:20 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/30 14:19:12 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,19 @@ int	main(int ac, char **av, char **envp)
 		return (0);
 	pipex.infile = open(av[1], O_RDONLY);
 	if (pipex.infile < 0)
-	{
-		write(2, "Error\n", 6);
-		exit(EXIT_FAILURE);
-	}
+		return (p_err);
 	pipex.outfile = open(av[3], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (pipex.outfile < 0)
 		return (p_err);
-	pipex.envp_path = get_path
-	//need path / cmd / 
+	pipex.envp_path = get_path();
+	pipex.cmd_paths = ft_split(pipex.envp_path, ':');
 	if (pipe(pipex.end) < 0)
 		return (p_err);
-	
+	pipex.pid1 = fork();
+	if (pipex.pid1 == 0)
+	{
+		
+	}
 	if (close(pipex.infile) < 0)
 	{
 		write(2, "Error\n", 6);
