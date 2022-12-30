@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:55:19 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 18:15:29 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/30 20:15:36 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int bool);
 char	*read_line(int fd, char *res);
 char	*get_line(char *buffer);
 char	*save_next(char *buffer);

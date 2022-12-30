@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:33:31 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 20:57:37 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/30 20:51:48 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ready_checker(t_stack **a, t_stack **b)
 	assign_rank(a);
 }
 
-void	apply_ope(char *ope, t_stack **a, t_stack **b)
+int	apply_ope(char *ope, t_stack **a, t_stack **b)
 {
 	if (!ft_strcmp(ope, "sa\n"))
 		swap('x', a);
@@ -47,19 +47,24 @@ void	apply_ope(char *ope, t_stack **a, t_stack **b)
 	else if (!ft_strcmp(ope, "rrr\n"))
 		rrr('x', a, b);
 	else
-		exit_all_free_err(a, b, ope);
+		return (1);
+	return (0);
 }
 
 void	ope_stdin(t_stack **a, t_stack **b)
 {
 	char	*line;
+	int		err;
 
-	line = get_next_line(0);
+	err = 0;
+	line = get_next_line(0, 0);
 	while (line)
 	{
-		apply_ope(line, a, b);
+		err = apply_ope(line, a, b);
 		free(line);
-		line = get_next_line(0);
+		line = get_next_line(0, err);
+		if (err)
+			exit_all_free_err(a, b, line);
 	}
 	if (!(*b)->first && a && is_sorted((*a)->first))
 		write(1, "OK\n", 3);

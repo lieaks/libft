@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:41:32 by dly               #+#    #+#             */
-/*   Updated: 2022/12/12 14:16:16 by dly              ###   ########.fr       */
+/*   Updated: 2022/12/30 20:53:03 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,20 +112,24 @@ char	*save_next(char *buffer)
 	return (next);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int bool)
 {
 	static char	*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = read_line(fd, buffer);
+	if (!bool)
+		buffer = read_line(fd, buffer);
 	if (!buffer)
 		return (NULL);
+	if (bool)
+		return (free(buffer), NULL);
 	line = get_line(buffer);
 	buffer = save_next(buffer);
 	return (line);
 }
+
 /*
 #include <stdio.h>
 
@@ -142,7 +146,7 @@ int	main()
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
-		printf("%s\n", line);
+		printf("%s", line);
 		free(line);
 	}
 	if (close(fd) < 0)

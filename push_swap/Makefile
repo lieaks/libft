@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2022/12/29 20:35:51 by dly              ###   ########.fr        #
+#    Updated: 2022/12/30 15:10:12 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,14 +47,14 @@ HEADER_GNL		= get_next_line.h
 #                                                                              #
 ################################################################################
 
-all:			$(NAME) $(CHECKER_NAME)
+all:			$(NAME) 
 
 $(NAME):		$(OBJS) $(HEADER)
 				@$(AR) $(NAME_LIB) $(OBJS)
 				@$(CC) $(SRCS_MAIN) $(NAME_LIB) -o $(NAME) 
 				@echo "push_swap executable ready!"
 				
-$(CHECKER_NAME): $(SRCS_MAIN_CHECK) $(HEADER_GNL)
+bonus			: $(SRCS_MAIN_CHECK) $(HEADER_GNL)
 				@echo "checker executable ready!"
 				@$(CC) $(SRCS_MAIN_CHECK) $(NAME_LIB) -o $(CHECKER_NAME) 
 
@@ -70,7 +70,7 @@ fclean:			clean
 				@$(RM) $(NAME) $(CHECKER_NAME) $(NAME_LIB)
 				@echo " executable files cleaned!"
 
-re:				fclean $(NAME) 
+re:				fclean $(NAME) bonus
 
 norm:
 				@norminette $(SRCS) $(HEADER) 
