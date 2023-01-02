@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:30:27 by dly               #+#    #+#             */
-/*   Updated: 2022/12/29 20:45:53 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/02 15:50:47 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ long	ft_atoi(char *str)
 	sign = 1;
 	if (*str == '-')
 	{
-		if (ft_strlen(str) == 1)
+		if (ft_strlen(str) == 1 || ft_strlen(str) > 11)
 			return (error);
 		sign *= -1;
 		str++;
 	}
 	while (*str)
 	{
-		if (!(*str >= '0' && *str <= '9'))
+		if (!(*str >= '0' && *str <= '9') || ft_strlen(str) > 10)
 			return (error);
 		res *= 10;
 		res += *str - '0';
