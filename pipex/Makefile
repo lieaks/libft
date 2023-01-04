@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/03 19:02:02 by dly              ###   ########.fr        #
+#    Updated: 2023/01/04 19:50:10 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,14 @@ M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
 
 LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
-				  ft_strncmp.c  ft_strlen.c
+				  ft_strncmp.c  ft_strlen.c  ft_join.c
 LIBFT_DIR		= libft/
 L_SRCS			= $(addprefix $(LIBFT_DIR), $(LIBFT_FILES))
 L_OBJS			= $(L_SRCS:.c=.o)
 
 INCLUDE			= -I include/ 
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -g3 -Wall -Wextra -Werror
 
 RM				= rm -f
 AR				= ar rcs
