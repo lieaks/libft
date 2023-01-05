@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/04 19:50:10 by dly              ###   ########.fr        #
+#    Updated: 2023/01/05 16:19:01 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,10 @@ SRCS_FILES		= main.c  processes.c
 SRCS_DIR		= srcs/mandatory/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
+
+B_SRCS_DIR		= srcs/bonus/
+B_SRCS			= $(addprefix $(B_SRCS_DIR), $(SRCS_FILES))
+B_OBJS			= $(B_SRCS:.c=.o)
 
 LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
 				  ft_strncmp.c  ft_strlen.c  ft_join.c
@@ -36,6 +40,7 @@ AR				= ar rcs
 
 NAME			= pipex 
 HEADER			= include/pipex.h
+HEADER_B		= include/pipex_bonus.h
 
 ################################################################################
 #                                                                              #
@@ -53,9 +58,10 @@ $(NAME):		$(L_OBJS) $(M_OBJS) $(HEADER)
 				@$(CC) $(M_OBJS) $(L_OBJS) -o $(NAME) 
 				@echo "pipex executable ready!"
 				
-bonus			: $(SRCS_MAIN_CHECK) $(HEADER_GNL)
+bonus			: $(L_OBJS) $(HEADER_B)
 				@echo "checker executable ready!"
-				@$(CC) $(SRCS_MAIN_CHECK) $(NAME_LIB) -o $(CHECKER_NAME) 
+				@$(CC) $(CFLAGS) $(INCLUDE) $(B_SRCS)
+				@$(CC) $(L_OBJS) $(B_OBJS) -o $(NAME) 
 				
 clean:
 				@$(RM) $(M_OBJS) 
