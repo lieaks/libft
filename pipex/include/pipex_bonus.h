@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 20:25:18 by dly               #+#    #+#             */
-/*   Updated: 2023/01/05 18:10:08 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/06 18:44:52 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,26 @@ typedef struct s_pipexb
 	char	**cmd_paths;
 	char	**cmd_args;
 	int		here_doc;
+	int		nb_cmds;
+	int		nb_pipes;
+	int		index;
 }	t_pipexb;
 
+#define ERR_ARGS "Invalid number of arguments. Default: args > 5.\n"
+#define	ERR_FILES "no such file or directory"
 
 char	*get_path(char **envp);
-/* libft */
-size_t	ft_strlen(const char *s);
-void	*ft_memset(void *s, int c, size_t n);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	**ft_split(char const *s, char c);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_join_three(char *str1, char *str2, char *str3);
-// void	child_one(t_pipex pipex, char **av, char **envp);
-// void	child_two(t_pipex pipex, char **av, char **envp);
-// void	free_child(t_pipex *pipex, char *msg);
-// void	free_parent(t_pipex *pipex);
-// void	p_err_(char *msg);
+char	*get_cmd(char **envp_path, char *cmd);
+void	get_infile(char **av, t_pipexb *pipex);
+void	get_outfile(char *av_last, t_pipexb *pipex);
+void	child(t_pipexb *pipex, char **av, char **envp);
+void	exit_msg_err(char *msg);
+void	open_pipes(t_pipexb *pipex);
+void	get_pipes(int ac, t_pipexb *pipex);
+void	close_pipes(t_pipexb *pipex);
+void	free_pipes(t_pipexb *pipex);
+void	free_child(t_pipexb *pipex, char *cmd);
+void	here_doc(char *av2, t_pipexb *pipex);
+void	free_parent(t_pipexb *pipex);
 
 #endif

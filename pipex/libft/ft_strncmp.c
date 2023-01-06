@@ -6,11 +6,11 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:15:08 by dly               #+#    #+#             */
-/*   Updated: 2023/01/03 17:33:06 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/06 18:14:45 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

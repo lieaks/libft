@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/05 16:19:01 by dly              ###   ########.fr        #
+#    Updated: 2023/01/06 20:53:46 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRCS_DIR		= srcs/mandatory/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
 
+SRCS_FILES		= pipex_bonus.c  child_bonus.c  error_bonus.c  files_bonus.c  \
+				  free_bonus.c  get_pipes_bonus.c  here_doc_bonus.c 
 B_SRCS_DIR		= srcs/bonus/
 B_SRCS			= $(addprefix $(B_SRCS_DIR), $(SRCS_FILES))
 B_OBJS			= $(B_SRCS:.c=.o)
@@ -31,9 +33,14 @@ LIBFT_DIR		= libft/
 L_SRCS			= $(addprefix $(LIBFT_DIR), $(LIBFT_FILES))
 L_OBJS			= $(L_SRCS:.c=.o)
 
+GNL_FILES		= get_next_line.c  get_next_line_utils.c 
+GNL_DIR			= gnl/
+GNL_SRCS		= $(addprefix $(GNL_DIR), $(GNL_FILES))
+GNL_OBJS		= $(GNL_SRCS:.c=.o)
+
 INCLUDE			= -I include/ 
 CC				= cc
-CFLAGS			= -g3 -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror
 
 RM				= rm -f
 AR				= ar rcs
@@ -58,14 +65,12 @@ $(NAME):		$(L_OBJS) $(M_OBJS) $(HEADER)
 				@$(CC) $(M_OBJS) $(L_OBJS) -o $(NAME) 
 				@echo "pipex executable ready!"
 				
-bonus			: $(L_OBJS) $(HEADER_B)
-				@echo "checker executable ready!"
-				@$(CC) $(CFLAGS) $(INCLUDE) $(B_SRCS)
-				@$(CC) $(L_OBJS) $(B_OBJS) -o $(NAME) 
+bonus			: $(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)
+				@$(CC) $(CFLAGS) $(INCLUDE) $(L_OBJS) $(GNL_OBJS) $(B_OBJS) -o $(NAME)
+				@echo "bonus executable ready!"
 				
 clean:
-				@$(RM) $(M_OBJS) 
-				@$(RM) $(L_OBJS)
+				@$(RM) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(B_OBJS)
 				@echo "pipex & libft object files cleaned!"
 
 fclean:			clean

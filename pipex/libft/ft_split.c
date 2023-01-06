@@ -6,11 +6,11 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:09:55 by dly               #+#    #+#             */
-/*   Updated: 2023/01/03 17:24:10 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/06 18:13:34 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
 static int	ft_strcount(char const *s, char c)
 {
