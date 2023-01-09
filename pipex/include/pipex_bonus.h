@@ -45,7 +45,7 @@ char	*get_path(char **envp);
 char	*get_cmd(char **envp_path, char *cmd);
 void	get_infile(char **av, t_pipexb *pipex);
 void	get_outfile(char *av_last, t_pipexb *pipex);
-void	child(t_pipexb *pipex, char **av, char **envp);
+void	child(t_pipexb pipex, char **av, char **envp);
 void	exit_msg_err(char *msg);
 void	open_pipes(t_pipexb *pipex);
 void	get_pipes(int ac, t_pipexb *pipex);

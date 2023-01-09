@@ -35,34 +35,33 @@ char	*get_cmd(char **envp_path, char *cmd)
 	return (NULL);
 }
 
-void	child(t_pipexb *pipex, char **av, char **envp)
+void	child(t_pipexb pipex, char **av, char **envp)
 {
-	pipex->child = fork();
-	if (pipex->child == 0)
+	pipex.child = fork();
+	if (pipex.child == 0)
 	{
 	// printf("%d\n", pipex->infile);
-		if (pipex->index == 0)
-			double_dup2(pipex->infile, pipex->end[1]);
-		else if (pipex->index == pipex->nb_cmds)
-			double_dup2(pipex->end[(pipex->index * 2) - 2], pipex->outfile);
+		if (pipex.index == 0)
+			double_dup2(pipex.infile, pipex.end[1]);
+		else if (pipex.index == pipex.nb_cmds - 1)
+			double_dup2(pipex.end[(pipex.index * 2) - 2], pipex.outfile);
 		else
-			double_dup2(pipex->end[(pipex->index * 2) - 2]
-			, pipex->end[(pipex->index * 2) + 1]);
-	}
-	close_pipes(pipex);
-	pipex->cmd_args = ft_split(av[pipex->index + pipex->here_doc + 2], ' ');
-	if (pipex->cmd_args == NULL)
+			double_dup2(pipex.end[(pipex.index * 2) - 2], pipex.end[(pipex.index * 2) + 1]);
+	close_pipes(&pipex);
+	pipex.cmd_args = ft_split(av[pipex.index + pipex.here_doc + 2], ' ');
+	if (pipex.cmd_args == NULL)
 	{
-		free_pipes(pipex);
+		free_pipes(&pipex);
 		exit_msg_err("Error malloc split");
 	}
-	pipex->cmd = get_cmd(pipex->cmd_paths, pipex->cmd_args[0]);
-	if (pipex->cmd == NULL)
-	{
-		free_child(pipex, pipex->cmd_args[0]);
+	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
+	if (pipex.cmd == NULL)
+		{
+			free_child(&pipex, pipex.cmd_args[0]);
+		}
+		printf("testsetsetsetsetset\n");
+		execve(pipex.cmd, av, envp);
 	}
-	printf("testsetsetsetsetset\n");
-	execve(pipex->cmd, av, envp);
 }
 
 

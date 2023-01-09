@@ -49,11 +49,11 @@ int	main(int ac, char **av, char **envp)
 		free_pipes(&pipex);
 		exit_msg_err("Error envp");
 	}
-	pipex.index = -1;
+	pipex.index = 0;
 	while (pipex.index < pipex.nb_cmds)
 	{
-		pipex.index++;
 		child(&pipex, av, envp);
+		pipex.index++;
 	}
 	close_pipes(&pipex);
 	waitpid(-1 , NULL, 0);
