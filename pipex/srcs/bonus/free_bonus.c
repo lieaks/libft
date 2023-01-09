@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:53:56 by dly               #+#    #+#             */
-/*   Updated: 2023/01/06 20:03:41 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/09 17:49:05 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ void	free_pipes(t_pipexb *pipex)
 
 void	free_child(t_pipexb *pipex, char *cmd) 
 {
+	write(2, "command not found: ", 20);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\n", 1);
 	free_double_array(pipex->cmd_args);
 	free_pipes(pipex);
-	perror("command not found :");
-	write(2, cmd, ft_strlen(cmd));
 	free_double_array(pipex->cmd_paths);
 	exit(EXIT_FAILURE);
 
@@ -51,14 +52,4 @@ void	free_parent(t_pipexb *pipex)
 	if (pipex->here_doc)
 		unlink(".heredoc_tmp");
 	free(pipex->end);
-	
-	size_t	i;
-
-	i = 0;
-	while (pipex->cmd_paths[i])
-	{
-		free(pipex->cmd_paths[i]);
-		i++;
-	}
-	free(pipex->cmd_paths);
 }

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:59:57 by dly               #+#    #+#             */
-/*   Updated: 2023/01/06 17:19:12 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/09 17:28:10 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ void	get_infile(char **av, t_pipexb *pipex)
 	{
 		pipex->infile = open(av[1], O_RDONLY);
 		if (pipex->infile == -1)
-			exit_msg_err(ERR_FILES);
+		{
+			write(2, av[1], ft_strlen(av[1]));
+			write(2, ": ", 2);
+			perror("");
+			exit(EXIT_FAILURE);
+		}
 	}
 }
 

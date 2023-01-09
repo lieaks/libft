@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 20:23:48 by dly               #+#    #+#             */
-/*   Updated: 2023/01/06 20:51:31 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/09 16:40:45 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int ac, char **av, char **envp)
 	pipex.index = 0;
 	while (pipex.index < pipex.nb_cmds)
 	{
-		child(&pipex, av, envp);
+		child(pipex, av, envp);
 		pipex.index++;
 	}
 	close_pipes(&pipex);
