@@ -6,18 +6,17 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:47:04 by dly               #+#    #+#             */
-/*   Updated: 2023/01/04 15:3by dly              ###   ########.fr       */
+/*   Updated: 2023/01/10 15:43:27 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
+#include "../../include/pipex.h"
 
 char	*get_cmd(char **envp_path, char *cmd)
 {
 	char	*access_cmd;
 
-	while (*envp_path)	
+	while (*envp_path)
 	{
 		access_cmd = ft_join_three(*envp_path, "/", cmd);
 		if (access_cmd == NULL)
@@ -46,7 +45,6 @@ void	free_child(t_pipex *pipex, char *msg)
 	perror(msg);
 	free_parent(pipex);
 	exit(EXIT_FAILURE);
-
 }
 
 void	free_parent(t_pipex *pipex)
@@ -62,7 +60,6 @@ void	free_parent(t_pipex *pipex)
 	free(pipex->cmd_paths);
 }
 
-
 void	child_one(t_pipex pipex, char **av, char **envp)
 {
 	dup2(pipex.end[1], STDOUT_FILENO);
@@ -75,7 +72,7 @@ void	child_one(t_pipex pipex, char **av, char **envp)
 	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
 	if (pipex.cmd == NULL)
 		free_child(&pipex, "ERR_CMD");
-	execve(pipex.cmd, pipex.cmd_args ,envp);
+	execve(pipex.cmd, pipex.cmd_args, envp);
 	free_child(&pipex, "ERR_EXEC");
 }
 
@@ -91,6 +88,6 @@ void	child_two(t_pipex pipex, char **av, char **envp)
 	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
 	if (pipex.cmd == NULL)
 		free_child(&pipex, "ERR_CMD");
-	execve(pipex.cmd, pipex.cmd_args ,envp);
+	execve(pipex.cmd, pipex.cmd_args, envp);
 	free_child(&pipex, "ERR_EXEC");
 }

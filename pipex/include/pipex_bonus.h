@@ -6,21 +6,21 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 20:25:18 by dly               #+#    #+#             */
-/*   Updated: 2023/01/06 18:44:52 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/10 14:18:31 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include "libft.h"
-#include "get_next_line.h"
+# include <fcntl.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include "libft.h"
+# include "get_next_line.h"
 
 typedef struct s_pipexb
 {
@@ -38,8 +38,8 @@ typedef struct s_pipexb
 	int		index;
 }	t_pipexb;
 
-#define ERR_ARGS "Invalid number of arguments. Default: args > 5.\n"
-#define	ERR_FILES "no such file or directory"
+# define ERR_ARGS "Invalid number of arguments. Default: args > 5.\n"
+# define ERR_FILES "no such file or directory"
 
 char	*get_path(char **envp);
 char	*get_cmd(char **envp_path, char *cmd);

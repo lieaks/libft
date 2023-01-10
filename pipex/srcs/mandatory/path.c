@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 10:46:17 by dly               #+#    #+#             */
-/*   Updated: 2023/01/10 14:11:08 by dly              ###   ########.fr       */
+/*   Created: 2023/01/10 15:41:36 by dly               #+#    #+#             */
+/*   Updated: 2023/01/10 16:11:54 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/pipex.h"
 
-size_t	ft_strlen(const char *s)
+char	*get_path(char **envp)
 {
-	size_t	i;
+	while (ft_strncmp("PATH", *envp, 4))
+		envp++;
+	return (*envp + 5);
+}
 
-	i = 0;
-	if (!s)
-		return (i);
-	while (s[i])
-		i++;
-	return (i);
+void	get_all_path(char **envp, t_pipex *pipex)
+{
+	pipex->envp_path = get_path(envp);
+	pipex->cmd_paths = ft_split(pipex->envp_path, ':');
+	if (pipex->cmd_paths == NULL)
+		exit_msg_err("ERR_MALLOC");
 }

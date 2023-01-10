@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/06 20:53:46 by dly              ###   ########.fr        #
+#    Updated: 2023/01/10 16:45:16 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,15 @@
 #                                                                              #
 ################################################################################
 
-SRCS_FILES		= main.c  processes.c 
+SRCS_FILES		= pipex.c  child.c  path.c  get_file.c
 SRCS_DIR		= srcs/mandatory/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
 
-SRCS_FILES		= pipex_bonus.c  child_bonus.c  error_bonus.c  files_bonus.c  \
+BONUS_FILES		= pipex_bonus.c  child_bonus.c  error_bonus.c  files_bonus.c  \
 				  free_bonus.c  get_pipes_bonus.c  here_doc_bonus.c 
 B_SRCS_DIR		= srcs/bonus/
-B_SRCS			= $(addprefix $(B_SRCS_DIR), $(SRCS_FILES))
+B_SRCS			= $(addprefix $(B_SRCS_DIR), $(BONUS_FILES))
 B_OBJS			= $(B_SRCS:.c=.o)
 
 LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
@@ -55,7 +55,7 @@ HEADER_B		= include/pipex_bonus.h
 #                                                                              #
 ################################################################################
 
-all:			$(NAME) 
+all:			$(NAME)
 
 %.o:			%.c
 				@echo "Compiling: $<"
@@ -65,7 +65,7 @@ $(NAME):		$(L_OBJS) $(M_OBJS) $(HEADER)
 				@$(CC) $(M_OBJS) $(L_OBJS) -o $(NAME) 
 				@echo "pipex executable ready!"
 				
-bonus			: $(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)
+bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)
 				@$(CC) $(CFLAGS) $(INCLUDE) $(L_OBJS) $(GNL_OBJS) $(B_OBJS) -o $(NAME)
 				@echo "bonus executable ready!"
 				

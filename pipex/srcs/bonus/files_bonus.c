@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:59:57 by dly               #+#    #+#             */
-/*   Updated: 2023/01/09 17:28:10 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/10 19:00:13 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	get_infile(char **av, t_pipexb *pipex)
 
 void	get_outfile(char *av_last, t_pipexb *pipex)
 {
-	pipex->outfile = open(av_last, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (pipex->here_doc)
+		pipex->outfile = open(av_last, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		pipex->outfile = open(av_last, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (pipex->outfile == -1)
-			exit_msg_err("Outfile");
+		exit_msg_err("Outfile");
 }

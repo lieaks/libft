@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:52:35 by dly               #+#    #+#             */
-/*   Updated: 2023/01/04 19:57:18              ###   ########.fr       */
+/*   Updated: 2023/01/10 14:11:48 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_join_three(char *str1, char *str2, char *str3)
 	char	*res;
 	size_t	i;
 	size_t	len;
-	
+
 	if (!str1 || !str2 || !str3)
 		return (NULL);
 	i = 0;

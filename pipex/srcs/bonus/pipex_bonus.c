@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 20:23:48 by dly               #+#    #+#             */
-/*   Updated: 2023/01/09 16:40:45 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/10 14:12:54 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*get_path(char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_pipexb	pipex;
-	
+
 	if (ac < right_args(av[1], &pipex))
 		return (write(2, ERR_ARGS, ft_strlen(ERR_ARGS)), 1);
 	get_infile(av, &pipex);
@@ -56,7 +56,7 @@ int	main(int ac, char **av, char **envp)
 		pipex.index++;
 	}
 	close_pipes(&pipex);
-	waitpid(-1 , NULL, 0);
+	waitpid(-1, NULL, 0);
 	free_parent(&pipex);
 	return (0);
 }
