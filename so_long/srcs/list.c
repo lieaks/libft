@@ -62,7 +62,7 @@ void	add_node_back(t_map **m, t_elem *node)
 	else
 	{
 		(*stack)->first = *node;
-		(*stack)->last = *node;
+		(*u)->last = *node;
 	}
 	(*stack)->length++;
 }

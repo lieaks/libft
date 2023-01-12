@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:59:07 by dly               #+#    #+#             */
-/*   Updated: 2023/01/11 17:44:31 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/12 18:41:17 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # include <stdio.h>
+# include <unistd.h>
 # include "get_next_line.h"
 
 typedef struct s_elem
