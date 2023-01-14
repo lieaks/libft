@@ -112,18 +112,18 @@ char	*save_next(char *buffer)
 	return (next);
 }
 
-char	*get_next_line(int fd, int bool)
+char	*get_next_line(int fd, bool b)
 {
 	static char	*buffer;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!bool)
+	if (!b)
 		buffer = read_line(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	if (bool)
+	if (b)
 		return (free(buffer), NULL);
 	line = get_line(buffer);
 	buffer = save_next(buffer);

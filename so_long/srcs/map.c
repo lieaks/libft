@@ -14,21 +14,24 @@
 
 void	new_map(t_map *m)
 {
+	m = malloc(sizeof(t_map));
+	if (!m)
+		exit_msg_err("Error malloc new_map");
 	m->nb_col = 0;
 	m->nb_row = 0;
 	m->err_map->borders = 0;
 }
 
-char	**check_map(t_map *m, char **av)
+void	check_map(t_map *m, char **av)
 {
 	m->map_str = NULL;
 	m->map = NULL;
 	m->fd = open_file(av[1]);
 	new_map(&m);
-	read_map_str(&m);
+	read_map(&m);
 }
 
-void	read_map_str(t_map *m)
+void	read_map(t_map *m)
 {
 	char	*line;
 	
@@ -41,10 +44,16 @@ void	read_map_str(t_map *m)
 				exit_msg_err("File is empty\n");
 			break;
 		}
-		// check_line(&m, line);
 		m->map_str = ft_join(m->map_str, line);
 		free(line);
+		// check_line(&m, line);
 		m->nb_row++;
+	}
+	m->map = ft_split(m->map_str, '\n');
+	if (!m->map)
+	{
+		free(m->map);
+		exit_msg_err("Error malloc\n");
 	}
 }
 
@@ -61,17 +70,15 @@ char	count_char(char *str, char c)
 	return (res);
 }
 
-void	check_line(t_map *m, char *line)
-{
-	if (m->nb_col == 0)
-		m->nb_col = ft_strlen(line);
-	if (m->nb_row == 0 || !line)
-		m->err_map->borders = 1;
-	if (!line)
-	{
-		
-	}
-	else
-	w
-	
-}
+// void	check_line(t_map *m, char *line)
+// {
+	// if (m->nb_col == 0)
+		// m->nb_col = ft_strlen(line);
+	// if (m->nb_row == 0 || !line)
+		// m->err_map->borders = 1;
+	// if (!line)
+	// {
+		// 
+	// }
+	// else
+// }

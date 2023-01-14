@@ -27,7 +27,7 @@
 # include <fcntl.h>
 # include "libft.h"
 
-char	*get_next_line(int fd, int bool);
+char	*get_next_line(int fd, bool b);
 char	*read_line(int fd, char *res);
 char	*get_line(char *buffer);
 char	*save_next(char *buffer);

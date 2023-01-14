@@ -31,7 +31,6 @@
 typedef struct s_err
 {
 	bool	borders;
-	bool	
 }	t_err;
 
 typedef struct s_map
@@ -46,5 +45,7 @@ typedef struct s_map
 }	t_map;
 
 void	exit_msg_err(char *err);
+void	check_map(t_map *m, char **av);
+void	read_map(t_map *m);
 
 #endif

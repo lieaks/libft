@@ -16,16 +16,15 @@
 #                                                                              #
 ################################################################################
 
-SRCS_FILES		= pipex.c  child.c  path.c  get_file.c
-SRCS_DIR		= srcs/mandatory/
+SRCS_FILES		= main.c  file.c  map.c  error.c
+SRCS_DIR		= srcs/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
 
-BONUS_FILES		= pipex_bonus.c  child_bonus.c  error_bonus.c  files_bonus.c  \
-				  free_bonus.c  get_pipes_bonus.c  here_doc_bonus.c 
-B_SRCS_DIR		= srcs/bonus/
-B_SRCS			= $(addprefix $(B_SRCS_DIR), $(BONUS_FILES))
-B_OBJS			= $(B_SRCS:.c=.o)
+# BONUS_FILES		= 
+# B_SRCS_DIR		= srcs/bonus/
+# B_SRCS			= $(addprefix $(B_SRCS_DIR), $(BONUS_FILES))
+# B_OBJS			= $(B_SRCS:.c=.o)
 
 LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
 				  ft_strncmp.c  ft_strlen.c  ft_join.c
@@ -63,14 +62,14 @@ all:			$(NAME)
 
 $(NAME):		$(L_OBJS) $(M_OBJS) $(HEADER)
 				@$(CC) $(M_OBJS) $(L_OBJS) -o $(NAME) 
-				@echo "pipex executable ready!"
+				@echo "so_long executable ready!"
 				
-bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)
-				@$(CC) $(CFLAGS) $(INCLUDE) $(L_OBJS) $(GNL_OBJS) $(B_OBJS) -o $(NAME)
-				@echo "bonus executable ready!"
+# bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)
+# 				@$(CC) $(CFLAGS) $(INCLUDE) $(L_OBJS) $(GNL_OBJS) $(B_OBJS) -o $(NAME)
+# 				@echo "bonus executable ready!"
 				
 clean:
-				@$(RM) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(B_OBJS)
+				@$(RM) $(M_OBJS) $(GNL_OBJS) $(L_OBJS)
 				@echo "pipex & libft object files cleaned!"
 
 fclean:			clean
