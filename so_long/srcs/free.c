@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 15:31:12 by dly               #+#    #+#             */
-/*   Updated: 2023/01/14 12:21:18 by dly              ###   ########.fr       */
+/*   Created: 2023/01/14 13:06:07 by dly               #+#    #+#             */
+/*   Updated: 2023/01/14 13:08:38 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	exit_msg_err(char *err)
+void	free_matrix(char **tab)
 {
-	write(2, err, ft_strlen(err));
-	exit(EXIT_FAILURE);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

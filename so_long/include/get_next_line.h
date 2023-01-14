@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 13:55:19 by dly               #+#    #+#             */
-/*   Updated: 2023/01/09 18:25:09 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/14 13:33:21 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include "libft.h"
 
 char	*get_next_line(int fd, bool b);
@@ -32,7 +33,6 @@ char	*read_line(int fd, char *res);
 char	*get_line(char *buffer);
 char	*save_next(char *buffer);
 char	*join_and_free(char *res, char *buffer);
-char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 
 #endif

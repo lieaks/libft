@@ -51,5 +51,6 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		exit_msg_err("Invalid nb of arguments.\n");
 	check_map(&m, av);	
+	// free(&m);
 	return (0);
 }

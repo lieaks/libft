@@ -1,19 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 15:31:12 by dly               #+#    #+#             */
-/*   Updated: 2023/01/14 12:21:18 by dly              ###   ########.fr       */
+/*   Created: 2022/11/12 18:57:20 by dly               #+#    #+#             */
+/*   Updated: 2023/01/14 13:43:00 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "libft.h"
 
-void	exit_msg_err(char *err)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	write(2, err, ft_strlen(err));
-	exit(EXIT_FAILURE);
+	char	*ptr;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!ptr)
+		return (NULL);
+	if (s1)
+	{
+		while (s1[j])
+			ptr[i++] = s1[j++];
+	}
+	j = 0;
+	if (s2)
+	{
+		while (s2[j])
+			ptr[i++] = s2[j++];
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }

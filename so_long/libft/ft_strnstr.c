@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/27 13:55:28 by dly               #+#    #+#             */
-/*   Updated: 2023/01/14 13:33:39 by dly              ###   ########.fr       */
+/*   Created: 2022/11/09 11:24:13 by dly               #+#    #+#             */
+/*   Updated: 2022/11/27 18:29:14 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	int	i;
+	size_t	i;
+	size_t	b;
+	size_t	little_len;
 
 	i = 0;
-	if (!s)
+	if (!big && !len)
 		return (NULL);
-	while (s[i] != (unsigned char)c)
+	if (!*little)
+		return ((char *)big);
+	little_len = ft_strlen(little);
+	while (big[i] && i < len)
 	{
-		if (!s[i])
-			return (NULL);
+		b = 0;
+		while (big[i + b] == little[b] && i + b < len)
+		{
+			b++;
+			if (b == little_len)
+				return ((char *)(big + i));
+		}
 		i++;
 	}
-	return ((char *)(s + i));
+	return (NULL);
 }
