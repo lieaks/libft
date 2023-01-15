@@ -16,7 +16,9 @@
 #                                                                              #
 ################################################################################
 
-SRCS_FILES		= main.c  file.c  map.c  error.c  free.c
+SRCS_FILES		= main.c  file.c  map.c  error.c  free.c  check.c \
+				  init_struct.c  flood_fill.c
+
 SRCS_DIR		= srcs/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
@@ -28,12 +30,13 @@ M_OBJS			= $(M_SRCS:.c=.o)
 
 LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
 				  ft_strncmp.c  ft_strlen.c  ft_strjoin.c  ft_strnstr.c \
-				  ft_strjoin_free.c
+				  ft_strjoin_free.c  ft_strchr.c  ft_strchrstr.c \
+				  ft_count_char.c 
 LIBFT_DIR		= libft/
 L_SRCS			= $(addprefix $(LIBFT_DIR), $(LIBFT_FILES))
 L_OBJS			= $(L_SRCS:.c=.o)
 
-GNL_FILES		= get_next_line.c  get_next_line_utils.c 
+GNL_FILES		= get_next_line.c 
 GNL_DIR			= gnl/
 GNL_SRCS		= $(addprefix $(GNL_DIR), $(GNL_FILES))
 GNL_OBJS		= $(GNL_SRCS:.c=.o)

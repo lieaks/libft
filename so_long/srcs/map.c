@@ -6,60 +6,75 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:52:08 by dly               #+#    #+#             */
-/*   Updated: 2023/01/14 17:51:55y dly              ###   ########.fr       */
+/*   Updated: 2023/01/14 17:51:55y dly                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	new_map(t_map *m)
+void	print_matrix(char **tab)
 {
-	// m = malloc(sizeof(t_map));
-	// if (!m)
-	// 	exit_msg_err("Error malloc new_map\n");
-	m->nb_col = 0;
-	m->nb_row = 0;
-	m->nb_item = 0;
-	m->map_str = NULL;
-	m->map = NULL;
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		printf("%s\n", tab[i]);
+		i++;
+	}
 }
 
-void	new_err_map(t_map *m, t_err *err_map)
+char	**get_matrix(char *str)
 {
-	// err_map = malloc(sizeof(t_err));
-	// if (!err_map)
-	// {
-	// 	free(m);
-	// 	exit_msg_err("Error malloc err_map\n");
-	// }
-	err_map->borders = 0;
-	err_map->item = 0;
-	err_map->pos = 0;
-	err_map->ex = 0;
+	char	**matrix;
+
+	matrix = ft_split(str, '\n');
+	if (!matrix)
+	{
+		write(2, "Error\nMalloc in split failed\n", 30);
+		return (NULL);
+	}
+	return (matrix);
 }
 
-void	check_map(t_map *m, char **av)
+void	check_map(t_map *m, char *file)
 {
 	t_err	err_map;
 	
-	m->map_str = NULL;
-	m->map = NULL;
-	m->fd = open_file(av[1]);
 	new_map(m);
 	new_err_map(m, &err_map);
-	read_map(m);
-	check_layers(m, &err_map);
+	get_map_str(m, file);
+	valid_map(m, &err_map);
+	// print_matrix(m->map);
+	free(m->map_str);
 	free_matrix(m->map);
 }
 
-void	read_map(t_map *m)
+void	valid_map(t_map *m, t_err *err)
 {
+	m->map = get_matrix(m->map_str);
+	if (!m->map)
+		return ;
+	check_layers(m, err);
+	search_pos(m);
+	flood_fill(m->pos_x, m->pos_y, m);
+	err->inv_map = ft_strchrstr("PEC", m->map);
+	print_err_map(err);
+	free_matrix(m->map);
+	m->map = get_matrix(m->map_str);
+	if (!m->map)
+		return ;
+}
+
+void	get_map_str(t_map *m, char *file)
+{
+	int		fd;
 	char	*line;
 	
+	fd = open_file(file);
 	while (1)
 	{
-		line = get_next_line(m->fd, 0);
-		
+		line = get_next_line(fd, 0);
 		if (!line)
 		{
 			if (!m->nb_row)
@@ -69,70 +84,44 @@ void	read_map(t_map *m)
 		m->map_str = ft_strjoin_free(m->map_str, line);
 		m->nb_row++;
 	}
-	m->map = ft_split(m->map_str, '\n');
-	if (!m->map)
+	if (close(fd) < 0)
 	{
-		free(m->map);
-		exit_msg_err("Error malloc\n");
+		free(m->map_str);
+		exit_msg_err("Error\nClosing file failed\n");
 	}
-	free(m->map_str);
-	// return (map);
 }
 
-int	count_char(char *str, char c)
+void	render(t_map *m)
 {
-	int	res;
-	int	i;
-	
-	res = 0;
-	i = 0;
-	while (str[i])
+	m->mlx_ptr = mlx_init();
+	if (!m->mlx_ptr)
 	{
-		if (str[i] == c)
-			res++;
-		i++;
+		free_matrix(m->map);
+		exit_msg_err("Error\nInit mlx failed\n");
 	}
-	return (res);
-}
-
-void	check_layers(t_map *m, t_err *err)
-{
-	int	i;
-	
-	i = 0;
-	while (m->map[i])
+	m->mlx_win = mlx_new_window(m->mlx_ptr, m->nb_col - 1 * IMG_WIDTH, 
+		m->nb_row - 1 * IMG_HEIGHT ,"so_long");
+	if (!m->mlx_win)
 	{
-		check_line(i, m->map[i], m, err);
-		i++;
+		free_matrix(m->map);
+		free(m->mlx_ptr);
 	}
-	print_err_map(err);
+	render_frame(m);
+	mlx_loop(m->mlx_ptr);
 }
 
-void	check_line(int i, char *line, t_map *m, t_err *err)
+void	render_frame(t_map *m)
 {
-	if (m->nb_col == 0)
-		m->nb_col = ft_strlen(line);
-	if ((int)ft_strlen(line) != m->nb_col && i != m->nb_col)
-		err->row_len = 1;
-	if ((i == 0 || i == m->nb_row - 1) && count_char(line, '1') != m->nb_col)
-		err->borders = 1;
-	if (line[0] != '1' || line [m->nb_col - 1] != '1')
-		err->borders = 1;
-	err->item += count_char(line, 'C');
-	err->ex += count_char(line, 'E');
-	err->pos += count_char(line, 'P');
+	put_floor(m);
 }
 
-void	print_err_map(t_err *err)
+void	put_floor(t_map *m)
 {
-	if (err->borders)
-		write(2, "Invalid borders.\n", 18);
-	if (err->row_len)
-		write(2, "Map must be rectangle!\n", 24);
-	if (err->item == 0)
-		write(2, "No collectible\n", 16);
-	if (err->ex != 1)
-		write(2, "Invalid exit\n", 14);
-	if (err->pos != 1)
-		write(2, "Invalid position\n", 18);
+
+}
+
+void	print_sprite(t_map *m, void *img, int x, int y)
+{
+	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, 
+		img, IMG_WIDTH * x, IMG_HEIGHT * y);
 }

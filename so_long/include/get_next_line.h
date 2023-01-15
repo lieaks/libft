@@ -33,6 +33,5 @@ char	*read_line(int fd, char *res);
 char	*get_line(char *buffer);
 char	*save_next(char *buffer);
 char	*join_and_free(char *res, char *buffer);
-char	*ft_strchr(const char *s, int c);
 
 #endif
