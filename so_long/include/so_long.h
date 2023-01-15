@@ -22,6 +22,12 @@
 # define IMG_WIDTH 32
 # define IMG_HEIGHT 32
 
+typedef struct s_img
+{
+	void	*wall;
+	void 	*floor;
+}	t_img;
+
 typedef struct s_err
 {
 	bool	borders;
@@ -31,6 +37,7 @@ typedef struct s_err
 	int		pos;
 	int		character;
 	int		inv_map;
+	t_img	sprite;
 }	t_err;
 
 typedef struct s_map

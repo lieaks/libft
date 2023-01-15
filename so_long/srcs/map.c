@@ -117,11 +117,33 @@ void	render_frame(t_map *m)
 
 void	put_floor(t_map *m)
 {
+	int	x;
+	int y;
 
+	x = 0;
+	while (m->map[x])
+	{
+		y = 0;
+		while (m->map[x][y])
+		{
+			if (m->map[x][y] == '1')
+				print_sprite(m, , x, y);
+			if (m->map[x][y] == '0')
+				print_sprite(m, , x, y);
+			y++;
+		}
+		x++;
+	}
 }
 
 void	print_sprite(t_map *m, void *img, int x, int y)
 {
 	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, 
 		img, IMG_WIDTH * x, IMG_HEIGHT * y);
+}
+
+void	new_img(t_map *m)
+{
+	m->sprite->floor = mlx_xpm_file_to_image(m->mlx_ptr, );
+	m->sprite->wall = mlx_xpm_file_to_image(m->mlx_ptr, );
 }
