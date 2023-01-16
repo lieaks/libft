@@ -5,6 +5,7 @@ void	new_map(t_map *m)
 	m->nb_col = 0;
 	m->nb_row = 0;
 	m->nb_item = 0;
+	m->img_size = 48;
 	m->map_str = NULL;
 	m->map = NULL;
 }

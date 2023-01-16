@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/14 16:08:38 by dly              ###   ########.fr        #
+#    Updated: 2023/01/16 18:31:19 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ GNL_DIR			= gnl/
 GNL_SRCS		= $(addprefix $(GNL_DIR), $(GNL_FILES))
 GNL_OBJS		= $(GNL_SRCS:.c=.o)
 
-INCLUDE			= -I include/ 
+INCLUDE			= -Lminilibx-linux -lmlx_Linux -lXext -lX11 -Iinclude -Iminilibx-linux
 CC				= cc
 # CFLAGS			= -Wall -Wextra -Werror
 
@@ -50,6 +50,7 @@ AR				= ar rcs
 
 NAME			= so_long 
 HEADER			= include/so_long.h
+MLX_EX			= minilibx-linux/libmlx.a
 # HEADER_B		= include/pipex_bonus.h
 
 ################################################################################
@@ -65,7 +66,8 @@ all:			$(NAME)
 				@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME):		$(L_OBJS) $(GNL_OBJS) $(M_OBJS) $(HEADER)
-				@$(CC) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) -o $(NAME) 
+				@make -C ./minilibx-linux
+				@$(CC) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
 				@echo "so_long executable ready!"
 				
 # bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:52:08 by dly               #+#    #+#             */
-/*   Updated: 2023/01/14 17:51:55y dly                ###   ########.fr       */
+/*   Updated: 2023/01/16 20:42:47 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	check_map(t_map *m, char *file)
 	new_err_map(m, &err_map);
 	get_map_str(m, file);
 	valid_map(m, &err_map);
-	// print_matrix(m->map);
+	print_matrix(m->map);
 	free(m->map_str);
-	free_matrix(m->map);
+	// free_matrix(m->map);
 }
 
 void	valid_map(t_map *m, t_err *err)
@@ -99,13 +99,15 @@ void	render(t_map *m)
 		free_matrix(m->map);
 		exit_msg_err("Error\nInit mlx failed\n");
 	}
-	m->mlx_win = mlx_new_window(m->mlx_ptr, m->nb_col - 1 * IMG_WIDTH, 
-		m->nb_row - 1 * IMG_HEIGHT ,"so_long");
+	m->mlx_win = mlx_new_window(m->mlx_ptr, m->nb_col * m->img_size, 
+		m->nb_row * m->img_size ,"so_long");
 	if (!m->mlx_win)
 	{
 		free_matrix(m->map);
 		free(m->mlx_ptr);
+		exit_msg_err("Error\nInit mlx win failed\n");
 	}
+	new_img(m);
 	render_frame(m);
 	mlx_loop(m->mlx_ptr);
 }
@@ -113,6 +115,7 @@ void	render(t_map *m)
 void	render_frame(t_map *m)
 {
 	put_floor(m);
+	put_others(m);
 }
 
 void	put_floor(t_map *m)
@@ -127,23 +130,49 @@ void	put_floor(t_map *m)
 		while (m->map[x][y])
 		{
 			if (m->map[x][y] == '1')
-				print_sprite(m, , x, y);
-			if (m->map[x][y] == '0')
-				print_sprite(m, , x, y);
+				print_sprite(m, m->sprite.wall, x, y);
+			else
+				print_sprite(m, m->sprite.floor, x, y);
 			y++;
 		}
 		x++;
 	}
 }
 
+void	put_others(t_map *m)
+{
+	int	x;
+	int y;
+
+	x = 0;
+	while (m->map[x])
+	{
+		y = 0;
+		while (m->map[x][y])
+		{
+			if (m->map[x][y] == 'C')
+				print_sprite(m, m->sprite.collectible, x, y);
+			// if (m->map[x][y] == 'E')
+			// 	print_sprite(m, m->sprite.floor, x, y);
+			// if (m->map[x][y] == 'P')
+			// 	print_sprite(m, m->sprite.floor, x, y);
+			y++;
+		}
+		x++;
+	}
+}
+
+
+
 void	print_sprite(t_map *m, void *img, int x, int y)
 {
 	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, 
-		img, IMG_WIDTH * x, IMG_HEIGHT * y);
+		img, m->img_size * y, m->img_size * x);
 }
 
 void	new_img(t_map *m)
 {
-	m->sprite->floor = mlx_xpm_file_to_image(m->mlx_ptr, );
-	m->sprite->wall = mlx_xpm_file_to_image(m->mlx_ptr, );
+	m->sprite.floor = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/floor.xpm", &m->img_size, &m->img_size);
+	m->sprite.wall = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/wall.xpm", &m->img_size, &m->img_size);
+	m->sprite.collectible = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/collectible.xpm", &m->img_size, &m->img_size);
 }

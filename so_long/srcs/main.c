@@ -8,6 +8,6 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		exit_msg_err("Invalid nb of arguments.\n");
 	check_map(&m, av[1]);	
-	init_game(m);
+	render(&m);
 	return (0);
 }
