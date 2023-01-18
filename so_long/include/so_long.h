@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:59:07 by dly               #+#    #+#             */
-/*   Updated: 2023/01/16 20:43:27 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/18 17:24:41 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,21 @@
 
 # define IMG_SIZE 32
 
+typedef struct s_data_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_l;
+	int		endian;
+}			t_data_img;
+
 typedef struct s_img
 {
 	void	*wall;
 	void 	*floor;
 	void	*collectible;
+	int		color;
 }	t_img;
 
 typedef struct s_err
@@ -38,7 +48,6 @@ typedef struct s_err
 	int		pos;
 	int		character;
 	int		inv_map;
-	t_img	sprite;
 }	t_err;
 
 typedef struct s_map
@@ -54,6 +63,7 @@ typedef struct s_map
 	void	*mlx_win;
 	int		img_size;
 	t_img	sprite;
+	t_data_img	img;
 }	t_map;
 
 void	exit_msg_err(char *err);
@@ -73,10 +83,11 @@ void	search_pos(t_map *m);
 void	flood_fill(int x, int y, t_map *m);
 /* render */
 void	render(t_map *m);
-void	new_img(t_map *m);
+void	set_sprite(t_map *m);
 void	print_sprite(t_map *m, void *img, int x, int y);
 void	put_floor(t_map *m);
 void	render_frame(t_map *m);
 void	put_others(t_map *m);
+void	put_standard_sprite(t_map *m);
 
 #endif

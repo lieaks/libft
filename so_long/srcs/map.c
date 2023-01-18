@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:52:08 by dly               #+#    #+#             */
-/*   Updated: 2023/01/16 20:42:47 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/18 18:05:17 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	render(t_map *m)
 		free_matrix(m->map);
 		exit_msg_err("Error\nInit mlx failed\n");
 	}
+	m->img.img = mlx_new_image(m->mlx_ptr, (m->img_size * m->nb_col),(m->img_size * m->nb_row));
+	m->img.addr = mlx_get_data_addr(m->img.img, &m->img.bpp, &m->img.line_l, &m->img.endian);
 	m->mlx_win = mlx_new_window(m->mlx_ptr, m->nb_col * m->img_size, 
 		m->nb_row * m->img_size ,"so_long");
 	if (!m->mlx_win)
@@ -107,70 +109,82 @@ void	render(t_map *m)
 		free(m->mlx_ptr);
 		exit_msg_err("Error\nInit mlx win failed\n");
 	}
-	new_img(m);
-	render_frame(m);
+	set_sprite(m);
+	put_standard_sprite(m);
 	mlx_loop(m->mlx_ptr);
 }
 
-void	render_frame(t_map *m)
+void	my_mlx_pixel_put(t_data_img *m, int y, int x, int color)
 {
-	put_floor(m);
-	put_others(m);
+	char	*dst;
+
+	dst = m->addr + (y * m->line_l + x * (m->bpp / 8));
+	*(unsigned int*)dst = color;
 }
 
-void	put_floor(t_map *m)
+unsigned int	get_color_pixel(void *img, int x, int y)
 {
-	int	x;
-	int y;
+	char *addr;
+	char *src;
+	unsigned int	color;
+	int	pos;
+	int	bpp;
+	int	line_l;
+	int endian;
 
-	x = 0;
-	while (m->map[x])
-	{
-		y = 0;
-		while (m->map[x][y])
-		{
-			if (m->map[x][y] == '1')
-				print_sprite(m, m->sprite.wall, x, y);
-			else
-				print_sprite(m, m->sprite.floor, x, y);
-			y++;
-		}
-		x++;
-	}
+	addr = mlx_get_data_addr(img, &bpp, &line_l, &endian);
+	src = addr + (y * line_l + x * (bpp / 8));
+	color = *(unsigned int*)src;
+	return (color);
 }
-
-void	put_others(t_map *m)
-{
-	int	x;
-	int y;
-
-	x = 0;
-	while (m->map[x])
-	{
-		y = 0;
-		while (m->map[x][y])
-		{
-			if (m->map[x][y] == 'C')
-				print_sprite(m, m->sprite.collectible, x, y);
-			// if (m->map[x][y] == 'E')
-			// 	print_sprite(m, m->sprite.floor, x, y);
-			// if (m->map[x][y] == 'P')
-			// 	print_sprite(m, m->sprite.floor, x, y);
-			y++;
-		}
-		x++;
-	}
-}
-
-
 
 void	print_sprite(t_map *m, void *img, int x, int y)
 {
-	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, 
-		img, m->img_size * y, m->img_size * x);
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < m->img_size)
+	{
+		j = 0;
+		while (j < m->img_size)
+		{
+			m->sprite.color = get_color_pixel(img, i, j);
+			if (!(m->sprite.color == (0xFF << 24)))
+				my_mlx_pixel_put(&m->img, (x * m->img_size) + j, (y * m->img_size) + i, m->sprite.color);
+			j++;
+		}
+		i++;
+	}
+	
 }
 
-void	new_img(t_map *m)
+void	put_standard_sprite(t_map *m)
+{
+	int	x;
+	int y;
+
+	x = 0;
+	while (m->map[x])
+	{
+		y = 0;
+		while (m->map[x][y])
+		{
+			print_sprite(m, m->sprite.floor, x, y);
+			if (m->map[x][y] == '1')
+				print_sprite(m, m->sprite.wall, x, y);
+			if (m->map[x][y] == 'C')
+				print_sprite(m, m->sprite.collectible, x, y);
+			if (m->map[x][y] == 'E')
+				print_sprite(m, m->sprite.collectible, x, y);
+			y++;
+		}
+		x++;
+	}
+	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0 ,0 );
+}
+
+void	set_sprite(t_map *m)
 {
 	m->sprite.floor = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/floor.xpm", &m->img_size, &m->img_size);
 	m->sprite.wall = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/wall.xpm", &m->img_size, &m->img_size);
