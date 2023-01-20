@@ -20,7 +20,19 @@
 # include "libft.h"
 # include <mlx.h>
 
-# define IMG_SIZE 32
+# define IMG_SIZE 48
+# define ESCAPE 65307
+# define UP 65362
+# define DOWN 65364
+# define RIGHT 65363
+# define LEFT 65361
+# define Z 122
+# define Q 113 
+# define S 115
+# define D 100
+
+# define INVALID_ARGS "Use : ./so_long <\"map\".ber.\n"
+# define INVALID_FILE ""
 
 typedef struct s_data_img
 {
@@ -62,6 +74,7 @@ typedef struct s_map
 	void	*mlx_ptr;
 	void	*mlx_win;
 	int		img_size;
+	int		nb_mov;
 	t_img	sprite;
 	t_data_img	img;
 }	t_map;
@@ -89,5 +102,8 @@ void	put_floor(t_map *m);
 void	render_frame(t_map *m);
 void	put_others(t_map *m);
 void	put_standard_sprite(t_map *m);
+int		end_game(t_map *m);
+void	move(t_map *m, int move_x, int move_y);
+int	key_hook(int keycode, t_map *m);
 
 #endif

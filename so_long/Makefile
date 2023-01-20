@@ -31,7 +31,9 @@ M_OBJS			= $(M_SRCS:.c=.o)
 LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
 				  ft_strncmp.c  ft_strlen.c  ft_strjoin.c  ft_strnstr.c \
 				  ft_strjoin_free.c  ft_strchr.c  ft_strchrstr.c \
-				  ft_count_char.c 
+				  ft_putnbr_fd.c  ft_putstr_fd.c  ft_count_char.c \
+				  ft_putchar_fd.c
+
 LIBFT_DIR		= libft/
 L_SRCS			= $(addprefix $(LIBFT_DIR), $(LIBFT_FILES))
 L_OBJS			= $(L_SRCS:.c=.o)
@@ -50,7 +52,7 @@ AR				= ar rcs
 
 NAME			= so_long 
 HEADER			= include/so_long.h
-MLX_EX			= minilibx-linux/libmlx.a
+MLX_EX			= mlx/libmlx.a
 # HEADER_B		= include/pipex_bonus.h
 
 ################################################################################
@@ -63,11 +65,13 @@ all:			$(NAME)
 
 %.o:			%.c
 				@echo "Compiling: $<"
-				@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+				@$(CC) $(CFLAGS) -Iinclude -Imlx -c $< -o $@
 
 $(NAME):		$(L_OBJS) $(GNL_OBJS) $(M_OBJS) $(HEADER)
-				@make -C ./minilibx-linux
-				@$(CC) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
+				@make -C ./mlx
+#				@$(CC) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
+#				@$(CC) $(M_OBJS) $(L_OBJS) -Iinclude -o $(NAME)
+				@$(CC) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) -Iinclude -lmlx -Lmlx -framework OpenGL -framework AppKit -o $(NAME)
 				@echo "so_long executable ready!"
 				
 # bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)

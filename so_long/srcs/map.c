@@ -111,7 +111,61 @@ void	render(t_map *m)
 	}
 	set_sprite(m);
 	put_standard_sprite(m);
+	mlx_key_hook(m->mlx_win, key_hook, m);
+	mlx_hook(m->mlx_win, 17, 0, end_game, m->mlx_ptr);
 	mlx_loop(m->mlx_ptr);
+}
+
+int	key_hook(int keycode, t_map *m)
+{
+	if (keycode == 65307)
+		end_game(m);
+	if (keycode == 100)
+		move(m, 1, 0);	
+	if (keycode == 97)
+		move(m, 0, 1);	
+	if (keycode == 115)
+		move(m, -1, 0);	
+	if (keycode == 119)
+		move(m, 0, -1);	
+	return (0);
+}
+
+void	move(t_map *m, int move_x, int move_y)
+{
+	if (m->map[m->pos_x + move_x][m->pos_y + move_y] == '0' || m->map[m->pos_x + move_x][m->pos_y + move_y] == 'C')
+	{
+		if (m->map[m->pos_x + move_x][m->pos_y + move_y] == 'C')
+		{
+			m->nb_item--;	
+		}
+		print_sprite(m, m->sprite.floor, m->pos_y, m->pos_x);
+		m->map[m->pos_x + move_x][m->pos_y + move_y] = 'P';
+		m->map[m->pos_x][m->pos_y] = '0';
+		m->pos_x += move_x;
+		m->pos_y += move_y;
+		m->nb_mov++;
+		ft_putstr_fd("Movements : ", 1);
+		ft_putnbr_fd(m->nb_mov, 1);
+		ft_putstr_fd("\n", 1);
+		print_sprite(m, m->sprite.collectible, m->pos_y, m->pos_x);
+	}
+	else if (m->map[m->pos_x + move_x][m->pos_y + move_y] == 'E')
+	{
+		if (m->nb_item == 0)
+			end_game(m);
+	}
+}
+
+int	end_game(t_map *m)
+{
+	if (m->map)
+		free_matrix(m->map);	
+//	mlx_clear_window(m->mlx_ptr, m->mlx_win);
+//	mlx_destroy_window(m->mlx_ptr, m->mlx_win);
+//	mlx_destroy_display(m->mlx_ptr);
+	exit(0);
+	return (0);
 }
 
 void	my_mlx_pixel_put(t_data_img *m, int y, int x, int color)
@@ -176,6 +230,8 @@ void	put_standard_sprite(t_map *m)
 			if (m->map[x][y] == 'C')
 				print_sprite(m, m->sprite.collectible, x, y);
 			if (m->map[x][y] == 'E')
+				print_sprite(m, m->sprite.collectible, x, y);
+			if (m->map[x][y] == 'P')
 				print_sprite(m, m->sprite.collectible, x, y);
 			y++;
 		}

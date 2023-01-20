@@ -5,9 +5,14 @@ void	new_map(t_map *m)
 	m->nb_col = 0;
 	m->nb_row = 0;
 	m->nb_item = 0;
-	m->img_size = 48;
+	m->img_size = IMG_SIZE;
 	m->map_str = NULL;
 	m->map = NULL;
+	m->nb_mov = 0;
+	m->nb_item = 0;
+	m->pos_x = 0;
+	m->pos_y = 0;
+
 }
 
 void	new_err_map(t_map *m, t_err *err_map)

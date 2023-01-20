@@ -33,5 +33,8 @@ char	*ft_strjoin_free(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 int		ft_strchrstr(char *search, char **tab);
 int		ft_count_char(char *str, char c);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
+void	ft_putchar_fd(char c, int fd);
 
 #endif
