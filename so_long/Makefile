@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/16 18:31:19 by dly              ###   ########.fr        #
+#    Updated: 2023/01/21 17:03:50 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 ################################################################################
 
 SRCS_FILES		= main.c  file.c  map.c  error.c  free.c  check.c \
-				  init_struct.c  flood_fill.c
+				  init_struct.c  flood_fill.c  move.c  sprites.c
 
 SRCS_DIR		= srcs/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
@@ -52,7 +52,7 @@ AR				= ar rcs
 
 NAME			= so_long 
 HEADER			= include/so_long.h
-MLX_EX			= mlx/libmlx.a
+MLX_EX			= minilibx-linux/libmlx.a
 # HEADER_B		= include/pipex_bonus.h
 
 ################################################################################
@@ -65,13 +65,13 @@ all:			$(NAME)
 
 %.o:			%.c
 				@echo "Compiling: $<"
-				@$(CC) $(CFLAGS) -Iinclude -Imlx -c $< -o $@
+				@$(CC) $(CFLAGS) -Iinclude -Iminilibx-linux -c $< -o $@
 
 $(NAME):		$(L_OBJS) $(GNL_OBJS) $(M_OBJS) $(HEADER)
-				@make -C ./mlx
-#				@$(CC) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
+				@make -C ./minilibx-linux
+				@$(CC) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
 #				@$(CC) $(M_OBJS) $(L_OBJS) -Iinclude -o $(NAME)
-				@$(CC) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) -Iinclude -lmlx -Lmlx -framework OpenGL -framework AppKit -o $(NAME)
+#				 @$(CC) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) -Iinclude -lmlx -Lmlx -framework OpenGL -framework AppKit -o $(NAME)
 				@echo "so_long executable ready!"
 				
 # bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)

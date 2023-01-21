@@ -27,6 +27,7 @@ void	check_line(int i, char *line, t_map *m, t_err *err)
 	if (line[0] != '1' || line[m->nb_col - 1] != '1')
 		err->borders = 1;
 	err->item += ft_count_char(line, 'C');
+	m->nb_item = err->item;
 	err->ex += ft_count_char(line, 'E');
 	err->pos += ft_count_char(line, 'P');
 	while (line[idx])

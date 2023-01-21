@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:59:07 by dly               #+#    #+#             */
-/*   Updated: 2023/01/18 17:24:41 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/21 19:51:23 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define DOWN 65364
 # define RIGHT 65363
 # define LEFT 65361
-# define Z 122
-# define Q 113 
+# define W 119
+# define A 97 
 # define S 115
 # define D 100
 
@@ -48,6 +48,8 @@ typedef struct s_img
 	void	*wall;
 	void 	*floor;
 	void	*collectible;
+	void	*perso;
+	void	*exit;
 	int		color;
 }	t_img;
 
@@ -105,5 +107,6 @@ void	put_standard_sprite(t_map *m);
 int		end_game(t_map *m);
 void	move(t_map *m, int move_x, int move_y);
 int	key_hook(int keycode, t_map *m);
+int	update(t_map *m);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:52:08 by dly               #+#    #+#             */
-/*   Updated: 2023/01/18 18:05:17 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/21 21:50:33 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,136 +113,75 @@ void	render(t_map *m)
 	put_standard_sprite(m);
 	mlx_key_hook(m->mlx_win, key_hook, m);
 	mlx_hook(m->mlx_win, 17, 0, end_game, m->mlx_ptr);
+	mlx_loop_hook(m->mlx_ptr, update, m);
 	mlx_loop(m->mlx_ptr);
 }
 
-int	key_hook(int keycode, t_map *m)
+void	rot(t_map *m, int i, int x, int y)
 {
-	if (keycode == 65307)
-		end_game(m);
-	if (keycode == 100)
-		move(m, 1, 0);	
-	if (keycode == 97)
-		move(m, 0, 1);	
-	if (keycode == 115)
-		move(m, -1, 0);	
-	if (keycode == 119)
-		move(m, 0, -1);	
-	return (0);
+	if (!(i % 2000))
+	{
+		print_sprite(m, m->sprite.floor, x, y);
+	if (i == 0)
+		print_sprite(m, m->sprite.collectible, x, y);
+	else if (i == 2000)
+		print_sprite(m, m->sprite.perso, x, y);
+	else if (i == 4000)
+		print_sprite(m, m->sprite.wall, x, y);
+	else if (i == 6000)
+		print_sprite(m, m->sprite.collectible, x, y);
+	else if (i == 8000)
+		print_sprite(m, m->sprite.wall, x, y);
+	else if (i == 10000)
+		print_sprite(m, m->sprite.perso, x, y);
+	else if (i == 12000)
+		print_sprite(m, m->sprite.collectible, x, y);
+	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0 ,0 );
+	}
 }
 
-void	move(t_map *m, int move_x, int move_y)
+int	update(t_map *m)
 {
-	if (m->map[m->pos_x + move_x][m->pos_y + move_y] == '0' || m->map[m->pos_x + move_x][m->pos_y + move_y] == 'C')
+	static int t;
+	int	x;
+	int y;
+
+	x = 0;
+	while (x < m->nb_col)
 	{
-		if (m->map[m->pos_x + move_x][m->pos_y + move_y] == 'C')
+		y = 0;
+		while (y < m->nb_row)
 		{
-			m->nb_item--;	
+			if (m->map[y][x] == 'C')
+			{
+				rot(m, t, y, x);
+			}
+			// if (m->map[x][y] == 'E')
+			// 	print_sprite(m, m->sprite.exit, x, y);
+			y++;
 		}
-		print_sprite(m, m->sprite.floor, m->pos_y, m->pos_x);
-		m->map[m->pos_x + move_x][m->pos_y + move_y] = 'P';
-		m->map[m->pos_x][m->pos_y] = '0';
-		m->pos_x += move_x;
-		m->pos_y += move_y;
-		m->nb_mov++;
-		ft_putstr_fd("Movements : ", 1);
-		ft_putnbr_fd(m->nb_mov, 1);
-		ft_putstr_fd("\n", 1);
-		print_sprite(m, m->sprite.collectible, m->pos_y, m->pos_x);
+		x++;
 	}
-	else if (m->map[m->pos_x + move_x][m->pos_y + move_y] == 'E')
-	{
-		if (m->nb_item == 0)
-			end_game(m);
-	}
+	t++;
+	// printf("%d\n", t);
+	if (t > 12000)
+		t = 0;
 }
+
+
 
 int	end_game(t_map *m)
 {
 	if (m->map)
 		free_matrix(m->map);	
-//	mlx_clear_window(m->mlx_ptr, m->mlx_win);
-//	mlx_destroy_window(m->mlx_ptr, m->mlx_win);
-//	mlx_destroy_display(m->mlx_ptr);
+	mlx_destroy_image(m->mlx_ptr, m->img.img);
+	free(m->sprite.floor);
+	mlx_clear_window(m->mlx_ptr, m->mlx_win);
+	mlx_destroy_window(m->mlx_ptr, m->mlx_win);
+	mlx_destroy_display(m->mlx_ptr);
+	
+	free(m->mlx_ptr);
 	exit(0);
 	return (0);
 }
 
-void	my_mlx_pixel_put(t_data_img *m, int y, int x, int color)
-{
-	char	*dst;
-
-	dst = m->addr + (y * m->line_l + x * (m->bpp / 8));
-	*(unsigned int*)dst = color;
-}
-
-unsigned int	get_color_pixel(void *img, int x, int y)
-{
-	char *addr;
-	char *src;
-	unsigned int	color;
-	int	pos;
-	int	bpp;
-	int	line_l;
-	int endian;
-
-	addr = mlx_get_data_addr(img, &bpp, &line_l, &endian);
-	src = addr + (y * line_l + x * (bpp / 8));
-	color = *(unsigned int*)src;
-	return (color);
-}
-
-void	print_sprite(t_map *m, void *img, int x, int y)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < m->img_size)
-	{
-		j = 0;
-		while (j < m->img_size)
-		{
-			m->sprite.color = get_color_pixel(img, i, j);
-			if (!(m->sprite.color == (0xFF << 24)))
-				my_mlx_pixel_put(&m->img, (x * m->img_size) + j, (y * m->img_size) + i, m->sprite.color);
-			j++;
-		}
-		i++;
-	}
-	
-}
-
-void	put_standard_sprite(t_map *m)
-{
-	int	x;
-	int y;
-
-	x = 0;
-	while (m->map[x])
-	{
-		y = 0;
-		while (m->map[x][y])
-		{
-			print_sprite(m, m->sprite.floor, x, y);
-			if (m->map[x][y] == '1')
-				print_sprite(m, m->sprite.wall, x, y);
-			if (m->map[x][y] == 'C')
-				print_sprite(m, m->sprite.collectible, x, y);
-			if (m->map[x][y] == 'E')
-				print_sprite(m, m->sprite.collectible, x, y);
-			if (m->map[x][y] == 'P')
-				print_sprite(m, m->sprite.collectible, x, y);
-			y++;
-		}
-		x++;
-	}
-	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0 ,0 );
-}
-
-void	set_sprite(t_map *m)
-{
-	m->sprite.floor = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/floor.xpm", &m->img_size, &m->img_size);
-	m->sprite.wall = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/wall.xpm", &m->img_size, &m->img_size);
-	m->sprite.collectible = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/collectible.xpm", &m->img_size, &m->img_size);
-}
