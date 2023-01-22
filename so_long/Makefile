@@ -32,7 +32,7 @@ LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
 				  ft_strncmp.c  ft_strlen.c  ft_strjoin.c  ft_strnstr.c \
 				  ft_strjoin_free.c  ft_strchr.c  ft_strchrstr.c \
 				  ft_putnbr_fd.c  ft_putstr_fd.c  ft_count_char.c \
-				  ft_putchar_fd.c
+				  ft_putchar_fd.c . ft_itoa.c
 
 LIBFT_DIR		= libft/
 L_SRCS			= $(addprefix $(LIBFT_DIR), $(LIBFT_FILES))

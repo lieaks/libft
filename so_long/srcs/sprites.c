@@ -72,11 +72,11 @@ void	put_standard_sprite(t_map *m)
 			if (m->map[x][y] == '1')
 				print_sprite(m, m->sprite.wall, x, y);
 			if (m->map[x][y] == 'C')
-				print_sprite(m, m->sprite.collectible, x, y);
+				print_sprite(m, m->sprite.coin, x, y);
 			// if (m->map[x][y] == 'E')
 			// 	print_sprite(m, m->sprite.exit, x, y);
 			if (m->map[x][y] == 'P')
-				print_sprite(m, m->sprite.perso, x, y);
+				print_sprite(m, m->sprite.player, x, y);
 			y++;
 		}
 		x++;
@@ -87,8 +87,18 @@ void	put_standard_sprite(t_map *m)
 void	set_sprite(t_map *m)
 {
 	m->sprite.floor = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/floor.xpm", &m->img_size, &m->img_size);
+	if (!m->sprite.floor)
+		end_game(m);
 	m->sprite.wall = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/wall.xpm", &m->img_size, &m->img_size);
-	m->sprite.collectible = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/poring.xpm", &m->img_size, &m->img_size);
-	m->sprite.perso = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/perso.xpm", &m->img_size, &m->img_size);
+	if (!m->sprite.wall)
+		end_game(m);
+	m->sprite.coin = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/poring.xpm", &m->img_size, &m->img_size);
+	if (!m->sprite.coin)
+		end_game(m);
+	m->sprite.player = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/perso.xpm", &m->img_size, &m->img_size);
+	if (!m->sprite.player)
+		end_game(m);
 	m->sprite.exit = mlx_xpm_file_to_image(m->mlx_ptr, "./sprites/exit.xpm", &m->img_size, &m->img_size);
+	if (!m->sprite.exit)
+		end_game(m);
 }

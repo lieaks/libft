@@ -27,14 +27,26 @@ int	key_hook(int keycode, t_map *m)
 	return (0);
 }
 
+void	print_nb_mov(t_map *m)
+{
+	char	move;
+
+	move = ft_itoa(m->nb_mov);
+	if (!move)		
+	{
+		ft_putstr_fd("Error\nmalloc itoa.\n", 2);
+		end_game(m);
+	}
+	mlx_string_put(m->mlx_ptr, m->mlx_win, 0, 0, #000000, move);
+	free(move);
+}
+
 void	move(t_map *m, int move_x, int move_y)
 {
 	if (m->map[m->pos_x + move_x][m->pos_y + move_y] != '1')
 	{
 		if (m->map[m->pos_x + move_x][m->pos_y + move_y] == 'C')
-		{
 			m->nb_item--;	
-		}
 		print_sprite(m, m->sprite.floor, m->pos_x, m->pos_y);
 		if (!m->map[m->pos_x + move_x][m->pos_y + move_y] == 'E')
 			m->map[m->pos_x + move_x][m->pos_y + move_y] = 'P';
@@ -45,12 +57,13 @@ void	move(t_map *m, int move_x, int move_y)
 		ft_putstr_fd("Movements : ", 1);
 		ft_putnbr_fd(m->nb_mov, 1);
 		ft_putstr_fd("\n", 1);
-		if ((!(m->map[m->pos_x + move_x][m->pos_y + move_y]) == 'E'))
+		if ((!(m->map[m->pos_x][m->pos_y]) == 'E'))
 			print_sprite(m, m->sprite.floor, m->pos_x, m->pos_y);
 		print_sprite(m, m->sprite.perso, m->pos_x, m->pos_y);
 		if (m->map[m->pos_x][m->pos_y] == 'E' && m->nb_item == 0)
 			end_game(m);
 	}
+	print_nb_mov(m);
 	mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0 ,0 );
 }
 
