@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:59:07 by dly               #+#    #+#             */
-/*   Updated: 2023/01/21 19:51:23 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/23 21:39:37 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,15 @@
 # define S 115
 # define D 100
 
-# define INVALID_ARGS "Use : ./so_long <\"map\".ber.\n"
-# define INVALID_FILE ""
+# define INV_ARGS "Error\nUse : ./so_long <\"map\".ber.\n"
+# define INV_FILE "Error\nInvalid file type, please use .ber\n"
+# define INV_BORDERS "Error\nInvalid borders.\n"
+# define INV_REC "Error\nMap must be rectangle!\n"
+# define INV_COLLECTIBLE "Error\nNo collectible\n"
+# define INV_EXIT "Error\nInvalid exit\n"
+# define INV_POS "Error\nInvalid position\n"
+# define INV_CHAR "Error\nInvalid character\n"
+# define INV_MAP "Error\nInvalid path\n"
 
 typedef struct s_data_img
 {
@@ -46,10 +53,32 @@ typedef struct s_data_img
 typedef struct s_img
 {
 	void	*wall;
-	void 	*floor;
-	void	*collectible;
-	void	*perso;
-	void	*exit;
+	void	*floor;
+	void	*coin1;
+	void	*coin2;
+	void	*coin3;
+	void	*coin4;
+	void	*coin5;
+	void	*coin6;
+	void	*player_down1;
+	void	*player_down2;
+	void	*player_down3;
+	void	*player_down4;
+	void	*player_right1;
+	void	*player_right2;
+	void	*player_right3;
+	void	*player_right4;
+	void	*player_up1;
+	void	*player_up2;
+	void	*player_up3;
+	void	*player_up4;
+	void	*exit1;
+	void	*exit2;
+	void	*exit3;
+	void	*exit4;
+	void	*exit5;
+	void	*exit6;
+	void	*exit7;
 	int		color;
 }	t_img;
 
@@ -66,34 +95,37 @@ typedef struct s_err
 
 typedef struct s_map
 {
-	char	*map_str;
-	char	**map;
-	int		nb_col;
-	int		nb_row;
-	int		nb_item;
-	int		pos_x;
-	int		pos_y;
-	void	*mlx_ptr;
-	void	*mlx_win;
-	int		img_size;
-	int		nb_mov;
-	t_img	sprite;
+	char		*map_str;
+	char		**map;
+	int			nb_col;
+	int			nb_row;
+	int			nb_item;
+	int			pos_x;
+	int			pos_y;
+	void		*mlx_ptr;
+	void		*mlx_win;
+	int			img_size;
+	int			nb_mov;
+	int			on_exit;
+	int			stance;
+	t_img		sprite;
 	t_data_img	img;
+	t_err		err;
 }	t_map;
 
-void	exit_msg_err(char *err);
+void	exit_msg_err(t_map *m, char *err);
 void	check_map(t_map *m, char *file);
 void	get_map_str(t_map *m, char *file);
-int		open_file(char *file);
+int		open_file(t_map *m, char *file);
 void	free_matrix(char **tab);
-void	check_layers(t_map *m, t_err *err);
-void	check_line(int  i, char *line, t_map *m, t_err *err);
-void	print_err_map(t_err *err);
+void	check_layers(t_map *m);
+void	check_line(int i, char *line, t_map *m);
+void	print_err_map(t_map *m);
 void	flood_fill(int x, int y, t_map *m);
-void	valid_map(t_map *m, t_err *err);
 /* initalization struct map & error */
 void	new_map(t_map *m);
-void	new_err_map(t_map *m, t_err *err_map);
+void	new_err_map(t_map *m);
+void	new_sprite(t_map *m);
 void	search_pos(t_map *m);
 void	flood_fill(int x, int y, t_map *m);
 /* render */
@@ -105,8 +137,22 @@ void	render_frame(t_map *m);
 void	put_others(t_map *m);
 void	put_standard_sprite(t_map *m);
 int		end_game(t_map *m);
-void	move(t_map *m, int move_x, int move_y);
-int	key_hook(int keycode, t_map *m);
-int	update(t_map *m);
+void	move(t_map *m, int move_x, int move_y, int stance);
+int		key_hook(int keycode, t_map *m);
+int		update(t_map *m);
+void	set_coin(t_map *m);
+void	set_player(t_map *m);
+void	print_nb_mov(t_map *m);
+void	set_player_down(t_map *m);
+void	set_player_right(t_map *m);
+void	set_player_up(t_map *m);
+void	free_img_player(t_map *m);
+void	set_exit(t_map *m);
+void	free_img_exit(t_map *m);
+void	free_img(t_map *m);
+/* animation_player.c */
+void	anim_player_down(t_map *m, int i, int x, int y);
+void	anim_player_right(t_map *m, int i, int x, int y);
+void	anim_player_up(t_map *m, int i, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/21 17:03:50 by dly              ###   ########.fr        #
+#    Updated: 2023/01/23 20:53:28 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@
 ################################################################################
 
 SRCS_FILES		= main.c  file.c  map.c  error.c  free.c  check.c \
-				  init_struct.c  flood_fill.c  move.c  sprites.c
+				  init_struct.c  flood_fill.c  move.c  sprites.c  animation.c \
+				  load_img.c  animation_player.c
 
 SRCS_DIR		= srcs/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
@@ -32,7 +33,7 @@ LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
 				  ft_strncmp.c  ft_strlen.c  ft_strjoin.c  ft_strnstr.c \
 				  ft_strjoin_free.c  ft_strchr.c  ft_strchrstr.c \
 				  ft_putnbr_fd.c  ft_putstr_fd.c  ft_count_char.c \
-				  ft_putchar_fd.c . ft_itoa.c
+				  ft_putchar_fd.c  ft_itoa.c
 
 LIBFT_DIR		= libft/
 L_SRCS			= $(addprefix $(LIBFT_DIR), $(LIBFT_FILES))
@@ -44,7 +45,7 @@ GNL_SRCS		= $(addprefix $(GNL_DIR), $(GNL_FILES))
 GNL_OBJS		= $(GNL_SRCS:.c=.o)
 
 INCLUDE			= -Lminilibx-linux -lmlx_Linux -lXext -lX11 -Iinclude -Iminilibx-linux
-CC				= cc
+CC				= cc -g
 # CFLAGS			= -Wall -Wextra -Werror
 
 RM				= rm -f

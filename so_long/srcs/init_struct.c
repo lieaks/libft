@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/23 21:45:19 by dly               #+#    #+#             */
+/*   Updated: 2023/01/23 21:45:41 by dly              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 void	new_map(t_map *m)
@@ -12,23 +24,65 @@ void	new_map(t_map *m)
 	m->nb_item = 0;
 	m->pos_x = 0;
 	m->pos_y = 0;
-
+	m->on_exit = 0;
 }
 
-void	new_err_map(t_map *m, t_err *err_map)
+void	new_sprite_player(t_map *m)
 {
-	err_map->borders = 0;
-	err_map->item = 0;
-	err_map->pos = 0;
-	err_map->ex = 0;
-	err_map->character = 0;
-	err_map->inv_map = 0;
+	m->sprite.player_down1 = NULL;
+	m->sprite.player_down2 = NULL;
+	m->sprite.player_down3 = NULL;
+	m->sprite.player_down4 = NULL;
+	m->sprite.player_up1 = NULL;
+	m->sprite.player_up2 = NULL;
+	m->sprite.player_up3 = NULL;
+	m->sprite.player_up4 = NULL;
+	m->sprite.player_right1 = NULL;
+	m->sprite.player_right2 = NULL;
+	m->sprite.player_right3 = NULL;
+	m->sprite.player_right4 = NULL;
+}
+
+void	new_sprite(t_map *m)
+{
+	m->sprite.wall = NULL;
+	m->sprite.floor = NULL;
+	m->sprite.coin1 = NULL;
+	m->sprite.coin2 = NULL;
+	m->sprite.coin3 = NULL;
+	m->sprite.coin4 = NULL;
+	m->sprite.coin5 = NULL;
+	m->sprite.coin6 = NULL;
+	m->sprite.exit1 = NULL;
+	m->sprite.exit2 = NULL;
+	m->sprite.exit3 = NULL;
+	m->sprite.exit4 = NULL;
+	m->sprite.exit5 = NULL;
+	m->sprite.exit6 = NULL;
+	m->sprite.exit7 = NULL;
+	m->sprite.coin1 = NULL;
+	m->sprite.coin2 = NULL;
+	m->sprite.coin3 = NULL;
+	m->sprite.coin4 = NULL;
+	m->sprite.coin5 = NULL;
+	m->sprite.coin6 = NULL;
+	new_sprite_player(m);
+}
+
+void	new_err_map(t_map *m)
+{
+	m->err.borders = 0;
+	m->err.item = 0;
+	m->err.pos = 0;
+	m->err.ex = 0;
+	m->err.character = 0;
+	m->err.inv_map = 0;
 }
 
 void	search_pos(t_map *m)
 {
 	int	x;
-	int y;
+	int	y;
 
 	x = 0;
 	while (m->map[x])
