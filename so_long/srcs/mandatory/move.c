@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:02:28 by dly               #+#    #+#             */
-/*   Updated: 2023/01/23 21:44:46 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 16:57:01 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,23 @@ int	key_hook(int keycode, t_map *m)
 	return (0);
 }
 
+void	move_stance(t_map *m)
+{
+	if (!((m->map[m->pos_x][m->pos_y]) == 'E'))
+		print_sprite(m, m->sprite.floor, m->pos_x, m->pos_y);
+	if (m->stance == DOWN || m->stance == LEFT)
+		print_sprite(m, m->sprite.player_down1, m->pos_x, m->pos_y);
+	if (m->stance == UP)
+		print_sprite(m, m->sprite.player_up1, m->pos_x, m->pos_y);
+	if (m->stance == RIGHT)
+		print_sprite(m, m->sprite.player_right1, m->pos_x, m->pos_y);
+}
+
 void	print_nb_mov(t_map *m)
 {
-	char	*move;
-
-	move = ft_itoa(m->nb_mov);
-	if (!move)
-	{
-		ft_putstr_fd("Error\nmalloc itoa.\n", 2);
-		end_game(m);
-	}
-	mlx_string_put(m->mlx_ptr, m->mlx_win, 50, 20, 0xff0000, move);
-	free(move);
+	ft_putstr_fd("Movements : ", 1);
+	ft_putnbr_fd(m->nb_mov, 1);
+	ft_putstr_fd("\n", 1);
 }
 
 void	move(t_map *m, int move_x, int move_y, int stance)
@@ -61,17 +66,8 @@ void	move(t_map *m, int move_x, int move_y, int stance)
 		m->pos_x += move_x;
 		m->pos_y += move_y;
 		m->nb_mov++;
-		ft_putstr_fd("Movements : ", 1);
-		ft_putnbr_fd(m->nb_mov, 1);
-		ft_putstr_fd("\n", 1);
-		if (!((m->map[m->pos_x][m->pos_y]) == 'E'))
-			print_sprite(m, m->sprite.floor, m->pos_x, m->pos_y);
-		if (stance == DOWN || stance == LEFT)
-			print_sprite(m, m->sprite.player_down1, m->pos_x, m->pos_y);
-		if (stance == UP)
-			print_sprite(m, m->sprite.player_up1, m->pos_x, m->pos_y);
-		if (stance == RIGHT)
-			print_sprite(m, m->sprite.player_right1, m->pos_x, m->pos_y);
+		print_nb_mov(m);
+		move_stance(m);
 		if (m->map[m->pos_x][m->pos_y] == 'E' && m->nb_item == 0)
 			end_game(m);
 	}

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:02:28 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 15:39:06 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 16:56:47 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long_bonus.h"
 
 int	key_hook(int keycode, t_map *m)
 {
@@ -41,6 +41,18 @@ void	print_nb_mov(t_map *m)
 	free(move);
 }
 
+void	move_stance(t_map *m)
+{
+	if (!((m->map[m->pos_x][m->pos_y]) == 'E'))
+		print_sprite(m, m->sprite.floor, m->pos_x, m->pos_y);
+	if (m->stance == DOWN || m->stance == LEFT)
+		print_sprite(m, m->sprite.player_down1, m->pos_x, m->pos_y);
+	if (m->stance == UP)
+		print_sprite(m, m->sprite.player_up1, m->pos_x, m->pos_y);
+	if (m->stance == RIGHT)
+		print_sprite(m, m->sprite.player_right1, m->pos_x, m->pos_y);
+}
+
 void	move(t_map *m, int move_x, int move_y, int stance)
 {
 	if (m->map[m->pos_x + move_x][m->pos_y + move_y] != '1')
@@ -63,14 +75,7 @@ void	move(t_map *m, int move_x, int move_y, int stance)
 		m->pos_x += move_x;
 		m->pos_y += move_y;
 		m->nb_mov++;
-		if (!((m->map[m->pos_x][m->pos_y]) == 'E'))
-			print_sprite(m, m->sprite.floor, m->pos_x, m->pos_y);
-		if (stance == DOWN || stance == LEFT)
-			print_sprite(m, m->sprite.player_down1, m->pos_x, m->pos_y);
-		if (stance == UP)
-			print_sprite(m, m->sprite.player_up1, m->pos_x, m->pos_y);
-		if (stance == RIGHT)
-			print_sprite(m, m->sprite.player_right1, m->pos_x, m->pos_y);
+		move_stance(m);
 		if (m->map[m->pos_x][m->pos_y] == 'E' && m->nb_item == 0)
 			end_game(m);
 	}

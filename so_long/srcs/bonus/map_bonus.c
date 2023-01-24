@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:30:48 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 15:29:00 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 17:37:59 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long_bonus.h"
 
 void	get_map_str(t_map *m, char *file)
 {
@@ -72,12 +72,16 @@ void	render(t_map *m)
 		exit_msg_err(m, "Error\nInit mlx failed\n");
 	m->img.img = mlx_new_image(m->mlx_ptr, (m->img_size * m->nb_col),
 			(m->img_size * m->nb_row));
+	if (!m->img.img)
+		exit_msg_err(m, "Error\nNew IMG failed\n");
 	m->img.addr = mlx_get_data_addr(m->img.img, &m->img.bpp,
 			&m->img.line_l, &m->img.endian);
+	if (!m->img.addr)
+		exit_msg_err(m, "Error\nGet IMG addr failed\n");
 	m->mlx_win = mlx_new_window(m->mlx_ptr, m->nb_col * m->img_size,
 			m->nb_row * m->img_size, "so_long");
 	if (!m->mlx_win)
-		exit_msg_err(m, "Error\nInit mlx win failed\n");
+		exit_msg_err(m, "Error\nNew mlx win failed\n");
 	set_sprite(m);
 	put_standard_sprite(m);
 	mlx_key_hook(m->mlx_win, key_hook, m);

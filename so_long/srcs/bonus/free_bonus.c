@@ -6,11 +6,11 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 13:06:07 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 15:55:06 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 16:10:47 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long_bonus.h"
 
 void	free_matrix(char **tab)
 {

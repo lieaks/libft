@@ -6,12 +6,12 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:59:07 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 15:42:19 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 17:24:17 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -118,45 +118,49 @@ typedef struct s_map
 	t_err		err;
 }	t_map;
 
+/* error */
 void	exit_msg_err(t_map *m, char *err);
-void	check_map(t_map *m, char *file);
-void	get_map_str(t_map *m, char *file);
+void	print_err_map(t_map *m);
+/* file */
 int		open_file(t_map *m, char *file);
-void	free_matrix(char **tab);
+/* map / parsing */
+void	get_map_str(t_map *m, char *file);
+void	check_map(t_map *m, char *file);
 void	check_layers(t_map *m);
 void	check_line(int i, char *line, t_map *m);
-void	print_err_map(t_map *m);
+/* render */
+void	render(t_map *m);
+/* flood fill */
 void	flood_fill(int x, int y, t_map *m);
 /* initalization struct map & error */
 void	new_map(t_map *m);
 void	new_err_map(t_map *m);
 void	new_sprite(t_map *m);
 void	search_pos(t_map *m);
-void	flood_fill(int x, int y, t_map *m);
-/* render */
-void	render(t_map *m);
+/* sprites */
 void	set_sprite(t_map *m);
 void	print_sprite(t_map *m, void *img, int x, int y);
-void	put_floor(t_map *m);
-void	render_frame(t_map *m);
-void	put_others(t_map *m);
 void	put_standard_sprite(t_map *m);
-int		end_game(t_map *m);
+/* move */
 void	move(t_map *m, int move_x, int move_y, int stance);
 int		key_hook(int keycode, t_map *m);
-int		update(t_map *m);
+void	print_nb_mov(t_map *m);
+/* load_img */
 void	set_coin(t_map *m);
 void	set_player(t_map *m);
-void	print_nb_mov(t_map *m);
 void	set_player_down(t_map *m);
 void	set_player_right(t_map *m);
 void	set_player_up(t_map *m);
-void	set_mob(t_map *m);
-void	free_img_player(t_map *m);
 void	set_exit(t_map *m);
+void	set_mob(t_map *m);
+/* free */
+void	free_img_player(t_map *m);
 void	free_img_exit(t_map *m);
 void	free_img(t_map *m);
+void	free_matrix(char **tab);
+int		end_game(t_map *m);
 /* animation_player.c */
+int		update(t_map *m);
 void	anim_player_down(t_map *m, int i, int x, int y);
 void	anim_player_right(t_map *m, int i, int x, int y);
 void	anim_player_up(t_map *m, int i, int x, int y);

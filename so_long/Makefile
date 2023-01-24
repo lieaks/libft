@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/24 16:08:00 by dly              ###   ########.fr        #
+#    Updated: 2023/01/24 17:43:57 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@
 ################################################################################
 
 SRCS_FILES		= main.c  file.c  map.c  error.c  free.c  check.c \
-				  init_struct.c  flood_fill.c  move.c  sprites.c  animation.c \
-				  load_img.c  animation_player.c
+				  init_struct.c  flood_fill.c  move.c  sprites.c \
+				  load_img.c 
 
 SRCS_DIR		= srcs/mandatory/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
@@ -28,7 +28,7 @@ BONUS_FILES		= main_bonus.c  file_bonus.c  map_bonus.c  error_bonus.c \
 				  free_bonus.c  check_bonus.c  init_struct_bonus.c \
 				  flood_fill_bonus.c  move_bonus.c  sprites_bonus.c \
 				  animation_bonus.c  load_img_bonus.c  animation_player_bonus.c \
-				  animation_mob_bonus  load_img2_bonus.c
+				  animation_mob_bonus.c  load_img2_bonus.c
 
 B_SRCS_DIR		= srcs/bonus/
 B_SRCS			= $(addprefix $(B_SRCS_DIR), $(BONUS_FILES))
@@ -74,28 +74,36 @@ all:			$(NAME)
 				@echo "Compiling: $<"
 				@$(CC) $(CFLAGS) -Iinclude -Iminilibx-linux -c $< -o $@
 
-$(NAME):		$(L_OBJS) $(GNL_OBJS) $(M_OBJS) $(HEADER)
-				@make -C ./minilibx-linux
+$(NAME):		$(L_OBJS) $(GNL_OBJS) $(M_OBJS) $(HEADER) $(MLX_EX) 
+#				@make -C ./minilibx-linux
+#				cp ./minilibx-linux/mlx.h ./include
 				@$(CC) $(CFLAGS) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
 #				@$(CC) $(M_OBJS) $(L_OBJS) -Iinclude -o $(NAME)
 #				 @$(CC) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) -Iinclude -lmlx -Lmlx -framework OpenGL -framework AppKit -o $(NAME)
 				@echo "so_long executable ready!"
-				
-bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)
+
+$(MLX_EX):		
+				@make -C ./minilibx-linux
+
+bonus:			$(NAME_B)				
+
+$(NAME_B):		$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B) $(MLX_EX) 
+#				@make -C ./minilibx-linux
+#				cp ./minilibx-linux/mlx.h ./include
 				@$(CC) $(CFLAGS) $(INCLUDE) $(B_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME_B)
-				@echo "bonus executable ready!"
+				@echo "so_long_bonus executable ready!"
 				
 clean:
-				@$(RM) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(B_OBJS)
-				@echo "pipex & libft & gnl object files cleaned!"
+				@$(RM) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(B_OBJS) ./include/mlx.h
+				@echo "every object files cleaned!"
 
 fclean:			clean
 				@$(RM) $(NAME) $(NAME_B)
-				@echo " executable files cleaned!"
+				@echo "executable files cleaned!"
 
-re:				fclean $(NAME) $(BONUS) 
+re:				fclean $(NAME) $(NAME_B) 
 
 norm:
-				@norminette $(SRCS_FILES) $(LIBFT_FILES) $(HEADER) 
+				@norminette $(M_SRCS) $(L_SRCS) $(B_SRCS) $(GNL_SRCS) $(HEADER) $(HEADER_B) 
 
 .PHONY:			all clean fclean re bonus

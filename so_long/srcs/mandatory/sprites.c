@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 17:01:35 by dly               #+#    #+#             */
-/*   Updated: 2023/01/23 21:43:12 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 16:58:04 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	put_standard_sprite(t_map *m)
 			if (m->map[x][y] == 'C')
 				print_sprite(m, m->sprite.coin1, x, y);
 			if (m->map[x][y] == 'E')
-				print_sprite(m, m->sprite.exit1, x, y);
+				print_sprite(m, m->sprite.exit4, x, y);
 			if (m->map[x][y] == 'P')
 				print_sprite(m, m->sprite.player_down1, x, y);
 			y++;

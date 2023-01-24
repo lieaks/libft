@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_struct.c                                      :+:      :+:    :+:   */
+/*   init_struct_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:45:19 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 15:32:26 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 16:49:13 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/so_long_bonus.h"
 
 void	new_map(t_map *m)
 {
@@ -26,6 +26,7 @@ void	new_map(t_map *m)
 	m->pos_y = 0;
 	m->on_exit = 0;
 	m->nb_mob = 0;
+	m->stance = DOWN;
 }
 
 void	new_sprite_player(t_map *m)
