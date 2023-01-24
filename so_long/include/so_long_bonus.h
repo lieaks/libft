@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 14:59:07 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 17:24:17 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 18:25:05 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@
 # define S 115
 # define D 100
 
-# define INV_ARGS "Error\nUse : ./so_long <\"map\".ber.\n"
-# define INV_FILE "Error\nInvalid file type, please use .ber\n"
+# define INV_ARGS "Error\nUse : ./so_long <\"map\".ber>.\n"
+# define INV_FILE "Error\nInvalid file type, please use .ber.\n"
 # define INV_BORDERS "Error\nInvalid borders.\n"
 # define INV_REC "Error\nMap must be rectangle!\n"
-# define INV_COLLECTIBLE "Error\nNo collectible\n"
-# define INV_EXIT "Error\nInvalid exit\n"
-# define INV_POS "Error\nInvalid position\n"
-# define INV_CHAR "Error\nInvalid character\n"
-# define INV_MAP "Error\nInvalid path\n"
+# define INV_COLLECTIBLE "Error\nNo collectible.\n"
+# define INV_EXIT "Error\nInvalid exit.\n"
+# define INV_POS "Error\nInvalid position.\n"
+# define INV_CHAR "Error\nInvalid character.\n"
+# define INV_MAP "Error\nInvalid path.\n"
 
 typedef struct s_data_img
 {

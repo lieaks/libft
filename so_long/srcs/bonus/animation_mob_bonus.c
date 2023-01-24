@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:39:48 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 16:44:00 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 18:15:51 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	anim_mob(t_map *m, int i, int x, int y)
 		else if (i == 25000)
 			print_sprite(m, m->sprite.mob4, x, y);
 		else if (i == 30000)
+			print_sprite(m, m->sprite.mob4, x, y);
+		else if (i == 35000)
 			print_sprite(m, m->sprite.mob4, x, y);
 		mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0, 0);
 	}

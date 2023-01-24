@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:08:48 by dly               #+#    #+#             */
-/*   Updated: 2023/01/23 21:43:34 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 18:29:25 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	main(int ac, char **av)
 	t_map	m;
 
 	if (ac != 2)
-		exit_msg_err(&m, INV_ARGS);
+	{
+		ft_putstr_fd(INV_ARGS, 2);
+		return (1);
+	}
 	check_map(&m, av[1]);
 	render(&m);
 	return (0);

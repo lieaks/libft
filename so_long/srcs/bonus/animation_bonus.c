@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:33:09 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 16:09:51 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 18:16:50 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	anim_coin(t_map *m, int i, int x, int y)
 			print_sprite(m, m->sprite.coin6, x, y);
 		else if (i == 30000)
 			print_sprite(m, m->sprite.coin1, x, y);
+		else if (i == 35000)
+			print_sprite(m, m->sprite.coin1, x, y);
 		mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0, 0);
 	}
 }
@@ -53,6 +55,8 @@ void	anim_exit_close(t_map *m, int i, int x, int y)
 		else if (i == 25000)
 			print_sprite(m, m->sprite.exit6, x, y);
 		else if (i == 30000)
+			print_sprite(m, m->sprite.exit7, x, y);
+		else if (i == 35000)
 			print_sprite(m, m->sprite.exit7, x, y);
 		mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0, 0);
 	}

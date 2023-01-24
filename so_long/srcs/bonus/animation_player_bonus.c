@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:52:57 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 16:10:22 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 18:16:39 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	anim_player_down(t_map *m, int i, int x, int y)
 			print_sprite(m, m->sprite.player_down4, x, y);
 		else if (i == 30000)
 			print_sprite(m, m->sprite.player_down4, x, y);
+		else if (i == 35000)
+			print_sprite(m, m->sprite.player_down1, x, y);
 		mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0, 0);
 	}
 }
@@ -56,6 +58,8 @@ void	anim_player_right(t_map *m, int i, int x, int y)
 			print_sprite(m, m->sprite.player_right4, x, y);
 		else if (i == 30000)
 			print_sprite(m, m->sprite.player_right4, x, y);
+		else if (i == 35000)
+			print_sprite(m, m->sprite.player_right1, x, y);
 		mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0, 0);
 	}
 }
@@ -80,6 +84,8 @@ void	anim_player_up(t_map *m, int i, int x, int y)
 			print_sprite(m, m->sprite.player_up4, x, y);
 		else if (i == 30000)
 			print_sprite(m, m->sprite.player_up4, x, y);
+		else if (i == 35000)
+			print_sprite(m, m->sprite.player_up1, x, y);
 		mlx_put_image_to_window(m->mlx_ptr, m->mlx_win, m->img.img, 0, 0);
 	}
 }

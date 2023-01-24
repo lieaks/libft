@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/24 17:43:57 by dly              ###   ########.fr        #
+#    Updated: 2023/01/24 18:26:24 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,21 +75,15 @@ all:			$(NAME)
 				@$(CC) $(CFLAGS) -Iinclude -Iminilibx-linux -c $< -o $@
 
 $(NAME):		$(L_OBJS) $(GNL_OBJS) $(M_OBJS) $(HEADER) $(MLX_EX) 
-#				@make -C ./minilibx-linux
-#				cp ./minilibx-linux/mlx.h ./include
 				@$(CC) $(CFLAGS) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
-#				@$(CC) $(M_OBJS) $(L_OBJS) -Iinclude -o $(NAME)
-#				 @$(CC) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) -Iinclude -lmlx -Lmlx -framework OpenGL -framework AppKit -o $(NAME)
 				@echo "so_long executable ready!"
 
 $(MLX_EX):		
 				@make -C ./minilibx-linux
 
-bonus:			$(NAME_B)				
+bonus:			$(NAME_B) 
 
 $(NAME_B):		$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B) $(MLX_EX) 
-#				@make -C ./minilibx-linux
-#				cp ./minilibx-linux/mlx.h ./include
 				@$(CC) $(CFLAGS) $(INCLUDE) $(B_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME_B)
 				@echo "so_long_bonus executable ready!"
 				
