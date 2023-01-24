@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:30:48 by dly               #+#    #+#             */
-/*   Updated: 2023/01/23 21:32:17 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 15:07:36 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	check_map(t_map *m, char *file)
 		exit_msg_err(m, "Error\nMalloc in split failed\n");
 	check_layers(m);
 	search_pos(m);
+	print_err_map(m);
 	flood_fill(m->pos_x, m->pos_y, m);
 	m->err.inv_map = ft_strchrstr("PEC", m->map);
 	print_err_map(m);

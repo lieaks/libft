@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/23 20:53:28 by dly              ###   ########.fr        #
+#    Updated: 2023/01/24 16:08:00 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,19 @@ SRCS_FILES		= main.c  file.c  map.c  error.c  free.c  check.c \
 				  init_struct.c  flood_fill.c  move.c  sprites.c  animation.c \
 				  load_img.c  animation_player.c
 
-SRCS_DIR		= srcs/
+SRCS_DIR		= srcs/mandatory/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
 
-# BONUS_FILES		= 
-# B_SRCS_DIR		= srcs/bonus/
-# B_SRCS			= $(addprefix $(B_SRCS_DIR), $(BONUS_FILES))
-# B_OBJS			= $(B_SRCS:.c=.o)
+BONUS_FILES		= main_bonus.c  file_bonus.c  map_bonus.c  error_bonus.c \
+				  free_bonus.c  check_bonus.c  init_struct_bonus.c \
+				  flood_fill_bonus.c  move_bonus.c  sprites_bonus.c \
+				  animation_bonus.c  load_img_bonus.c  animation_player_bonus.c \
+				  animation_mob_bonus  load_img2_bonus.c
+
+B_SRCS_DIR		= srcs/bonus/
+B_SRCS			= $(addprefix $(B_SRCS_DIR), $(BONUS_FILES))
+B_OBJS			= $(B_SRCS:.c=.o)
 
 LIBFT_FILES		= ft_bzero.c  ft_calloc.c  ft_memset.c  ft_split.c \
 				  ft_strncmp.c  ft_strlen.c  ft_strjoin.c  ft_strnstr.c \
@@ -45,16 +50,17 @@ GNL_SRCS		= $(addprefix $(GNL_DIR), $(GNL_FILES))
 GNL_OBJS		= $(GNL_SRCS:.c=.o)
 
 INCLUDE			= -Lminilibx-linux -lmlx_Linux -lXext -lX11 -Iinclude -Iminilibx-linux
-CC				= cc -g
-# CFLAGS			= -Wall -Wextra -Werror
+CC				= cc
+CFLAGS			= -Wall -Wextra -Werror
 
 RM				= rm -f
 AR				= ar rcs
 
 NAME			= so_long 
+NAME_B			= so_long_bonus
 HEADER			= include/so_long.h
 MLX_EX			= minilibx-linux/libmlx.a
-# HEADER_B		= include/pipex_bonus.h
+HEADER_B		= include/so_long_bonus.h
 
 ################################################################################
 #                                                                              #
@@ -70,24 +76,24 @@ all:			$(NAME)
 
 $(NAME):		$(L_OBJS) $(GNL_OBJS) $(M_OBJS) $(HEADER)
 				@make -C ./minilibx-linux
-				@$(CC) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
+				@$(CC) $(CFLAGS) $(INCLUDE) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME) 
 #				@$(CC) $(M_OBJS) $(L_OBJS) -Iinclude -o $(NAME)
 #				 @$(CC) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) -Iinclude -lmlx -Lmlx -framework OpenGL -framework AppKit -o $(NAME)
 				@echo "so_long executable ready!"
 				
-# bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)
-# 				@$(CC) $(CFLAGS) $(INCLUDE) $(L_OBJS) $(GNL_OBJS) $(B_OBJS) -o $(NAME)
-# 				@echo "bonus executable ready!"
+bonus: 			$(L_OBJS) $(GNL_OBJS) $(B_OBJS) $(HEADER_B)
+				@$(CC) $(CFLAGS) $(INCLUDE) $(B_OBJS) $(GNL_OBJS) $(L_OBJS) $(MLX_EX) -o $(NAME_B)
+				@echo "bonus executable ready!"
 				
 clean:
-				@$(RM) $(M_OBJS) $(GNL_OBJS) $(L_OBJS)
-				@echo "pipex & libft object files cleaned!"
+				@$(RM) $(M_OBJS) $(GNL_OBJS) $(L_OBJS) $(B_OBJS)
+				@echo "pipex & libft & gnl object files cleaned!"
 
 fclean:			clean
-				@$(RM) $(NAME) 
+				@$(RM) $(NAME) $(NAME_B)
 				@echo " executable files cleaned!"
 
-re:				fclean $(NAME) 
+re:				fclean $(NAME) $(BONUS) 
 
 norm:
 				@norminette $(SRCS_FILES) $(LIBFT_FILES) $(HEADER) 

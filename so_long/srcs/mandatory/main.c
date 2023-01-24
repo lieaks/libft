@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/23 21:45:03 by dly               #+#    #+#             */
-/*   Updated: 2023/01/23 21:45:11 by dly              ###   ########.fr       */
+/*   Created: 2023/01/23 21:08:48 by dly               #+#    #+#             */
+/*   Updated: 2023/01/23 21:43:34 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	flood_fill(int x, int y, t_map *m)
+int	main(int ac, char **av)
 {
-	if (m->map[x][y] == '1')
-		return ;
-	m->map[x][y] = '1';
-	flood_fill(x + 1, y, m);
-	flood_fill(x - 1, y, m);
-	flood_fill(x, y + 1, m);
-	flood_fill(x, y - 1, m);
+	t_map	m;
+
+	if (ac != 2)
+		exit_msg_err(&m, INV_ARGS);
+	check_map(&m, av[1]);
+	render(&m);
+	return (0);
 }

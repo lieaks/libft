@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:23:25 by dly               #+#    #+#             */
-/*   Updated: 2023/01/23 21:24:13 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/24 15:27:43 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	check_line(int i, char *line, t_map *m)
 	m->nb_item = m->err.item;
 	m->err.ex += ft_count_char(line, 'E');
 	m->err.pos += ft_count_char(line, 'P');
+	m->nb_mob += ft_count_char(line, 'M');
 	while (line[idx])
 	{
-		if (!ft_strchr("01CEP", line[idx]))
+		if (!ft_strchr("01CEPM", line[idx]))
 			m->err.character = 1;
 		idx++;
 	}
