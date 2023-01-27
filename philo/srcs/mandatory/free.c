@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 18:49:20 by dly               #+#    #+#             */
-/*   Updated: 2023/01/27 15:31:21 by dly              ###   ########.fr       */
+/*   Created: 2023/01/25 21:37:19 by dly               #+#    #+#             */
+/*   Updated: 2023/01/26 21:26:10 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
 
-int	main(int ac, char **av)
+void	free_all(t_info *rules)
 {
-	t_info	rules;
+	int	i;
 
-	if (ac < 5 || ac > 6)
-		return (write(2, "Use 5 or 6 args!\n", 18), 1);
-	init_all(&rules, av);	
-	simulation(&rules);
-	return (0);
+	i = 0;
+	if (rules->philo)
+		free(rules->philo);
+	while (i < rules->nb_philo)
+	{
+		pthread_mutex_destroy(&rules->fork[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&rules->printing);
+	pthread_mutex_destroy(&rules->meal);
+	if (rules->fork)
+		free(rules->fork);
+
 }
