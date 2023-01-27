@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:45:19 by dly               #+#    #+#             */
-/*   Updated: 2023/01/23 21:45:41 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/27 19:35:32 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ void	new_map(t_map *m)
 	m->img_size = IMG_SIZE;
 	m->map_str = NULL;
 	m->map = NULL;
+	m->mlx_ptr = NULL;
+	m->mlx_win = NULL;
 	m->nb_mov = 0;
 	m->nb_item = 0;
 	m->pos_x = 0;
 	m->pos_y = 0;
 	m->on_exit = 0;
+	m->stance = DOWN;
 }
 
 void	new_sprite_player(t_map *m)
@@ -71,6 +74,7 @@ void	new_sprite(t_map *m)
 
 void	new_err_map(t_map *m)
 {
+	m->err.row_len = 0;
 	m->err.borders = 0;
 	m->err.item = 0;
 	m->err.pos = 0;

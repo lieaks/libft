@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:30:48 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 17:37:59 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/27 19:38:56 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	render(t_map *m)
 		exit_msg_err(m, "Error\nNew mlx win failed\n");
 	set_sprite(m);
 	put_standard_sprite(m);
-	mlx_key_hook(m->mlx_win, key_hook, m);
+	mlx_hook(m->mlx_win, 2, 1L << 0, &key_hook, m);
 	mlx_hook(m->mlx_win, 17, 0, end_game, m);
 	mlx_loop_hook(m->mlx_ptr, update, m);
 	mlx_loop(m->mlx_ptr);

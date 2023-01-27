@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:33:09 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 18:16:50 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/27 18:44:07 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ int	update(t_map *m)
 		y = -1;
 		while (++y < m->nb_row)
 			animation_all(m, t, y, x);
+		print_nb_mov(m);
 	}
 	t++;
-	print_nb_mov(m);
 	if (t > 35000)
 		t = 0;
 	return (1);

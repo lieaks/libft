@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 13:06:07 by dly               #+#    #+#             */
-/*   Updated: 2023/01/24 16:10:47 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/27 18:41:59 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int	end_game(t_map *m)
 	if (m->img.img)
 		mlx_destroy_image(m->mlx_ptr, m->img.img);
 	free_img(m);
-	mlx_clear_window(m->mlx_ptr, m->mlx_win);
 	if (m->mlx_ptr && m->mlx_win)
 		mlx_destroy_window(m->mlx_ptr, m->mlx_win);
 	if (m->mlx_ptr)
