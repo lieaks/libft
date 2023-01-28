@@ -48,27 +48,16 @@ unsigned int timestamp()
 void	print_action(t_philo *p, int id, char *str)
 {
 	pthread_mutex_lock(&p->rules->printing);
-	printf("%d ", timestamp() - p->rules->start_time);
-	printf("%d ", id);
-	printf("%s\n", str);
+	printf("%lld %d %s\n", timestamp() - p->rules->start_time, id, str);
 	// printf("gauche :%d et droite : %d\n", p->left_fork, p->right_fork);
 	pthread_mutex_unlock(&p->rules->printing);
 }
 
-void	waiting(t_info *rules, unsigned int time)
+void	waiting(unsigned int time)
 {
-	(void)rules;
-	// unsigned int	past;
+	unsigned int	past;
 	
-	// past = timestamp();
-	// while (!rules->is_dead)
-	// {
-	// 	if ((past - timestamp()) >= time)
-	// 	{
-	// 		write(2, "etste", 5 );	
-	// 		break ;
-	// 	}
-	// 	usleep(time);
-	// }
-	usleep(time * 1000);
+	past = timestamp();
+	while ((timestamp() - past) < time)
+		usleep(time / 10);
 }

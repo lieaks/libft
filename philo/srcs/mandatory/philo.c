@@ -12,33 +12,39 @@
 
 #include "../../include/philo.h"
 
-void *routine(void *rules)
+void	*routine_check_death(void *rules)
 {
 	t_philo	*p;
-	p = (t_philo*)rules;
 
+	p = (t_philo*)rules;
+	
+}
+
+void *routine(void *rules)
+{
+	t_philo		*p;
+	pthread_t	t;
+
+	p = (t_philo*)rules;
 	while (!p->rules->is_dead)
 	{
-		sleep(1);
-		printf("je test %d\n", p->rules->all_eat);
-		// pthread_mutex_lock(&p->rules->fork[p->left_fork]);
-		// pthread_mutex_lock(&p->rules->fork[p->right_fork]);
-		// print_action(p, p->id, "has taken a fork");
-		// print_action(p, p->id, "has taken a fork");
-		// pthread_mutex_lock(&p->rules->meal);
-		// print_action(p, p->id, "is eating");
+		pthread_create(&t, NULL, routine_check_death, rules);
+		pthread_mutex_lock(&p->rules->fork[p->left_fork]);
+		print_action(p, p->id, "has taken a fork");
+		pthread_mutex_lock(&p->rules->fork[p->right_fork]);
+		print_action(p, p->id, "has taken a fork");
+		pthread_mutex_lock(&p->rules->meal);
+		print_action(p, p->id, "is eating");
 		// // printf("nnb de atte 0%d\n", p->rules->nb_ate);
-		// p->last_meal = timestamp();
-		// pthread_mutex_unlock(&p->rules->meal);
-		// waiting(p->rules, p->rules->time_to_eat);
+		p->last_meal = timestamp();
 		p->rules->nb_ate += 1;
-		// pthread_mutex_unlock(&p->rules->fork[p->right_fork]);
-		// pthread_mutex_unlock(&p->rules->fork[p->left_fork]);
-		if (p->rules->all_eat)
-			break ;
-		// print_action(p, p->id, "is sleeping");
-		// waiting(p->rules, p->rules->time_to_sleep);
-		// print_action(p, p->id, "is thinking");
+		pthread_mutex_unlock(&p->rules->meal);
+		waiting(p->rules->time_to_eat);
+		pthread_mutex_unlock(&p->rules->fork[p->right_fork]);
+		pthread_mutex_unlock(&p->rules->fork[p->left_fork]);
+		print_action(p, p->id, "is sleeping");
+		waiting(p->rules->time_to_sleep);
+		print_action(p, p->id, "is thinking");
 	}
 	return (NULL);
 }
