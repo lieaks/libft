@@ -37,7 +37,7 @@ int	ft_atoi(const char *nptr)
 	return (res);
 }
 
-unsigned int timestamp()
+long long timestamp()
 {
 	struct timeval	time;
 
@@ -47,17 +47,35 @@ unsigned int timestamp()
 
 void	print_action(t_philo *p, int id, char *str)
 {
+	long long	time;
+
 	pthread_mutex_lock(&p->rules->printing);
-	printf("%lld %d %s\n", timestamp() - p->rules->start_time, id, str);
+	time = timestamp() - p->rules->start_time;
+	if (!p->rules->end && time >= 0 && time <= (long long)INT_MAX && !is_dead(p, 0))
+		printf("%lld %d %s\n", timestamp() - p->rules->start_time, id, str);
 	// printf("gauche :%d et droite : %d\n", p->left_fork, p->right_fork);
 	pthread_mutex_unlock(&p->rules->printing);
 }
 
-void	waiting(unsigned int time)
+void	waiting(long long time)
 {
-	unsigned int	past;
+	long long	past;
 	
 	past = timestamp();
 	while ((timestamp() - past) < time)
 		usleep(time / 10);
+}
+
+int	is_dead(t_philo *p, int nb)
+{
+	pthread_mutex_lock(&p->rules->dead);
+	if (nb)
+		p->rules->end = true;
+	if (p->rules->end)
+	{
+		pthread_mutex_unlock(&p->rules->dead);
+		return (1);
+	}
+	pthread_mutex_unlock(&p->rules->dead);
+	return (0);
 }

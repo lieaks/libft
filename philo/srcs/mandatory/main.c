@@ -20,5 +20,6 @@ int	main(int ac, char **av)
 		return (write(2, "Use 5 or 6 args!\n", 18), 1);
 	init_all(&rules, av);	
 	simulation(&rules);
+	free_all(&rules);
 	return (0);
 }

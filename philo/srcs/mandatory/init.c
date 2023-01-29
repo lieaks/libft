@@ -14,23 +14,10 @@
 
 int	init_mutex(t_info *rules)
 {
-	int	i;
-
-	i = 0;
-	rules->fork = malloc((rules->nb_philo) * sizeof(pthread_mutex_t));
-	if (!rules->fork)
+	if (pthread_mutex_init(&rules->stop, NULL))
 	{
-		free_all(rules);
-		exit(EXIT_FAILURE);
-	}
-	while (i < rules->nb_philo)
-	{
-		if (pthread_mutex_init(&rules->fork[i], NULL))
-		{
 			free_all(rules);
 			exit(EXIT_FAILURE);
-		}	
-		i++;
 	}
 	if (pthread_mutex_init(&rules->printing, NULL))
 	{
@@ -38,6 +25,11 @@ int	init_mutex(t_info *rules)
 			exit(EXIT_FAILURE);
 	}
 	if (pthread_mutex_init(&rules->meal, NULL))
+	{
+			free_all(rules);
+			exit(EXIT_FAILURE);
+	}
+	if (pthread_mutex_init(&rules->dead, NULL))
 	{
 			free_all(rules);
 			exit(EXIT_FAILURE);
@@ -58,10 +50,10 @@ int	init_philo(t_info *rules)
 	}
 	while (i < rules->nb_philo)
 	{
-		rules->philo[i].id = i;
+		rules->philo[i].id = i + 1;
 		rules->philo[i].eat_count = 0;
-		rules->philo[i].left_fork = i;
-		rules->philo[i].right_fork = (i + 1) % rules->nb_philo;
+		rules->philo[i].last_meal = 0;
+		rules->philo[i].right_fork = NULL;
 		rules->philo[i].rules = rules;
 		rules->philo[i].last_meal = 0;
 		i++;
@@ -77,14 +69,14 @@ int	init_all(t_info *rules, char **av)
 	rules->time_to_sleep = ft_atoi(av[4]);
 	if (av[5])
 		rules->max_eat = ft_atoi(av[5]);
+	else
+		rules->max_eat = -1; 
 	if (rules->nb_philo < 2)
 		exit(EXIT_FAILURE);
-	else
-		rules->max_eat = -1;
 	rules->start_time = timestamp();
-	rules->is_dead = false;
+	rules->end = false;
 	rules->all_eat = false;	
-	rules->nb_ate = 0;
+	rules->nb_ph_ate = 0;
 	init_mutex(rules);
 	init_philo(rules);
 	return (1);

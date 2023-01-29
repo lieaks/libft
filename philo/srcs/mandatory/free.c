@@ -21,12 +21,9 @@ void	free_all(t_info *rules)
 		free(rules->philo);
 	while (i < rules->nb_philo)
 	{
-		pthread_mutex_destroy(&rules->fork[i]);
+		pthread_mutex_destroy(&rules->philo[i].left_fork);
 		i++;
 	}
 	pthread_mutex_destroy(&rules->printing);
 	pthread_mutex_destroy(&rules->meal);
-	if (rules->fork)
-		free(rules->fork);
-
 }

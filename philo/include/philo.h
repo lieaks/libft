@@ -26,6 +26,8 @@
 // # include <time.h>
 /* bool */
 # include <stdbool.h>
+/* INT_MAX */
+# include <limits.h>
 
 struct s_info;
 
@@ -34,9 +36,9 @@ typedef struct	s_philo
 	pthread_t	th;
 	int			id;
 	int			eat_count;
-	int			left_fork;
-	int			right_fork;
-	unsigned int last_meal;
+	long long 	last_meal;
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	*right_fork; 
 	struct s_info		*rules;
 }		t_philo;
 
@@ -47,15 +49,15 @@ typedef struct	s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				max_eat;
-	unsigned int	start_time;
-	bool			is_dead;
+	long long	start_time;
+	bool			end;
 	bool			all_eat;
-	int				nb_ate;
+	int				nb_ph_ate;
 	t_philo			*philo;
-	pthread_mutex_t	*fork; 
 	pthread_mutex_t	printing; 
 	pthread_mutex_t	meal; 
-
+	pthread_mutex_t	dead; 
+	pthread_mutex_t	stop; 
 }		t_info;
 
 /* init.c */
@@ -66,11 +68,12 @@ void	free_all(t_info *rules);
 
 /* utils.c */
 int				ft_atoi(const char *nptr);
-unsigned int	timestamp();
-void	waiting(t_info *rules, unsigned int time);
+long long	timestamp();
+void	waiting(long long time);
+void	print_action(t_philo *p, int id, char *str);
+int	is_dead(t_philo *p, int nb);
 
 /* philo.c */
 int	simulation(t_info *rules);
-void	print_action(t_philo *p, int id, char *str);
 
 #endif
