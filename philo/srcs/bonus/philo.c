@@ -6,11 +6,11 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:10:28 by dly               #+#    #+#             */
-/*   Updated: 2023/01/31 13:59:30 by dly              ###   ########.fr       */
+/*   Updated: 2023/01/31 18:10:47 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include "../../include/philo_bonus.h"
 
 void	*routine_check_death(void *rules)
 {
@@ -83,32 +83,38 @@ void *routine(void *rules)
 
 int	simulation(t_info *rules)
 {
-	int	i;
-
-	i = -1;
-	while (++i < rules->nb_philo)
+	rules->sem_fork = sem_open(rules->sema_name, O_CREA, 0644,rules->nb_philo);
+	while (rules->idx < rules->nb_philo)
 	{
-		rules->philo[i].th
-		pthread_mutex_init(&(rules->philo[i].left_fork), NULL);
-		// if (pthread_mutex_init(&(rules->philo[i].left_fork), NULL))
-		// {
-		// 	free_all(rules);
-		// 	exit(EXIT_FAILURE);
-		// }
-		if (i == rules->nb_philo - 1)
-			rules->philo[i].right_fork = &rules->philo[0].left_fork;
-		else
-			rules->philo[i].right_fork = &rules->philo[i + 1].left_fork;
-		rules->philo->last_meal = timestamp();
-		if (pthread_create(&rules->philo[i].th, NULL, &routine, &rules->philo[i]))
-			return (1);
+		rules->philo->pid = fork();
+		if (rules->philo->pid == 0)
+		{
+			if (sem_open(rules->sema_name, O_CREA, 0644,rules->nb_philo))
+				exit();
+				while (1)
+				{
+					sem_wait(rules->sem_fork);
+					print_action(rules, rules->idx, "has taken a fork");
+					sem_wait(rules->sem_fork);
+					print_action(rules, rules->idx, "has taken a fork");
+					print_action(rules, rules->idx, "is eating");
+					rules->philo->last_meal = timestamp();
+					rules->philo->eat_count++;
+					waiting(rules->time_to_sleep);
+					sem_post(rules->sem_fork);
+					sem_post(rules->sem_fork);
+					print_action(rules, rules->idx, "is eating");
+					waiting(rules->time_to_eat);
+					print_action(rules, rules->idx, "is thinking");
+					if (rules->philo->eat_count == rules->max_eat)
+						break ;
+				}
+			if (sem_close(rules->sem_fork) == -1) 
+				exit();
+			exit ();
+		}
+		rules->idx++;
 	}
-	i = 0;
-	while (i < rules->nb_philo)
-	{
-		if (pthread_join(rules->philo[i].th, NULL))
-			return (1);
-		i++;
-	}
+	sem_unlink(rules->sema_name);
 	return (0);
 }

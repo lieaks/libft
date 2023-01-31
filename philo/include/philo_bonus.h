@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 /* pthread */
 # include <pthread.h>
@@ -28,12 +28,17 @@
 # include <stdbool.h>
 /* INT_MAX */
 # include <limits.h>
+/* fork*/
+# include <sys/types.h>
+/* semaphore */
+# include <sys/stat.h>
+# include <semaphore.h>
 
 struct s_info;
 
 typedef struct	s_philo
 {
-	pthread_t	th;
+	pid_t		pid;
 	int			id;
 	int			eat_count;
 	long long 	last_meal;
@@ -44,12 +49,15 @@ typedef struct	s_philo
 
 typedef struct	s_info
 {
+	int				idx;
+	sem_t			sem_fork;
+	char			sema_name[9];
 	int				nb_philo;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				max_eat;
-	long long	start_time;
+	long long		start_time;
 	bool			end;
 	bool			all_eat;
 	int				nb_ph_ate;
