@@ -69,7 +69,7 @@ void	free_all(t_info *rules);
 /* utils.c */
 int				ft_atoi(const char *nptr);
 long long	timestamp();
-void	waiting(long long time);
+void	ft_usleep(long long time);
 void	print_action(t_philo *p, int id, char *str);
 int	is_dead(t_philo *p, int nb);
 

@@ -10,32 +10,62 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include "../../include/philo_bonus.h"
 
-int	ft_atoi(const char *nptr)
+int     ft_atoi(const char *nptr)
 {
-	size_t	i;
-	int		res;
+        size_t  i;
+        long             res;
+        int             sign;
 
-	if (!nptr)
-		return (0);
-	i = 0;
-	res = 0;
-	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	while (nptr[i])
-	{
-		if (nptr[i] < '0' && nptr[i] > '9')
-		{
-			write(2, "Arg in not an INT\n", 19);
-			exit(EXIT_FAILURE);
-		}	
-		res *= 10;
-		res += nptr[i] - '0';
-		i++;
-	}
-	return (res);
+        if (!nptr)
+                return (0);
+        i = 0;
+        res = 0;
+        sign = 1;
+        while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+                i++;
+        if (nptr[i] == '-' || nptr[i] == '+')
+        {
+                if (nptr[i] == '-')
+                        sign *= -1;
+                i++;
+        }
+        while (nptr[i])
+        {
+			if (nptr[i] < '0' && nptr[i] > '9')
+				return (-1);
+                res *= 10;
+                res += nptr[i] - '0';
+                i++;
+        }
+        return (res * sign);
 }
+// int	ft_atoi(const char *nptr)
+// {
+// 	size_t	i;
+// 	long	res;
+
+// 	if (!nptr)
+// 		return (0);
+// 	i = 0;
+// 	res = 0;
+// 	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+// 		i++;
+// 	while (nptr[i])
+// 	{
+// 		if (nptr[i] < '0' && nptr[i] > '9')
+// 		{
+// 			write(2, "Arg in not an INT\n", 19);
+// 			exit(EXIT_FAILURE);
+// 		}	
+// 		res *= 10;
+// 		res += nptr[i] - '0';
+// 		i++;
+// 	}
+// 	if (res <= 0 || res > INT_MAX)
+// 	return (res);
+// }
 
 long long timestamp()
 {
@@ -49,12 +79,14 @@ void	print_action(t_philo *p, int id, char *str)
 {
 	long long	time;
 
+	sem_wait(p->rules->sem_print);
 	time = timestamp() - p->rules->start_time;
 	if (!p->rules->end && time >= 0 && time <= (long long)INT_MAX && !is_dead(p, 0))
 		printf("%lld %d %s\n", timestamp() - p->rules->start_time, id, str);
+	sem_post(p->rules->sem_print);
 }
 
-void	waiting(long long time)
+void	ft_usleep(long long time)
 {
 	long long	past;
 	

@@ -57,7 +57,7 @@ void	print_action(t_philo *p, int id, char *str)
 	pthread_mutex_unlock(&p->rules->printing);
 }
 
-void	waiting(long long time)
+void	ft_usleep(long long time)
 {
 	long long	past;
 	

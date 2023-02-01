@@ -31,6 +31,7 @@
 /* fork*/
 # include <sys/types.h>
 /* semaphore */
+# include <fcntl.h>
 # include <sys/stat.h>
 # include <semaphore.h>
 
@@ -38,20 +39,20 @@ struct s_info;
 
 typedef struct	s_philo
 {
-	pid_t		pid;
-	int			id;
-	int			eat_count;
-	long long 	last_meal;
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	*right_fork; 
-	struct s_info		*rules;
+	pid_t			pid;
+	int				id;
+	int				eat_count;
+	long long 		last_meal;
+	struct s_info	*rules;
 }		t_philo;
 
 typedef struct	s_info
 {
 	int				idx;
-	sem_t			sem_fork;
-	char			sema_name[9];
+	sem_t			*sem_dead;
+	sem_t			*sem_print;
+	sem_t			*sem_stop;
+	sem_t			*sem_fork;
 	int				nb_philo;
 	int				time_to_die;
 	int				time_to_eat;
@@ -62,10 +63,6 @@ typedef struct	s_info
 	bool			all_eat;
 	int				nb_ph_ate;
 	t_philo			*philo;
-	pthread_mutex_t	printing; 
-	pthread_mutex_t	meal; 
-	pthread_mutex_t	dead; 
-	pthread_mutex_t	stop; 
 }		t_info;
 
 /* init.c */
@@ -77,7 +74,7 @@ void	free_all(t_info *rules);
 /* utils.c */
 int				ft_atoi(const char *nptr);
 long long	timestamp();
-void	waiting(long long time);
+void	ft_usleep(long long time);
 void	print_action(t_philo *p, int id, char *str);
 int	is_dead(t_philo *p, int nb);
 

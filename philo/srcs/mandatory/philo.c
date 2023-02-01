@@ -17,7 +17,7 @@ void	*routine_check_death(void *rules)
 	t_philo	*p;
 
 	p = (t_philo*)rules;
-	waiting(p->rules->time_to_die + 1);
+	ft_usleep(p->rules->time_to_die + 1);
 	pthread_mutex_lock(&p->rules->meal);
 	pthread_mutex_lock(&p->rules->stop);
 	if (!is_dead(p, 0) && timestamp() - p->last_meal >= p->rules->time_to_die)
@@ -40,7 +40,7 @@ void *routine(void *rules)
 
 	p = (t_philo*)rules;
 	if (!(p->id % 2))
-		waiting(p->rules->time_to_eat / 10);
+		ft_usleep(p->rules->time_to_eat / 10);
 	while (!is_dead(p, 0))
 	{
 		pthread_create(&t, NULL, routine_check_death, rules);
@@ -48,7 +48,7 @@ void *routine(void *rules)
 		print_action(p, p->id, "has taken a fork");
 		if (p->rules->nb_philo == 1)
 		{
-			waiting(p->rules->time_to_die * 2);
+			ft_usleep(p->rules->time_to_die * 2);
 			return (NULL);
 		}
 		pthread_mutex_lock(p->right_fork);
@@ -58,11 +58,11 @@ void *routine(void *rules)
 		p->last_meal = timestamp();
 		p->eat_count++;
 		pthread_mutex_unlock(&p->rules->meal);
-		waiting(p->rules->time_to_eat);
+		ft_usleep(p->rules->time_to_eat);
 		pthread_mutex_unlock(p->right_fork);
 		pthread_mutex_unlock(&p->left_fork);
 		print_action(p, p->id, "is sleeping");
-		waiting(p->rules->time_to_sleep);
+		ft_usleep(p->rules->time_to_sleep);
 		print_action(p, p->id, "is thinking");
 		if (p->eat_count == p->rules->max_eat)
 		{
