@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:35:04 by dly               #+#    #+#             */
-/*   Updated: 2023/01/31 15:13:06 by dly              ###   ########.fr       */
+/*   Updated: 2023/02/02 19:30:39 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	init_semaphore(t_info *rules)
 	sem_unlink("print");
 	sem_unlink("stop");
 	sem_unlink("fork");
-	rules->dead = sem_open("dead", O_CREA, 0600, 1);
-	rules->print = sem_open("print", O_CREA, 0600 , 1);
-	rules->stop = sem_open("stop", O_CREA, 0600, 1);
-	rules->fork = sem_open("fork", O_CREA, 0600, rules->nb_philo);
-	if (rules->dead == SEM_FAILED ||rules->dead == SEM_FAILED ||
-			rules->dead == SEM_FAILED || rules->dead == SEM_FAILED)
+	rules->sem_dead = sem_open("dead", O_CREAT, 0600, 1);
+	rules->sem_print = sem_open("print", O_CREAT, 0600 , 1);
+	rules->sem_stop = sem_open("stop", O_CREAT, 0600, 1);
+	rules->sem_fork = sem_open("fork", O_CREAT, 0600, rules->nb_philo);
+	if (rules->sem_dead == SEM_FAILED ||rules->sem_dead == SEM_FAILED ||
+			rules->sem_dead == SEM_FAILED || rules->sem_dead == SEM_FAILED)
 		return (1); 
 	return (0);
 }

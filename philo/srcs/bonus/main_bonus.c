@@ -6,7 +6,7 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 19:10:15 by dly               #+#    #+#             */
-/*   Updated: 2023/01/31 16:47:37 by dly              ###   ########.fr       */
+/*   Updated: 2023/02/02 19:22:38 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	main(int ac, char **av)
 		return (write(2, "Use 5 or 6 args!\n", 18), 1);
 	init_all(&rules, av);	
 	simulation(&rules);
-	free_all(&rules);
+	// free_all(&rules);
 	return (0);
 }

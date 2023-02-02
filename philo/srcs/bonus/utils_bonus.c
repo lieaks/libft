@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:36:08 by dly               #+#    #+#             */
-/*   Updated: 2023/01/31 17:59:21 by dly              ###   ########.fr       */
+/*   Updated: 2023/02/01 15:45:55 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ void	ft_usleep(long long time)
 
 int	is_dead(t_philo *p, int nb)
 {
-	pthread_mutex_lock(&p->rules->dead);
+	sem_wait(p->rules->sem_dead);
 	if (nb)
 		p->rules->end = true;
 	if (p->rules->end)
 	{
-		pthread_mutex_unlock(&p->rules->dead);
+		sem_post(p->rules->sem_dead);
 		return (1);
 	}
-	pthread_mutex_unlock(&p->rules->dead);
+	sem_post(p->rules->sem_dead);
 	return (0);
 }

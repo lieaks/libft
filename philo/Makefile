@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/01/26 15:26:00 by dly              ###   ########.fr        #
+#    Updated: 2023/02/01 17:31:16 by dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS_DIR		= srcs/mandatory/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
 
-BONUS_FILES		= main_bonus.c 
+BONUS_FILES		= main_bonus.c  free_bonus.c  init_bonus.c  utils_bonus.c \
+				  philo_bonus.c  actions_bonus.c
 
 B_SRCS_DIR		= srcs/bonus/
 B_SRCS			= $(addprefix $(B_SRCS_DIR), $(BONUS_FILES))

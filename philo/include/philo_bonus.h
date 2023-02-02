@@ -34,6 +34,9 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <semaphore.h>
+/* waitpid */
+#include <sys/types.h>
+#include <sys/wait.h>
 
 struct s_info;
 
@@ -80,5 +83,10 @@ int	is_dead(t_philo *p, int nb);
 
 /* philo.c */
 int	simulation(t_info *rules);
+
+/* action.c */
+void	ft_take_fork(t_philo *p);
+void	ft_eating(t_philo *p);
+void	ft_sleeping(t_philo *p);
 
 #endif
