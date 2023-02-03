@@ -18,12 +18,12 @@ int	init_semaphore(t_info *rules)
 	sem_unlink("print");
 	sem_unlink("stop");
 	sem_unlink("fork");
-	rules->sem_dead = sem_open("dead", O_CREAT, 0600, 1);
+	rules->sem_start = sem_open("dead", O_CREAT, 0600, 1);
 	rules->sem_print = sem_open("print", O_CREAT, 0600 , 1);
-	rules->sem_stop = sem_open("stop", O_CREAT, 0600, 1);
+	rules->sem_stop = sem_open("stop", O_CREAT, 0600, 0);
 	rules->sem_fork = sem_open("fork", O_CREAT, 0600, rules->nb_philo);
-	if (rules->sem_dead == SEM_FAILED ||rules->sem_dead == SEM_FAILED ||
-			rules->sem_dead == SEM_FAILED || rules->sem_dead == SEM_FAILED)
+	if (rules->sem_start == SEM_FAILED ||rules->sem_print == SEM_FAILED ||
+			rules->sem_stop == SEM_FAILED || rules->sem_fork == SEM_FAILED)
 		return (1); 
 	return (0);
 }
@@ -59,7 +59,7 @@ int	init_all(t_info *rules, char **av)
 		return (1);
 	if (av[5])
 	{
-		rules->max_eat = ft_atoi(av[5]);
+		// rules->max_eat = ft_atoi(av[5]);
 			if (rules->max_eat < 0)
 				return (1);
 	}

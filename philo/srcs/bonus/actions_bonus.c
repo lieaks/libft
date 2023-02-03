@@ -34,6 +34,5 @@ void	ft_sleeping(t_philo *p)
 {
 	print_action(p, p->id, "is sleeping");
 	ft_usleep(p->rules->time_to_sleep);
-	ft_usleep(p->rules->time_to_sleep);
 }
 

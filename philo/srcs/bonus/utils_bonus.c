@@ -12,7 +12,7 @@
 
 #include "../../include/philo_bonus.h"
 
-int     ft_atoi(const char *nptr)
+int     ft_atoi(char *nptr)
 {
         size_t  i;
         long             res;
@@ -33,11 +33,11 @@ int     ft_atoi(const char *nptr)
         }
         while (nptr[i])
         {
-			if (nptr[i] < '0' && nptr[i] > '9')
+			if (nptr[i] < '0' || nptr[i] > '9')
 				return (-1);
-                res *= 10;
-                res += nptr[i] - '0';
-                i++;
+            res *= 10;
+			res += nptr[i] - '0';
+			i++;
         }
         return (res * sign);
 }
@@ -63,9 +63,9 @@ int     ft_atoi(const char *nptr)
 // 		res += nptr[i] - '0';
 // 		i++;
 // 	}
-// 	if (res <= 0 || res > INT_MAX)
+// 	// if (res <= 0 || res > INT_MAX)
 // 	return (res);
-// }
+// } 
 
 long long timestamp()
 {
@@ -81,7 +81,7 @@ void	print_action(t_philo *p, int id, char *str)
 
 	sem_wait(p->rules->sem_print);
 	time = timestamp() - p->rules->start_time;
-	if (!p->rules->end && time >= 0 && time <= (long long)INT_MAX && !is_dead(p, 0))
+	if (time >= 0 && time <= (long long)INT_MAX)
 		printf("%lld %d %s\n", timestamp() - p->rules->start_time, id, str);
 	sem_post(p->rules->sem_print);
 }
@@ -93,18 +93,4 @@ void	ft_usleep(long long time)
 	past = timestamp();
 	while ((timestamp() - past) < time)
 		usleep(time / 10);
-}
-
-int	is_dead(t_philo *p, int nb)
-{
-	sem_wait(p->rules->sem_dead);
-	if (nb)
-		p->rules->end = true;
-	if (p->rules->end)
-	{
-		sem_post(p->rules->sem_dead);
-		return (1);
-	}
-	sem_post(p->rules->sem_dead);
-	return (0);
 }

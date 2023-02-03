@@ -37,6 +37,8 @@
 /* waitpid */
 #include <sys/types.h>
 #include <sys/wait.h>
+/* kill */
+# include <signal.h>
 
 struct s_info;
 
@@ -52,7 +54,7 @@ typedef struct	s_philo
 typedef struct	s_info
 {
 	int				idx;
-	sem_t			*sem_dead;
+	sem_t			*sem_start;
 	sem_t			*sem_print;
 	sem_t			*sem_stop;
 	sem_t			*sem_fork;
@@ -75,11 +77,10 @@ int	init_all(t_info *rules, char **av);
 void	free_all(t_info *rules);
 
 /* utils.c */
-int				ft_atoi(const char *nptr);
+int				ft_atoi(char *nptr);
 long long	timestamp();
 void	ft_usleep(long long time);
 void	print_action(t_philo *p, int id, char *str);
-int	is_dead(t_philo *p, int nb);
 
 /* philo.c */
 int	simulation(t_info *rules);
