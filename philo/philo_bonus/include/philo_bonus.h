@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:48:25 by dly               #+#    #+#             */
-/*   Updated: 2023/01/26 13:47:42y dly              ###   ########.fr       */
+/*   Updated: 2023/02/03 17:18:26 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,24 @@
 # include <sys/stat.h>
 # include <semaphore.h>
 /* waitpid */
-#include <sys/types.h>
-#include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 /* kill */
 # include <signal.h>
 
-struct s_info;
+struct	s_info;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	pid_t			pid;
 	int				id;
 	int				eat_count;
-	long long 		last_meal;
+	long long		last_meal;
 	struct s_info	*rules;
 }		t_philo;
 
-typedef struct	s_info
+typedef struct s_info
 {
-	int				idx;
 	sem_t			*sem_start;
 	sem_t			*sem_print;
 	sem_t			*sem_stop;
@@ -64,30 +63,25 @@ typedef struct	s_info
 	int				time_to_sleep;
 	int				max_eat;
 	long long		start_time;
-	bool			end;
-	bool			all_eat;
-	int				nb_ph_ate;
 	t_philo			*philo;
 }		t_info;
 
 /* init.c */
-int	init_all(t_info *rules, char **av);
-
-/* free.c */
-void	free_all(t_info *rules);
+int			init_all(t_info *rules, char **av);
 
 /* utils.c */
-int				ft_atoi(char *nptr);
-long long	timestamp();
-void	ft_usleep(long long time);
-void	print_action(t_philo *p, int id, char *str);
+int			ft_atoi(char const *nptr);
+long long	timestamp(void);
+void		ft_usleep(long long time);
+void		print_action(t_philo *p, int id, char *str);
 
 /* philo.c */
-int	simulation(t_info *rules);
+int			simulation(t_info *rules);
+int			end_simulation(t_info *rules);
 
 /* action.c */
-void	ft_take_fork(t_philo *p);
-void	ft_eating(t_philo *p);
-void	ft_sleeping(t_philo *p);
+void		ft_take_fork(t_philo *p);
+void		ft_eating(t_philo *p);
+void		ft_sleeping(t_philo *p);
 
 #endif

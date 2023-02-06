@@ -6,25 +6,25 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:35:04 by dly               #+#    #+#             */
-/*   Updated: 2023/02/02 19:30:39 by dly              ###   ########.fr       */
+/*   Updated: 2023/02/03 18:43:03 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo_bonus.h"
+#include "../include/philo_bonus.h"
 
 int	init_semaphore(t_info *rules)
 {
-	sem_unlink("dead");
+	sem_unlink("start");
 	sem_unlink("print");
 	sem_unlink("stop");
 	sem_unlink("fork");
-	rules->sem_start = sem_open("dead", O_CREAT, 0600, 1);
-	rules->sem_print = sem_open("print", O_CREAT, 0600 , 1);
+	rules->sem_start = sem_open("start", O_CREAT, 0600, 0);
+	rules->sem_print = sem_open("print", O_CREAT, 0600, 1);
 	rules->sem_stop = sem_open("stop", O_CREAT, 0600, 0);
 	rules->sem_fork = sem_open("fork", O_CREAT, 0600, rules->nb_philo);
-	if (rules->sem_start == SEM_FAILED ||rules->sem_print == SEM_FAILED ||
-			rules->sem_stop == SEM_FAILED || rules->sem_fork == SEM_FAILED)
-		return (1); 
+	if (rules->sem_start == SEM_FAILED || rules->sem_print == SEM_FAILED
+		|| rules->sem_stop == SEM_FAILED || rules->sem_fork == SEM_FAILED)
+		return (1);
 	return (0);
 }
 
@@ -54,21 +54,18 @@ int	init_all(t_info *rules, char **av)
 	rules->time_to_die = ft_atoi(av[2]);
 	rules->time_to_eat = ft_atoi(av[3]);
 	rules->time_to_sleep = ft_atoi(av[4]);
-	if (rules-> nb_philo < 1 || rules->time_to_die < 0 ||
-			rules->time_to_eat < 0 || rules->time_to_sleep < 0)
+	if (rules-> nb_philo < 1 || rules->time_to_die < 0
+		|| rules->time_to_eat < 0 || rules->time_to_sleep < 0)
 		return (1);
 	if (av[5])
 	{
-		// rules->max_eat = ft_atoi(av[5]);
-			if (rules->max_eat < 0)
-				return (1);
+		rules->max_eat = ft_atoi(av[5]);
+		if (rules->max_eat < 0)
+			return (1);
 	}
 	else
-		rules->max_eat = -1; 
+		rules->max_eat = -1;
 	rules->start_time = timestamp();
-	rules->end = false;
-	rules->all_eat = false;	
-	rules->nb_ph_ate = 0;
 	if (init_philo(rules))
 		return (1);
 	if (init_semaphore(rules))

@@ -6,11 +6,11 @@
 /*   By: dly <dly@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:29:00 by dly               #+#    #+#             */
-/*   Updated: 2023/02/02 17:51:50 by dly              ###   ########.fr       */
+/*   Updated: 2023/02/03 18:42:55 by dly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo_bonus.h"
+#include "../include/philo_bonus.h"
 
 void	ft_take_fork(t_philo *p)
 {
@@ -35,4 +35,3 @@ void	ft_sleeping(t_philo *p)
 	print_action(p, p->id, "is sleeping");
 	ft_usleep(p->rules->time_to_sleep);
 }
-

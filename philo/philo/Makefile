@@ -6,7 +6,7 @@
 #    By: dly <dly@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 14:22:17 by dly               #+#    #+#              #
-#    Updated: 2023/02/01 17:31:16 by dly              ###   ########.fr        #
+#    Updated: 2023/02/03 15:56:31y dly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,19 +16,11 @@
 #                                                                              #
 ################################################################################
 
-SRCS_FILES		= main.c  free.c  init.c  utils.c  philo.c 
+SRCS_FILES		= main.c  init.c  utils.c  philo.c  actions.c 
 
-SRCS_DIR		= srcs/mandatory/
+SRCS_DIR		= srcs/
 M_SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 M_OBJS			= $(M_SRCS:.c=.o)
-
-BONUS_FILES		= main_bonus.c  free_bonus.c  init_bonus.c  utils_bonus.c \
-				  philo_bonus.c  actions_bonus.c
-
-B_SRCS_DIR		= srcs/bonus/
-B_SRCS			= $(addprefix $(B_SRCS_DIR), $(BONUS_FILES))
-B_OBJS			= $(B_SRCS:.c=.o)
-
 
 INCLUDE			= -Iinclude
 CC				= cc
@@ -38,9 +30,7 @@ RM				= rm -f
 AR				= ar rcs
 
 NAME			= philo 
-NAME_B			= philo_bonus
 HEADER			= include/philo.h
-HEADER_B		= include/philo_bonus.h
 
 ################################################################################
 #                                                                              #
@@ -52,29 +42,23 @@ all:			$(NAME)
 
 %.o:			%.c
 				@echo "Compiling: $<"
-				@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+				@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME):		$(M_OBJS) $(HEADER) 
 				@$(CC) $(CFLAGS) $(INCLUDE) $(M_OBJS) -o $(NAME) 
 				@echo "philo executable ready!"
 
-bonus:			$(NAME_B) 
-
-$(NAME_B):		$(B_OBJS) $(HEADER_B) 
-				@$(CC) $(CFLAGS) $(INCLUDE) $(B_OBJS) -o $(NAME_B)
-				@echo "philo_bonus executable ready!"
-				
 clean:
-				@$(RM) $(M_OBJS) $(B_OBJS)
+				@$(RM) $(M_OBJS) 
 				@echo "every object files cleaned!"
 
 fclean:			clean
-				@$(RM) $(NAME) $(NAME_B)
+				@$(RM) $(NAME)
 				@echo "executable files cleaned!"
 
-re:				fclean $(NAME) $(NAME_B) 
+re:				fclean $(NAME)
 
 norm:
-				@norminette $(M_SRCS) $(B_SRCS) $(HEADER) $(HEADER_B) 
+				@norminette $(M_SRCS) $(HEADER) 
 
-.PHONY:			all clean fclean re bonus
+.PHONY:			all clean fclean re 
